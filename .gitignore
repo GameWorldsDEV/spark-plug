@@ -40,6 +40,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Supabase CLI local metadata (never deployment state)
+/supabase/.branches/
+/supabase/.temp/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

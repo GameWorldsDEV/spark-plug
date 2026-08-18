@@ -11,7 +11,10 @@ export async function readJsonBodyWithLimit(
   const contentLength = request.headers.get("content-length");
   if (contentLength) {
     const declaredBytes = Number(contentLength);
-    if (Number.isFinite(declaredBytes) && declaredBytes > maxBytes) {
+    if (!Number.isSafeInteger(declaredBytes) || declaredBytes < 0) {
+      return { ok: false, status: 400, message: "The form could not be read." };
+    }
+    if (declaredBytes > maxBytes) {
       return { ok: false, status: 413, message: "The form payload is too large." };
     }
   }

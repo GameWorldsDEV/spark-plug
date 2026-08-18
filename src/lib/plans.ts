@@ -1,4 +1,4 @@
-export type PlanId = "community" | "pro" | "pro-plus";
+export type PlanId = "community" | "pro";
 
 export type Entitlement =
   | "core.download"
@@ -43,6 +43,9 @@ const PRO_ENTITLEMENTS = [
   "pro.motion_packs",
   "pro.private_sync",
   "pro.early_releases",
+  "creator.paid_listings",
+  "creator.analytics",
+  "creator.payouts",
 ] as const satisfies readonly Entitlement[];
 
 export const PLANS: readonly PlanDefinition[] = [
@@ -58,8 +61,8 @@ export const PLANS: readonly PlanDefinition[] = [
     entitlements: COMMUNITY_ENTITLEMENTS,
     highlights: [
       "Core routing and output handoff",
-      "Public community profiles",
-      "Free setup library",
+      "Unlimited profiles on your machine",
+      "Browse and download public setups",
       "Bring your own hardware",
     ],
   },
@@ -77,31 +80,8 @@ export const PLANS: readonly PlanDefinition[] = [
     highlights: [
       "Everything in Community",
       "Premium themes and motion packs",
-      "Private setup sync",
-      "Early visual releases",
-    ],
-  },
-  {
-    id: "pro-plus",
-    name: "Pro+",
-    eyebrow: "Verified creators",
-    monthlyPrice: null,
-    annualPrice: null,
-    priceLabel: "Apply to verify",
-    description: "Publish a trusted profile and optionally charge for original setup packs.",
-    cta: "Apply for Pro+",
-    entitlements: [
-      ...PRO_ENTITLEMENTS,
-      "creator.verified_badge",
-      "creator.paid_listings",
-      "creator.analytics",
-      "creator.payouts",
-    ],
-    highlights: [
-      "Everything in Pro",
-      "Verified creator badge",
-      "Free or paid setup listings",
-      "Storefront analytics and payouts",
+      "Up to 10 hosted free or paid profiles",
+      "Private setup sync and analytics",
     ],
   },
 ] as const;

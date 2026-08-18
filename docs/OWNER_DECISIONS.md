@@ -10,11 +10,13 @@ these answers. Hosting, indexing, accounts, and payments cannot.
 3. **Pro billing:** confirm `$5/month` and the proposed `$48/year` option (20%
    annual discount). The annual option can be removed without changing the
    entitlement model.
-4. **Pro+ economics:** approve verification criteria, marketplace fee, minimum
-   price, refund/dispute policy, payout timing, tax handling, and whether Pro+
-   has a separate subscription charge.
-5. **Creator review:** decide who can publish paid packs and who approves a
-   scrubbed manifest/checksum for public listing.
+4. **Marketplace economics:** approve the platform/application fee, minimum and
+   maximum listing price, refund/dispute policy, payout timing, tax handling,
+   reserves, and supported currencies. Pro permits up to ten free or paid
+   profiles; verification remains a separate trust class.
+5. **Creator review:** define evidence, reviewer roles, expiry/re-review, appeal,
+   and revocation for Verified Creator, Verified Business, and GameWorlds
+   Official. Decide who approves each scrubbed manifest/checksum and risk label.
 6. **Legal identity:** provide the contracting legal entity, address/jurisdiction,
    final privacy controller details, and counsel-approved consumer/marketplace
    language before accounts or payments open.
@@ -28,3 +30,19 @@ these answers. Hosting, indexing, accounts, and payments cannot.
 10. **Indexing date:** explicitly authorize `NEXT_PUBLIC_SITE_INDEXABLE=true`
     only after the exact production URL, metadata, legal pages, and public files
     are approved.
+11. **Write budgets:** approve forum/profile-validation rate budgets. Community
+    has unlimited local profiles and zero hosted publishing at launch; active
+    Pro has exactly ten hosted published slots.
+12. **Model policy:** approve allowed Hugging Face licenses, gated repositories,
+    malware/scanner process, takedowns, checksum retention, and whether any model
+    categories require elevated risk labels or are disallowed.
+13. **Entitlement keys:** approve signing-key custody, rotation operator,
+    rotation frequency, seven-day maximum token lifetime, 12-hour refresh
+    window, old-key overlap, and incident revocation procedure.
+14. **Forum operations:** approve content rules, moderation staffing/SLA,
+    reporting/appeal flow, age requirements, spam defenses, retention, and
+    whether downvotes ship at launch.
+15. **Activation sequence:** separately authorize public Supabase creation,
+    Vercel preview, Stripe test mode, Connect test mode, live payments, public
+    indexing, and the first public remote/push. Approval of one does not imply
+    another.

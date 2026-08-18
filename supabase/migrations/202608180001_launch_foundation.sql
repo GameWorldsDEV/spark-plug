@@ -34,7 +34,7 @@ create table if not exists public.waitlist_rate_limits (
   updated_at timestamptz not null default now()
 );
 
-create or replace function public.claim_waitlist_slot(requester_hash text)
+create or replace function public.claim_waitlist_slot(p_requester_hash text)
 returns boolean
 language plpgsql
 security definer
@@ -43,7 +43,7 @@ as $$
 declare
   allowed boolean;
 begin
-  if requester_hash is null or requester_hash !~ '^[0-9a-f]{64}$' then
+  if p_requester_hash is null or p_requester_hash !~ '^[0-9a-f]{64}$' then
     return false;
   end if;
 
@@ -52,7 +52,7 @@ begin
     window_started_at,
     attempts,
     updated_at
-  ) values (requester_hash, now(), 1, now())
+  ) values (p_requester_hash, now(), 1, now())
   on conflict (requester_hash) do update set
     attempts = case
       when limits.window_started_at < now() - interval '15 minutes' then 1

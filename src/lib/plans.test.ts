@@ -20,9 +20,9 @@ describe("plan entitlements", () => {
     expect(planGrants("community", "creator.paid_listings")).toBe(false);
   });
 
-  it("grants paid listings only to verified Pro+", () => {
-    expect(planGrants("pro", "creator.paid_listings")).toBe(false);
-    expect(planGrants("pro-plus", "creator.paid_listings")).toBe(true);
+  it("grants paid listings to Pro without conflating plan and verification", () => {
+    expect(planGrants("pro", "creator.paid_listings")).toBe(true);
+    expect(planGrants("pro", "creator.verified_badge")).toBe(false);
   });
 
   it("displays the approved Pro billing math", () => {

@@ -15,7 +15,9 @@ automated audit or delegated task.
 - Create a new project dedicated to the public launch; do not reuse a private
   product database.
 - Apply migrations through the Supabase CLI in staging.
-- Run RLS tests across anonymous, owner, non-owner, creator, and service roles.
+- Run RLS tests across anonymous, owner, non-owner, buyer, non-buyer, unverified
+  Pro, each verified class, moderator, and service roles. Verify paid manifests
+  never enter catalog responses or public caches.
 - Copy the project URL and service-role key into Vercel encrypted environment
   settings. Never put the service-role key in browser code.
 - Generate a new random waitlist HMAC secret and store it only in Vercel.
@@ -34,8 +36,12 @@ automated audit or delegated task.
 - Obtain owner-approved final prices, marketplace fee, refund, tax, and payout
   terms.
 - Add Stripe products/prices and Connect only after those terms are published.
-- Implement signed, idempotent webhook handling and integration tests before
-  setting Stripe environment values.
+- Keep `PAYMENTS_MODE=disabled` while configuring. In a disposable Stripe
+  test-mode account, validate raw-body signatures, parallel duplicates, stale
+  lease recovery, out-of-order subscription events, refunds, disputes, and
+  Connect readiness before setting `PAYMENTS_MODE=test`.
+- Populate `billing_price_catalog` only from owner-approved Stripe price IDs;
+  source ships with no active price.
 
 ## 5. Public launch
 
@@ -46,3 +52,16 @@ automated audit or delegated task.
 - Rebuild, verify canonical/OG URLs on the production host, then publish.
 - DNS changes, production deployment, purchases, and payment activation require
   direct owner action or explicit authorization.
+
+## Route activation matrix
+
+| Surface | Source status | External activation gate |
+| --- | --- | --- |
+| Cinematic launch/legal/waitlist | Implemented | New public Supabase + Vercel preview approval |
+| Catalog metadata/free manifest delivery | Implemented | Migration/RLS matrix in disposable staging |
+| Pro signed-entitlement refresh | Implemented | Dedicated signing key + client integration tests |
+| Stripe webhook projection | Implemented, default disabled | Stripe test-mode replay/concurrency tests |
+| Profile submission API | Implemented, no public UI | Staging scanner/RLS/rate tests and moderation operations |
+| Profile moderation/publication UI | Database ready | Reviewer roles, audit workflow, owner approval |
+| Forum write UI/API | Schema/RLS ready | Spam/rate controls and moderation operations |
+| Checkout and Connect creation | Intentionally absent | Decisions 3–6 and explicit test-mode authorization |

@@ -83,7 +83,7 @@ export async function POST(request: Request) {
       authorization: `Bearer ${serviceKey}`,
       "content-type": "application/json",
     },
-    body: JSON.stringify({ requester_hash: fingerprint }),
+    body: JSON.stringify({ p_requester_hash: fingerprint }),
     cache: "no-store",
   });
 

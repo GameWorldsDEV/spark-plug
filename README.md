@@ -32,12 +32,20 @@ npm run build
 
 - Vercel / Next.js frontend and server routes
 - Supabase Auth + Postgres with Row Level Security
-- Stripe Checkout/Connect interface specification (not activated)
+- Locally verifiable Ed25519 Pro entitlement snapshots; free local use has no
+  auth/entitlement heartbeat
+- Declarative, immutable HF-only public profile schema and metadata-only catalog
+- Forum/profile/marketplace RLS foundation plus a verified, idempotent Stripe
+  webhook projection (payments remain disabled)
 - Local Spark Plug remains the model-capability and output authority
 
 Read [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
 [`docs/ENTITLEMENTS.md`](docs/ENTITLEMENTS.md), and
-[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) before creating a hosted project.
+[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Review
+[`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md),
+[`docs/COST_CONTROLS.md`](docs/COST_CONTROLS.md), and
+[`docs/OWNER_DECISIONS.md`](docs/OWNER_DECISIONS.md) before creating a hosted
+project or enabling any write/payment surface.
 
 ## Status
 

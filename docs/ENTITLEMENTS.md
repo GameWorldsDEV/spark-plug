@@ -1,45 +1,59 @@
-# Free, Pro, and Pro+ entitlement contract
+# Community, Pro, and creator trust contract
 
-The server owns entitlements. UI flags, local storage, profile claims, and
-client-supplied plan names never authorize downloads, paid listings, or payouts.
+Subscription state and creator trust are independent. A plan controls optional
+paid capabilities; a creator class communicates reviewed identity/provenance.
+Neither a UI flag nor a client-supplied plan/class authorizes anything.
 
-| Capability | Community | Pro | Pro+ verified creator |
-| --- | :---: | :---: | :---: |
-| Download and run the core program | Yes | Yes | Yes |
-| Local model/tool routing | Yes | Yes | Yes |
-| Queue and durable output handoff | Yes | Yes | Yes |
-| Browse public setup profiles | Yes | Yes | Yes |
-| Publish free setup manifests | Yes | Yes | Yes |
-| Premium visual themes | — | Yes | Yes |
-| Premium motion packs | — | Yes | Yes |
-| Private setup sync | — | Yes | Yes |
-| Early visual releases | — | Yes | Yes |
-| Verified creator badge | — | — | Yes |
-| Free or paid setup listings | Free only | Free only | Yes |
-| Creator analytics and payouts | — | — | Yes |
+| Capability | Community | Pro |
+| --- | :---: | :---: |
+| Download and run the core program | Yes | Yes |
+| Local model/tool routing and output handoff | Yes | Yes |
+| Browse public setup profiles | Yes | Yes |
+| Local authentication/entitlement heartbeat | **None** | Stale/on-demand refresh only |
+| Local profile limit | Unlimited | Unlimited |
+| Hosted marketplace publishing | — | 10 published slots, free or paid |
+| Premium visual themes and motion | — | Yes |
+| Private profile sync | — | Yes |
+| Creator analytics / payout tooling | — | Yes |
 
-## Price model
+## Trust classes
 
-- Community: **$0**.
-- Pro: **$5/month** or **$48/year** in the launch UI.
-- Pro+: application/verification required. Marketplace fees, payout timing,
-  refunds, taxes, and any additional charge must be published and owner-approved
-  before paid listings open. No placeholder fee may be charged.
+- **Community**: unverified identity; profiles show an unverified publisher
+  warning even when the account has Pro.
+- **Verified creator**: reviewed individual creator.
+- **Verified business**: reviewed business identity.
+- **GameWorlds Official**: service-managed first-party provenance. It is never
+  inferred from a name, email domain, subscription, or browser claim.
 
-## Source of truth
+Verification does not unlock premium assets, raise the 10-profile Pro limit, or
+bypass manifest validation/moderation. A badge is evidence of a review process,
+not an endorsement of every profile. Creator/business verification carries a
+review timestamp and expiry and downgrades to the Community trust label until a
+manual reviewer revalidates it. GameWorlds Official is service-managed and has
+no user-controlled expiry or upgrade path.
 
-1. Stripe is authoritative for payment state once it is integrated.
-2. A verified, idempotently processed webhook updates the server-owned
-   `subscriptions` row.
-3. The server resolves effective entitlements from subscription status and the
-   service-managed creator verification flag.
-4. Protected downloads and creator mutations re-check those entitlements on
-   every request.
-5. Cancellation leaves access active only through the provider-confirmed period
-   end. Refunds and disputes follow the final published terms.
+## Local verification and refresh
 
-## Non-goals
+1. With no token, the client immediately selects Community; it makes no auth or
+   entitlement call.
+2. With a token, the client verifies `alg=EdDSA`, the known key ID, issuer,
+   audience, exact claim allowlist, signature, issued time, expiry, and maximum
+   seven-day lifetime locally.
+3. A valid non-stale snapshot enables its Pro capabilities without a network
+   request.
+4. The client refreshes only on explicit user request or inside the 12-hour
+   stale window. An offline client falls back after expiry; core access remains.
+5. Signing keys are published as a cacheable JWK set. Rotation retains the old
+   public key for at least the maximum token lifetime plus clock skew.
 
-Premium access never removes core routing, output handoff, or public community
-setups from the free tier. The public repository describes entitlement wiring;
-it does not contain private premium themes, animation packages, or their source.
+The hosted refresh route authenticates once, reads only the caller's server-owned
+subscription/trust projection, and returns either a signed Pro token or a null
+Community result. Tokens contain no email, payment, customer, or local machine
+data.
+
+## Price and cancellation rules
+
+The launch UI currently proposes Community at $0 and Pro at $5/month or $48/year.
+Those are not active charges. Price IDs live in a server-only allowlist and remain
+inactive until owner approval. Cancellation, grace periods, refunds, disputes,
+taxes, fees, and payout timing require published terms before payment routes open.

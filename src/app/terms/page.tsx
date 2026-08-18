@@ -18,7 +18,7 @@ export default function TermsPage() {
       <p>
         Spark Plug includes locally operated software and an optional hosted website
         for accounts, subscriptions, public profiles, and setup discovery. The free
-        community program is separate from optional Pro visual features and the Pro+
+        community program is separate from optional Pro visual features and the
         creator marketplace.
       </p>
 
@@ -36,7 +36,8 @@ export default function TermsPage() {
         <li>Never include credentials, private paths, user data, session history, or customer outputs.</li>
         <li>Disclose dependencies, permissions, routes, and material compatibility limitations.</li>
         <li>Do not claim affiliation or endorsement that does not exist.</li>
-        <li>Paid listings require creator verification and published payout/refund terms.</li>
+        <li>Paid listings require Pro, a ready payout account, and published payout/refund terms.</li>
+        <li>Unverified publishers must remain clearly labeled; verification is a trust class, not a paid entitlement.</li>
       </ul>
 
       <h2>Availability and changes</h2>

@@ -17,10 +17,13 @@
   approval before local mutation.
 - Validate manifests against a deny-by-default schema; reject credential-like
   keys, absolute host paths, embedded binaries, sessions, and output references.
-- Resolve premium access on the server for every protected request.
+- Verify signed Pro snapshots locally and refresh only when stale/on demand;
+  resolve every hosted protected mutation from server-owned state.
 - Keep service-role, Stripe, signing, and local-agent credentials out of all
   `NEXT_PUBLIC_` variables and browser bundles.
 - Verify Stripe signatures over the raw body and enforce event-ID idempotency.
+- Keep public catalog metadata separate from manifest delivery; authorize paid
+  manifests by owner or paid order and return them `private, no-store`.
 - Enable Supabase RLS before grants and test policies as anonymous,
   authenticated owner, authenticated non-owner, verified creator, and service.
 - Store only a keyed HMAC of request addresses for waitlist rate limiting.
@@ -38,6 +41,8 @@
 - Public boundary review confirms the repository has new history only and every
   binary asset is original and intentionally included.
 - Supabase migration is reviewed in a disposable project before production.
+- Threat-model and cost-control gates in `THREAT_MODEL.md` and
+  `COST_CONTROLS.md` are reviewed with the RLS role matrix.
 - Production environment values are set in Vercel; no `.env` file is committed.
 - Legal/privacy/fee text receives owner and qualified counsel review before
   public accounts or payments open.

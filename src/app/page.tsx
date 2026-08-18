@@ -322,9 +322,10 @@ export default function Home() {
               <h2 id="community-title">Find a setup. Or make yours worth following.</h2>
             </div>
             <p>
-              Community profiles can share setups for free. Verified Pro+ creators
-              can also sell original packs, while every buyer keeps control of what
-              gets installed.
+              Community can browse, download, and build unlimited profiles locally.
+              Pro creators can publish up to ten hosted free or paid profiles, while
+              trust labels distinguish community, verified, business, and GameWorlds
+              Official publishers.
             </p>
           </div>
 
@@ -366,8 +367,8 @@ export default function Home() {
           </div>
           <PricingPlans />
           <p className={styles.feeNote}>
-            Pro+ marketplace fees and payout terms will be published before paid
-            listings open. No unpublished fee is charged.
+            Marketplace fees, verification rules, and payout terms will be published
+            before paid listings open. No unpublished fee is charged.
           </p>
         </section>
 
@@ -409,11 +410,11 @@ export default function Home() {
             </details>
             <details>
               <summary>Can creators charge for their setup profiles?</summary>
-              <p>Verified Pro+ creators will be able to list original setup packs for free or for a price. Buyers see dependencies and requested permissions before installing anything.</p>
+              <p>Pro creators can list up to ten original setup profiles for free or for a price. Unverified publishers are clearly labeled, and buyers see immutable model revisions, checksums, dependencies, and risk warnings before installation.</p>
             </details>
             <details>
               <summary>Are my private routes or outputs published?</summary>
-              <p>No. Community publishing is a separate, explicit action. A public profile should contain a scrubbed manifest—not credentials, private paths, session history, prompts, outputs, or customer data.</p>
+              <p>No. Community can create unlimited local profiles, while hosted publishing is a separate Pro action. A public profile contains a scrubbed manifest—not credentials, private paths, session history, prompts, outputs, or customer data.</p>
             </details>
           </div>
         </section>
