@@ -68,6 +68,19 @@ Constraints: no readable text, no UI screenshot, no logos, no third-party tradem
 Avoid: flowchart clip art, generic motherboard imagery, busy dashboards, floating code, brand imitation
 ```
 
+## Asset 04 — MCP-returned power-core concept (generated and accepted)
+
+- File: `public/power-core-mcp.png`
+- SHA-256: `f7ddcfcb00689c8e6dfb1d8888d9f8bea6956e310bb488beddece943cf5aa696`
+- Dimensions: 1536×864 PNG
+- Source: Claude 3P submitted the request through Spark Plug MCP; the broker
+  retained the job through DGX rendering, and Claude recovered the completed
+  artifact through the owner-bound MCP output contract.
+- Inspection: original generic hardware, no NVIDIA/DGX marks, no private UI,
+  no reference image, and no embedded prompt, session, or customer metadata.
+- Use: the public power-on story only. The image is accompanied by the site’s
+  explicit NVIDIA/DGX non-affiliation notice.
+
 ## Acceptance gate for deferred assets
 
 1. Broker request persists until approved or explicitly expedited.

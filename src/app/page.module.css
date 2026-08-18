@@ -891,91 +891,48 @@
   perspective: 1100px;
 }
 
-.halo {
+.powerRenderFrame {
   position: absolute;
-  inset: 3% -8% -5%;
-  background: radial-gradient(circle, rgba(169, 255, 46, 0.34), rgba(57, 255, 177, 0.08) 36%, transparent 67%);
-  filter: blur(20px);
-  animation: breathe 4s ease-in-out infinite;
-}
-
-.rack {
-  position: absolute;
+  inset: 5% 0 8%;
   z-index: 2;
-  top: 17%;
-  left: 3%;
-  width: 83%;
-  aspect-ratio: 1.18;
-  transform: rotateY(-18deg) rotateX(4deg);
-  transform-style: preserve-3d;
-}
-
-.rackFace {
-  position: absolute;
-  inset: 0;
+  margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px 5px 8px 16px;
-  background:
-    linear-gradient(124deg, rgba(255, 255, 255, 0.12), transparent 25%),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px),
-    #0d1511;
-  box-shadow: inset 0 -130px 120px rgba(0, 0, 0, 0.52), 0 48px 90px rgba(0, 0, 0, 0.66), 0 0 140px rgba(169, 255, 46, 0.17);
+  border: 1px solid rgba(169, 255, 46, 0.28);
+  border-radius: 20px 6px 20px 6px;
+  background: #07110c;
+  box-shadow: 0 48px 100px rgba(0, 0, 0, 0.72), 0 0 150px rgba(46, 255, 107, 0.18);
 }
 
-.rackFace::after {
+.powerRenderFrame::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, transparent 45%, rgba(169, 255, 46, 0.15) 51%, transparent 57%);
-  transform: translateX(-100%);
-  animation: scanRack 5s ease-in-out infinite;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 56%, rgba(0, 0, 0, 0.78));
+  pointer-events: none;
 }
 
-.rackName,
-.rackStatus {
+.powerRender {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% center;
+  filter: saturate(0.92) contrast(1.06);
+}
+
+.powerRenderFrame figcaption {
   position: absolute;
   z-index: 2;
+  right: 24px;
+  bottom: 20px;
+  left: 24px;
+  max-width: 520px;
+  color: rgba(255, 255, 255, 0.66);
   font-family: var(--mono);
-  letter-spacing: 0.13em;
-}
-
-.rackName {
-  top: 30px;
-  left: 36px;
-  font-size: 0.76rem;
-  font-weight: 800;
-}
-
-.rackStatus {
-  right: 28px;
-  bottom: 24px;
-  color: var(--lime);
-  font-size: 0.58rem;
-}
-
-.rackVent {
-  position: absolute;
-  inset: 19% 8% 17%;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  background:
-    radial-gradient(circle, #020403 0 3px, transparent 3.5px) 0 0 / 16px 16px,
-    linear-gradient(90deg, rgba(169, 255, 46, 0.08), transparent),
-    #101b15;
-  box-shadow: inset 0 0 70px #000, 0 0 50px rgba(169, 255, 46, 0.06);
-}
-
-.rackEdge {
-  position: absolute;
-  z-index: -1;
-  top: -17px;
-  right: -34px;
-  width: 38px;
-  height: calc(100% + 2px);
-  transform: skewY(-44deg);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #09100c;
+  font-size: 0.63rem;
+  line-height: 1.55;
+  letter-spacing: 0.04em;
 }
 
 .powerTelemetry {
@@ -1851,11 +1808,6 @@
   to { transform: translateX(430%); }
 }
 
-@keyframes scanRack {
-  0%, 18% { transform: translateX(-100%); }
-  68%, 100% { transform: translateX(100%); }
-}
-
 @keyframes morphOrb {
   to {
     transform: rotate(18deg) scale(1.08);
@@ -1934,7 +1886,7 @@
   }
 
   .powerVisual { min-height: 440px; }
-  .rack { top: 22%; width: 90%; }
+  .powerRenderFrame { inset: 8% 0 10%; }
   .powerTelemetry { width: 68%; }
   .hardwareNote { right: 20px; left: 20px; text-align: left; }
 
@@ -1962,8 +1914,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .flowLine span,
-  .rackFace::after,
-  .halo,
   .previewOrb,
   .clientMarquee {
     animation: none;

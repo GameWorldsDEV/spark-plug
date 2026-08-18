@@ -34,6 +34,19 @@ test("homepage works without horizontal overflow at phone, tablet, and desktop w
   }
 });
 
+test("the MCP-returned power-on artwork loads with provenance and non-affiliation copy", async ({ page }) => {
+  await page.goto("/#power-title");
+  const artwork = page.getByRole("img", {
+    name: /generic compute box powering on with a vivid green core/i,
+  });
+  await expect(artwork).toBeVisible();
+  await expect
+    .poll(() => artwork.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0);
+  await expect(page.getByText(/returned to the requesting agent through MCP/i)).toBeVisible();
+  await expect(page.getByText(/not sponsored, endorsed, or affiliated with NVIDIA/i)).toBeVisible();
+});
+
 test("pricing toggle updates the Pro price and reduced motion is honored", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#plans");

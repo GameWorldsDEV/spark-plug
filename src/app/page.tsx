@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { ExperienceLayer } from "./_components/experience-layer";
 import { PricingPlans } from "./_components/pricing-plans";
 import { WaitlistForm } from "./_components/waitlist-form";
@@ -211,19 +213,20 @@ export default function Home() {
             </ul>
           </div>
           <div className={styles.powerVisual} data-reveal>
-            <div className={styles.halo} aria-hidden="true" />
-            <div
-              className={styles.rack}
-              role="img"
-              aria-label="Generic GPU compute node powered by Spark Plug"
-            >
-              <div className={styles.rackFace} aria-hidden="true">
-                <span className={styles.rackName}>COMPUTE / 01</span>
-                <div className={styles.rackVent} />
-                <span className={styles.rackStatus}>● ONLINE</span>
-              </div>
-              <div className={styles.rackEdge} aria-hidden="true" />
-            </div>
+            <figure className={styles.powerRenderFrame}>
+              <Image
+                className={styles.powerRender}
+                src="/power-core-mcp.png"
+                width={1536}
+                height={864}
+                sizes="(max-width: 1080px) 100vw, 55vw"
+                alt="Original concept render of a generic compute box powering on with a vivid green core"
+              />
+              <figcaption>
+                Generated through Spark Plug’s private media route and returned
+                to the requesting agent through MCP.
+              </figcaption>
+            </figure>
             <div className={styles.powerTelemetry}>
               <p>SPARK PLUG LOADED</p>
               <span>broker</span><strong>healthy</strong>
