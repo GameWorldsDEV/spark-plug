@@ -1,0 +1,135 @@
+.page { min-height: 100vh; color: #edf2ed; background: #050a07; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 78px;
+  padding: 0 clamp(22px, 6vw, 92px);
+  border-bottom: 1px solid #29342d;
+  background: #050a07;
+}
+
+.brand,
+.brandLogo { display: flex; align-items: center; }
+.brandLogo { gap: 10px; }
+.brandLogo svg { width: 34px; height: 34px; }
+.brandLogo strong { color: #edf1ec; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; }
+.brandLogo em { color: var(--lime); font-style: normal; }
+
+.back {
+  padding: 11px 14px;
+  border: 1px solid var(--lime);
+  color: var(--lime);
+  font-family: var(--mono);
+  font-size: 0.57rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hero {
+  min-height: 730px;
+  padding: clamp(78px, 10vw, 140px) clamp(22px, 6vw, 92px);
+  border-bottom: 1px solid #29342d;
+  background:
+    linear-gradient(90deg, transparent 67%, rgba(169, 255, 46, 0.035) 67%),
+    radial-gradient(circle at 78% 24%, rgba(169, 255, 46, 0.13), transparent 29%);
+}
+
+.hero > p,
+.sectionIntro > p,
+.audiences > div > p,
+.remote > div:last-child > p:first-child,
+.closing > p,
+.audiences article > span {
+  color: var(--lime);
+  font-family: var(--mono);
+  font-size: 0.59rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+}
+
+.hero h1 {
+  max-width: 1180px;
+  margin: 25px 0 70px;
+  font-family: var(--display);
+  font-size: clamp(4rem, 9vw, 9.2rem);
+  font-weight: 900;
+  line-height: 0.81;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.hero > div { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 50px; max-width: 990px; margin-left: auto; }
+.hero strong { font-family: var(--display); font-size: clamp(1.55rem, 2.7vw, 2.6rem); text-transform: uppercase; }
+.hero > div p { color: #9ba69e; font-size: 1.05rem; line-height: 1.7; }
+
+.principles { padding: clamp(78px, 10vw, 140px) clamp(22px, 6vw, 92px); color: #111711; background: #efede5; }
+.sectionIntro { display: grid; grid-template-columns: 0.55fr 1.45fr; gap: 50px; align-items: start; }
+.sectionIntro > p { color: #315d0a; }
+.sectionIntro h2,
+.audiences h2,
+.remote h2,
+.closing h2 { font-family: var(--display); font-size: clamp(3.2rem, 6.8vw, 7rem); font-weight: 900; line-height: 0.84; letter-spacing: -0.065em; text-transform: uppercase; }
+.principleGrid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 70px; border-top: 1px solid #b8bdb4; border-left: 1px solid #b8bdb4; }
+.principleGrid article { min-height: 290px; padding: 25px; border-right: 1px solid #b8bdb4; border-bottom: 1px solid #b8bdb4; }
+.principleGrid span { font-family: var(--mono); font-size: 0.58rem; font-weight: 850; }
+.principleGrid h3 { margin: 70px 0 15px; font-family: var(--display); font-size: 1.75rem; line-height: 0.95; text-transform: uppercase; }
+.principleGrid p { color: #525a54; line-height: 1.58; }
+
+.audiences { display: grid; grid-template-columns: 0.95fr 1fr 1fr; gap: 1px; padding: clamp(78px, 10vw, 140px) clamp(22px, 6vw, 92px); background: #344139; }
+.audiences > div,
+.audiences article { padding: clamp(26px, 4vw, 46px); background: #0b140e; }
+.audiences article { min-height: 420px; }
+.audiences article h3 { margin: 82px 0 24px; font-family: var(--display); font-size: clamp(1.8rem, 3vw, 3rem); line-height: 0.95; text-transform: uppercase; }
+.audiences article p { color: #96a198; line-height: 1.65; }
+
+.remote { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(50px, 8vw, 110px); align-items: center; padding: clamp(78px, 10vw, 140px) clamp(22px, 6vw, 92px); color: #111711; background: #b8ff4d; }
+.remote > div:last-child > p:first-child { color: #31520a; }
+.remote h2 { margin: 22px 0 30px; }
+.remote > div:last-child > p:not(:first-child) { margin-top: 18px; color: #355020; line-height: 1.65; }
+.remoteDiagram { display: grid; grid-template-columns: 1fr 80px 1.25fr 80px 1fr; align-items: center; min-height: 340px; }
+.remoteDiagram span,
+.remoteDiagram strong { display: grid; min-height: 130px; padding: 18px; place-items: center; border: 1px solid #172018; font-family: var(--mono); font-size: 0.59rem; text-align: center; }
+.remoteDiagram strong { color: #eff2ed; background: #172018; }
+.remoteDiagram i { position: relative; height: 1px; background: #172018; }
+.remoteDiagram i::after { position: absolute; top: -4px; right: 0; width: 8px; height: 8px; transform: rotate(45deg); border-top: 1px solid #172018; border-right: 1px solid #172018; content: ""; }
+
+.closing { padding: clamp(90px, 12vw, 170px) clamp(22px, 6vw, 92px); text-align: center; }
+.closing h2 { max-width: 1100px; margin: 25px auto 45px; }
+.closing > div { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.closing a { padding: 14px 17px; border: 1px solid var(--lime); color: var(--lime); font-family: var(--mono); font-size: 0.58rem; font-weight: 850; text-transform: uppercase; }
+.closing a:hover,
+.closing a:focus-visible { color: #071006; background: var(--lime); }
+
+.footer { display: flex; justify-content: space-between; gap: 30px; padding: 38px clamp(22px, 6vw, 92px); border-top: 1px solid #29342d; color: #7f8b83; font-family: var(--mono); font-size: 0.53rem; }
+.footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
+.footer a:hover { color: var(--lime); }
+
+@media (max-width: 900px) {
+  .hero > div,
+  .sectionIntro,
+  .remote { grid-template-columns: 1fr; }
+  .principleGrid { grid-template-columns: 1fr 1fr; }
+  .audiences { grid-template-columns: 1fr; }
+  .audiences article { min-height: 330px; }
+}
+
+@media (max-width: 620px) {
+  .header { min-height: 68px; }
+  .brandLogo strong { font-size: 0.58rem; }
+  .back { padding: 9px 10px; font-size: 0.49rem; }
+  .hero { min-height: 0; }
+  .hero h1 { font-size: clamp(3.4rem, 17vw, 5.8rem); }
+  .sectionIntro h2,
+  .audiences h2,
+  .remote h2,
+  .closing h2 { font-size: clamp(2.9rem, 14vw, 5rem); }
+  .principleGrid { grid-template-columns: 1fr; }
+  .principleGrid article { min-height: 240px; }
+  .principleGrid h3 { margin-top: 45px; }
+  .remoteDiagram { grid-template-columns: 1fr; gap: 34px; }
+  .remoteDiagram i { width: 1px; height: 34px; justify-self: center; }
+  .remoteDiagram i::after { top: auto; right: -4px; bottom: 0; transform: rotate(135deg); }
+  .footer { flex-direction: column; }
+}
