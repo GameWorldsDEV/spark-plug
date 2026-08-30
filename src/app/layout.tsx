@@ -48,10 +48,15 @@ export const metadata: Metadata = {
   referrer: "strict-origin-when-cross-origin",
 };
 
+const motionBootstrap = `document.documentElement.dataset.motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduced" : "ready";`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
+        {children}
+      </body>
     </html>
   );
 }

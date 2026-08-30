@@ -1,23 +1,28 @@
-# Validation snapshot — 2026-08-18
+# Validation snapshot — 2026-08-30
 
-Local-only checkpoint; no hosted resources were changed.
+Release-candidate checkpoint for the noindex Vercel preview.
 
 ## Automated gates
 
-- Unit/component/API-boundary tests: 14 passed.
-- Production browser tests: 9 passed.
+- Unit/component/API-boundary tests: 57 passed.
+- Production browser tests: 13 passed.
 - Axe browser scan: zero automatic violations on `/`, `/privacy`, `/terms`,
   `/trademarks`, and `/security`.
 - Responsive overflow: zero document overflow at 390×844, 820×1180, and
   1440×900.
 - Reduced-motion behavior and monthly/annual pricing interaction: passed.
+- Four-stage install, pair, profile, and run story: visually verified at phone
+  and desktop sizes; outgoing and incoming copy do not overlap.
+- Public product language checked against the current private product task and
+  its node, client, profile, engine, queue, memory, and pairing contracts.
 - Security/noindex headers and route-specific social metadata: passed.
 - Waitlist body cap: both declared-length and chunked payloads above 16 KiB
   return HTTP 413 in the production server; unit tests also assert early stream
   cancellation.
 - TypeScript, ESLint, and production Next.js build: passed.
 - Dependency audit: zero known vulnerabilities at the configured audit level.
-- Staged clean-room repository scan with gitleaks 8.30.1: no leaks found.
+- Public-boundary scan: no private host, node path, private-key marker, live
+  payment key, or Supabase service-role assignment found in the public source.
 
 ## Lighthouse local production run
 

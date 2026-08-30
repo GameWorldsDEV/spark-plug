@@ -46,6 +46,18 @@ export default function SecurityPage() {
           hello@gameworlds.ai
         </a>. Do not include live credentials, private user data, or destructive proof.
       </p>
+      <h2>Release qualification</h2>
+      <p>
+        Features are described as available only after source review, a clean
+        installation check, and a real runtime canary. Work still crossing those
+        gates is labeled qualifying or omitted from release claims.
+      </p>
+      <p>
+        The public edition is produced from reviewed, allowlisted changes and a
+        dedicated secret and provenance scrub. Private credentials, profiles,
+        routes, node identities, histories, and internal addresses are never
+        public release inputs.
+      </p>
     </LegalShell>
   );
 }

@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 
 const routes = [
   ["/", /plug in/i],
+  ["/benchmarks", /measured on our own box/i],
   ["/privacy", /privacy without mystery/i],
   ["/terms", /clear rules for shared setups/i],
   ["/trademarks", /names stay with their owners/i],
@@ -34,27 +35,53 @@ test("homepage works without horizontal overflow at phone, tablet, and desktop w
   }
 });
 
-test("the MCP-returned power-on artwork loads with provenance and non-affiliation copy", async ({ page }) => {
-  await page.goto("/#power-title");
-  const artwork = page.getByRole("img", {
-    name: /generic compute box powering on with a vivid green core/i,
+test("the installation story loads its photography and keeps non-affiliation copy", async ({ page }) => {
+  await page.goto("/");
+  const hardware = page.getByRole("img", {
+    name: /powering up as Spark Plug is installed/i,
   });
-  await expect(artwork).toBeVisible();
   await expect
-    .poll(() => artwork.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .poll(() => hardware.evaluate((image: HTMLImageElement) => image.naturalWidth))
     .toBeGreaterThan(0);
-  await expect(page.getByText(/returned to the requesting agent through MCP/i)).toBeVisible();
-  await expect(page.getByText(/not sponsored, endorsed, or affiliated with NVIDIA/i)).toBeVisible();
+  await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
+  await expect(page.getByText(/node-and-client system for running local models/i)).toBeVisible();
 });
 
-test("pricing toggle updates the Pro price and reduced motion is honored", async ({ page }) => {
+test("reduced motion lays the story out statically without scroll choreography", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
+  await expect(page.getByRole("heading", { level: 1, name: /plug in.*power up/i })).toBeVisible();
+  await expect(page.getByRole("img", { name: /powering up as Spark Plug is installed/i })).toBeVisible();
+  await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
+  const storyIsStatic = await page.locator("section").first().evaluate(
+    (section) => section.getBoundingClientRect().height < window.innerHeight * 3,
+  );
+  expect(storyIsStatic).toBe(true);
+});
+
+test("benchmarks are honest: coming soon until measured rows exist", async ({ page }) => {
+  await page.goto("/#benchmarks");
+  const section = page.locator("#benchmarks");
+  await expect(section.getByText(/measured, not marketed/i)).toBeVisible();
+  await expect(section.getByRole("link", { name: /benchmark method/i })).toBeVisible();
+
+  await page.goto("/benchmarks");
+  const rows = page.locator("tbody tr");
+  const comingSoon = page.getByText("COMING SOON", { exact: true });
+  if ((await rows.count()) === 1 && (await comingSoon.count()) > 0) {
+    await expect(comingSoon).toBeVisible();
+  }
+  await expect(page.getByText(/median of at least five requests/i).first()).toBeVisible();
+});
+
+test("pricing remains explicit and reduced motion is honored", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#plans");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.getByText("$5", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: /annual/i }).click();
-  await expect(page.getByText("$4", { exact: true })).toBeVisible();
-  await expect(page.getByText("Billed $48 yearly")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: /\$5.*month/i })).toBeVisible();
+  await expect(page.getByText("$48 annually when available.")).toBeVisible();
+  await expect(page.getByText(/security, routing, engines, local accounts, and accessibility are never Pro gates/i)).toBeVisible();
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {

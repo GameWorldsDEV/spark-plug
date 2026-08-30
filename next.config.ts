@@ -15,7 +15,7 @@ const contentSecurityPolicy = [
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   ...(process.env.NODE_ENV === "production"
-    ? ["upgrade-insecure-requests"]
+    ? []
     : []),
 ].join("; ");
 

@@ -31,7 +31,7 @@ export function LegalShell({ eyebrow, title, summary, children }: LegalShellProp
       <article className={styles.content}>{children}</article>
       <footer className={styles.footer}>
         <p>© 2026 GameWorlds. Spark Plug is an independent product.</p>
-        <Link href="/">Return to launch story ↗</Link>
+        <Link href="/">Return to the public launch ↗</Link>
       </footer>
     </main>
   );

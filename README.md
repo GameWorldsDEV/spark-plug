@@ -49,5 +49,7 @@ project or enabling any write/payment surface.
 
 ## Status
 
-Prepared for local/private preview only. No deployment, DNS, payment, or
-production database changes are performed by this repository.
+The noindex public-release preview is deployed at
+[`sparkplug-public-launch-site.vercel.app`](https://sparkplug-public-launch-site.vercel.app).
+Payments, public indexing, and the production Supabase launch remain disabled
+until their separate owner gates are complete.
