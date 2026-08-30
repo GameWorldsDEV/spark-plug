@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: mailto:hello@gameworlds.ai?subject=Spark%20Plug%20security%20report
+    about: Report vulnerabilities privately. Do not include secrets or destructive proof.
+  - name: Public preview
+    url: https://sparkplug-public-launch-site.vercel.app/
+    about: Review the current public website and release status.

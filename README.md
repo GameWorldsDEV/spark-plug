@@ -1,55 +1,83 @@
-# Spark Plug public launch site
+# Spark Plug
 
-An original, clean-room Next.js launch site for Spark Plug: a local-first model
-broker that connects agents to owner-controlled models, tools, queues, and media
-outputs.
+Spark Plug is a local control app and node broker for a dedicated AI machine. It
+pairs authorized clients to one node, saves models and engine settings as
+profiles, admits those profiles against available memory, supervises separate
+runtime queues, and reports real loading and readiness state.
 
-This repository intentionally has no inherited private or open-core Git history.
-It contains no private product UI, themes, animations, screenshots, user/session
-data, production configuration, credentials, or private generated assets. See
-[`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.md).
+The public software release is being prepared. This repository currently holds
+the reviewed public website, release contracts, security boundaries, hosted
+entitlement foundation, and documentation that the product source will join
+after clean-room extraction and qualification.
+
+- Website: <https://sparkplug-public-launch-site.vercel.app>
+- Release state: pre-release; no public product download yet
+- First node target: NVIDIA DGX Spark, Ubuntu 24.04 ARM64
+- Public indexing, accounts, payments, and marketplace: disabled
+
+## How the product works
+
+1. **Pair** — enroll a browser, Mac, iPhone, or iPad client to one node over its
+   HTTPS authentication path.
+2. **Build** — select models and save vLLM, Colibri, ComfyUI, memory, context,
+   streaming, concurrency, residency, media, and allowed routing settings as a
+   profile.
+3. **Apply** — validate the profile against the selected compute target, then
+   start or stop the required services without confusing accepted, loading, and
+   ready states.
+4. **Work** — authorized apps and agents submit work through stable broker
+   routes while engine-specific queues, memory, failures, and results remain
+   observable.
+
+See [Product contract](docs/PRODUCT.md) for current capability truth and
+[Release plan](docs/RELEASE-PLAN.md) for the path from the private working build
+to the first public package.
+
+## Repository map
+
+| Area | Purpose |
+| --- | --- |
+| `src/app` | Public website and inactive hosted-service routes |
+| `contracts` | Versioned public API contracts |
+| `schemas` | Deny-by-default setup and entitlement schemas |
+| `supabase` | Dedicated public-service migrations and RLS tests; not activated |
+| `docs/PRODUCT.md` | Actual product workflow, support target, and current limits |
+| `docs/RELEASE-PLAN.md` | Clean-room code handoff and release gates |
+| `docs/BILLING.md` | Supabase/Stripe/entitlement separation and activation checklist |
+| `docs/PUBLIC_BOUNDARY.md` | Material that may and may not enter the public repository |
+| `docs/SECURITY.md` | Security design and release checklist |
 
 ## Local development
 
 ```bash
 npm ci
-cp .env.example .env.local
 npm run dev
 ```
 
-The waitlist form returns a safe setup message until isolated Supabase staging
-values are configured. Do not use private-product database credentials.
+The source defaults to `PAYMENTS_MODE=disabled` and
+`NEXT_PUBLIC_SITE_INDEXABLE=false`. Never point local development at a private
+product database or reuse private product credentials.
 
 ## Validation
 
 ```bash
-npm test
 npm run lint
+npm run typecheck
+npm test
 npm run build
+npm run test:e2e
 ```
 
-## Architecture
+Before any public product-source push, also run the clean-room history, binary,
+license, dependency, and secret checks in [Release plan](docs/RELEASE-PLAN.md).
 
-- Vercel / Next.js frontend and server routes
-- Supabase Auth + Postgres with Row Level Security
-- Locally verifiable Ed25519 Pro entitlement snapshots; free local use has no
-  auth/entitlement heartbeat
-- Declarative, immutable HF-only public profile schema and metadata-only catalog
-- Forum/profile/marketplace RLS foundation plus a verified, idempotent Stripe
-  webhook projection (payments remain disabled)
-- Local Spark Plug remains the model-capability and output authority
+## Community and licensing status
 
-Read [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
-[`docs/ENTITLEMENTS.md`](docs/ENTITLEMENTS.md), and
-[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Review
-[`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md),
-[`docs/COST_CONTROLS.md`](docs/COST_CONTROLS.md), and
-[`docs/OWNER_DECISIONS.md`](docs/OWNER_DECISIONS.md) before creating a hosted
-project or enabling any write/payment surface.
+Issues and pull requests may be used for public website and documentation work.
+The product source and its final license are not published yet. Until a license
+file is added, no license to copy, modify, or redistribute repository source is
+granted beyond rights provided by law. This avoids silently choosing a license
+before the owner completes the release review.
 
-## Status
-
-The noindex public-release preview is deployed at
-[`sparkplug-public-launch-site.vercel.app`](https://sparkplug-public-launch-site.vercel.app).
-Payments, public indexing, and the production Supabase launch remain disabled
-until their separate owner gates are complete.
+See [Contributing](CONTRIBUTING.md) and [Security](SECURITY.md) before opening a
+report.

@@ -1,0 +1,41 @@
+name: Bug report
+description: Report a reproducible problem in the public website, docs, or released code.
+title: "[Bug]: "
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials, private node data, prompts, outputs, local paths, or security vulnerabilities. Report security issues using SECURITY.md.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Public website
+        - Documentation
+        - Contract or schema
+        - Released installer
+        - Released node or client
+        - Other public component
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Include the exact public version or commit and the smallest safe reproduction.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public-data check
+      options:
+        - label: I removed credentials, private configuration, prompts, outputs, node addresses, and personal/customer data.
+          required: true
