@@ -79,8 +79,9 @@ test("release status is explicit and reduced motion is honored", async ({ page }
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#release-status");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.getByText(/there is no public download, paid plan, or marketplace to buy today/i)).toBeVisible();
+  await expect(page.getByText(/there is no public product download, paid plan, or marketplace to buy today/i)).toBeVisible();
   await expect(page.getByText(/dates, pricing, and hosted services are not announced/i)).toBeVisible();
+  await expect(page.getByRole("link", { name: /follow on github/i }).first()).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
   await expect(page.getByRole("link", { name: /request release access/i }).first()).toBeVisible();
 });
 

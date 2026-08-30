@@ -41,7 +41,7 @@ export default function Home() {
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="Spark Plug home"><span aria-hidden="true"><i /></span>SPARK PLUG</Link>
         <nav className={styles.nav} aria-label="Primary navigation">
-          <a href="#product">Product</a><a href="#workflow">Workflow</a><a href="#engines">Engines</a><a href="#release-status">Release</a><Link href="/benchmarks">Benchmarks</Link>
+          <a href="#product">Product</a><a href="#workflow">Workflow</a><a href="#engines">Engines</a><a href="#release-status">Release</a><Link href="/benchmarks">Benchmarks</Link><a href="https://github.com/GameWorldsDEV/spark-plug" rel="noopener noreferrer">GitHub</a>
         </nav>
         <a className={styles.headerCta} href="#release">Request release access</a>
       </header>
@@ -104,10 +104,10 @@ export default function Home() {
         </section>
 
         <section className={styles.plans} id="release-status" aria-labelledby="plans-title">
-          <div className={styles.sectionHead}><div><p className={styles.eyebrow}>FIRST PUBLIC RELEASE</p><h2 id="plans-title">What exists now. What ships next.</h2></div><p>The product is working in the private development build. The public repository, installers, and support boundary are still being prepared. There is no public download, paid plan, or marketplace to buy today.</p></div>
+          <div className={styles.sectionHead}><div><p className={styles.eyebrow}>FIRST PUBLIC RELEASE</p><h2 id="plans-title">What exists now. What ships next.</h2></div><p>The product is working in the private development build, and the public release repository is now open for documentation and issue tracking. Product source and installers are still being prepared. There is no public product download, paid plan, or marketplace to buy today.</p></div>
           <div className={styles.planGrid}>
             <article><p>CURRENT WORKING BUILD</p><h3>Built <small>and in use</small></h3><ul><li>Node-owned accounts and HTTPS client pairing</li><li>Saved profiles that configure multiple engines</li><li>Separate inference and media queues</li><li>Memory admission and observable readiness</li><li>Browser, Mac, iPhone, and iPad control surfaces</li></ul><a href="#product">Review how it works</a></article>
-            <article className={styles.pro}><span>IN PREPARATION</span><p>PUBLIC RELEASE</p><h3>Next <small>after qualification</small></h3><ul><li>Clean, reviewed public-core repository</li><li>DGX Spark installer with preflight checks</li><li>Documented support and security boundary</li><li>Release notes, checksums, and measured results</li><li>No pricing claim before plans are approved</li></ul><a href="#release">Request release access</a></article>
+            <article className={styles.pro}><span>IN PREPARATION</span><p>PUBLIC RELEASE</p><h3>Next <small>after qualification</small></h3><ul><li>Reviewed product source added to the public repository</li><li>DGX Spark installer with preflight checks</li><li>Documented support and security boundary</li><li>Release notes, checksums, and measured results</li><li>No pricing claim before plans are approved</li></ul><a href="https://github.com/GameWorldsDEV/spark-plug" rel="noopener noreferrer">Follow on GitHub</a></article>
           </div>
           <p className={styles.planPromise}>Release status as of August 30, 2026. Dates, pricing, and hosted services are not announced.</p>
         </section>
@@ -126,10 +126,10 @@ export default function Home() {
 
         <section className={styles.faq} aria-labelledby="faq-title"><div><p className={styles.eyebrow}>STRAIGHT ANSWERS</p><h2 id="faq-title">Before you plug in.</h2></div><div className={styles.faqList}>{faqs.map(([question,answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></section>
 
-        <section className={styles.join} id="release" aria-labelledby="join-title"><p className={styles.eyebrow}>EARLY RELEASE ACCESS</p><h2 id="join-title">Help test the first honest release.</h2><p>Tell us that you want the public build. We will reply by email when there is a qualified DGX Spark installer, documented support boundary, and public repository to test. This site does not pretend a download exists before it does.</p><a className={styles.releaseCta} href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20public%20release%20access">Request release access <span aria-hidden="true">↗</span></a><p className={styles.releaseNote}>Email opens in your mail app. No account or payment is required.</p></section>
+        <section className={styles.join} id="release" aria-labelledby="join-title"><p className={styles.eyebrow}>EARLY RELEASE ACCESS</p><h2 id="join-title">Help test the first honest release.</h2><p>The public repository now tracks documentation, security boundaries, and release work. Follow it now, or request an email when the qualified DGX Spark installer and reviewed product source are ready. This site does not pretend a download exists before it does.</p><div className={styles.releaseActions}><a className={styles.releaseCta} href="https://github.com/GameWorldsDEV/spark-plug" rel="noopener noreferrer">Follow on GitHub <span aria-hidden="true">↗</span></a><a className={styles.releaseCtaAlt} href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20public%20release%20access">Request release access <span aria-hidden="true">↗</span></a></div><p className={styles.releaseNote}>GitHub stars and traffic help measure public interest; they never unlock product features. No account or payment is required for the local core.</p></section>
       </div>
 
-      <footer className={styles.footer}><div><Link className={styles.brand} href="/"><span aria-hidden="true"><i /></span>SPARK PLUG</Link><p>A GameWorlds product.</p></div><nav aria-label="Footer navigation"><Link href="/benchmarks">Benchmarks</Link><Link href="/security">Security</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/trademarks">Trademarks</Link></nav><p>© 2026 GameWorlds. Independent software. Product names belong to their respective owners.</p></footer>
+      <footer className={styles.footer}><div><Link className={styles.brand} href="/"><span aria-hidden="true"><i /></span>SPARK PLUG</Link><p>A GameWorlds product.</p></div><nav aria-label="Footer navigation"><a href="https://github.com/GameWorldsDEV/spark-plug" rel="noopener noreferrer">GitHub</a><Link href="/benchmarks">Benchmarks</Link><Link href="/security">Security</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/trademarks">Trademarks</Link></nav><p>© 2026 GameWorlds. Independent software. Product names belong to their respective owners.</p></footer>
     </main>
   );
 }

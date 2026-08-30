@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 
 const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
 
 const motionBootstrap = `document.documentElement.dataset.motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduced" : "ready";`;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
