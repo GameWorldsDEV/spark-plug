@@ -50,9 +50,16 @@ implemented and no aggregate cluster capacity is advertised.
 
 ### 4. Work and observe
 
-Authorized apps and agents use stable endpoints. Spark Plug routes requests only
-to candidates allowed by the active profile and maintains separate engine
-queues. `accepted`, `loading`, `ready`, `busy`, and `failed` are distinct states.
+Authorized apps and agents use stable endpoints. GW Broker authenticates and
+admits every request, routes only to candidates allowed by the active profile,
+and maintains separate engine queues. `accepted`, `loading`, `ready`, `busy`,
+and `failed` are distinct states.
+
+When automatic text routing is enabled, NVIDIA NeMo Switchyard may recommend a
+candidate from the active profile. GW Broker retains final admission and route
+authority and adopts only a recommendation that still matches the live profile.
+Explicit engine or model routes bypass the advisory step. ComfyUI media requests
+use typed media endpoints rather than text-model routing.
 
 ## Engine state in the current build
 
@@ -60,14 +67,19 @@ queues. `accepted`, `loading`, `ready`, `busy`, and `failed` are distinct states
 | --- | --- | --- |
 | vLLM | General local inference | Integrated with profile model selection, context, streaming, concurrency, residency, and memory admission |
 | Colibri | Separate local inference lane | Text, streaming, and reasoning are wired; profile settings include 32K/64K presets, output limit, reasoning effort, temperature, top-p, and streaming |
-| ComfyUI | Image and media jobs | Integrated as a separate profile policy, queue, status, and memory consumer |
-| Switchyard | Profile-scoped route selection | In qualification; may choose only owner-approved candidates in the active profile |
+| ComfyUI | Image, video, and 3D jobs | Integrated as a separate profile policy, queue, status, memory consumer, and asset-return path; TRELLIS runs as a ComfyUI workflow |
+| MLX | Future Apple Silicon node engine | Roadmap only; not part of the first supported node contract |
+| Ollama | Future node engine | Roadmap only; requires platform-specific installer and runtime qualification |
 
-For the installed Colibri/Qwen path, the validated operational context ceiling
-is **65,536 tokens**. The checkpoint declares **262,144 tokens**, but that larger
-window is not yet benchmarked or approved as a production claim. The current
-gateway does not accept image tensors or tool calls, so Colibri vision and tool
-capabilities remain disabled.
+Switchyard is routing middleware, not an engine, and remains in qualification.
+It may recommend only owner-approved candidates in the active profile.
+
+For the installed Colibri/Qwen path, the engine launches at the checkpoint-native
+**262,144-token ceiling** and profile request limits can be configured from 4,096
+through 262,144 tokens. Text, streaming, and reasoning are wired. The current
+gateway does not accept image tensors or tool calls, so Colibri vision, audio,
+and tool capabilities remain disabled. A large declared context window is not a
+speed or quality benchmark.
 
 ## First public support target
 
@@ -81,6 +93,12 @@ capabilities remain disabled.
 Other hardware and clustered targets require their own installer, engine,
 capacity, and runtime qualification contracts before they are listed as
 supported.
+
+Current control surfaces in the working build are browser, Mac, iPhone, and
+iPad. Android is roadmap. A client may reach its node on LAN/Wi-Fi, through
+Tailscale, or through a compatible user-managed VPN that provides the reviewed
+HTTPS path. Network reachability never replaces Spark Plug pairing or node
+authentication.
 
 ## Community and optional hosted services
 

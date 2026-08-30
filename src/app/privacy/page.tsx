@@ -12,14 +12,22 @@ export default function PrivacyPage() {
     <LegalShell
       eyebrow="PREVIEW-SITE NOTICE / UPDATED AUGUST 30, 2026"
       title="What this site collects today."
-      summary="This notice covers the current public preview. There are no public Spark Plug product accounts, payments, marketplace listings, or node connections on this site."
+      summary="This notice covers the current public preview. There are no public Spark Plug product accounts, payments, marketplace listings, software downloads, or node connections on this site."
     >
       <h2>Information you send</h2>
       <p>
-        The release-access link opens an email addressed to hello@gameworlds.ai.
-        This website does not receive or store that message through a signup form.
-        Your email provider and the recipient&rsquo;s email service process whatever
+        The current homepage does not include an account or email signup form.
+        If you contact hello@gameworlds.ai using your own email application, your
+        email provider and the recipient&rsquo;s email service process whatever
         information you choose to send.
+      </p>
+
+      <h2>Platform detection</h2>
+      <p>
+        The release section reads the browser&rsquo;s platform and user-agent values to
+        highlight the most relevant download card. This check runs in the browser,
+        does not create a persistent identifier, and is not submitted to a Spark Plug
+        product account. No download link activates until a verified artifact exists.
       </p>
 
       <h2>Hosting data</h2>

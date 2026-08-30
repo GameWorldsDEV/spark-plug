@@ -40,6 +40,23 @@ export default function TermsPage() {
         supported installation target and known limitations.
       </p>
 
+      <h2 id="rabbit-r1">Rabbit R1 and other third-party services</h2>
+      <p>
+        Rabbit R1 support is an independent integration preview. Spark Plug and
+        GameWorlds are not affiliated with, sponsored by, or endorsed by Rabbit.
+        A request initiated on Rabbit R1 is transported through Rabbit&rsquo;s service
+        to the user&rsquo;s computer before it can reach a local Spark Plug broker.
+        That third-party transport is outside Spark Plug&rsquo;s local execution boundary
+        and remains subject to Rabbit&rsquo;s terms, privacy practices, availability, and
+        account requirements.
+      </p>
+      <p>
+        Enabling a released Rabbit integration will require an explicit in-product
+        acknowledgement of that boundary. Users remain responsible for deciding
+        what information they submit through the device and for reviewing the
+        permissions granted to the connected computer and harness.
+      </p>
+
       <h2>Availability and changes</h2>
       <p>
         This preview and the product under development may change, pause, or contain

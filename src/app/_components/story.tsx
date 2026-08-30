@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./story.module.css";
 
 const beats = [
-  { label: "INSTALL", title: "Prepare the node.", copy: "The release installer will verify the supported DGX Spark software and hardware contract before it changes the machine." },
-  { label: "PAIR", title: "Enroll a client.", copy: "A browser, Mac, iPhone, or iPad connects to one node over HTTPS and authenticates to the account owned by that node." },
-  { label: "PROFILE", title: "Define the workload.", copy: "Select models and configure each engine’s context, streaming, concurrency, residency, media, and routing rules in one profile." },
-  { label: "RUN", title: "Apply and observe.", copy: "The broker checks capacity, starts the required services, and reports engine, model, queue, memory, and connection state." },
+  { label: "PAIR", title: "Connect your tools.", copy: "Enroll a browser, native client, or compatible agent harness to one exact node over HTTPS." },
+  { label: "PROFILE", title: "Shape the workload.", copy: "Choose models and tune each engine’s context, concurrency, streaming, residency, media, and routing policy." },
+  { label: "APPLY", title: "Prove that it fits.", copy: "GW Broker checks the complete plan against live capacity before it changes models or runtime state." },
+  { label: "WORK", title: "Route and observe.", copy: "Send work through stable endpoints while engines, queues, memory, and results remain visible." },
 ];
 
 export function Story() {
@@ -44,8 +44,8 @@ export function Story() {
         <div className={styles.grid} aria-hidden="true" />
         <div className={styles.heroCopy}>
           <p>LOCAL AI / ONE CONTROL SYSTEM</p>
-          <h1 id="story-title">Plug in.<br /><em>Power up.</em></h1>
-          <span>Scroll through the product workflow</span>
+          <h1 id="story-title">Own the node.<br /><em>Run the work.</em></h1>
+          <span>GW Broker for models, media, agents, and devices</span>
         </div>
 
         <div className={styles.machineStage} data-stage={stage}>
@@ -59,7 +59,7 @@ export function Story() {
           </div>
           <div className={styles.installBeam} aria-hidden="true"><i /></div>
           <div className={styles.machine}>
-            <Image src="/dgx/dgx-spark-quarter.webp" width={1430} height={1430} priority sizes="(max-width: 800px) 108vw, 62vw" alt="A real NVIDIA DGX Spark powering up as Spark Plug is installed" />
+            <Image src="/dgx/dgx-spark-quarter.webp" width={1430} height={1430} priority sizes="(max-width: 800px) 108vw, 62vw" alt="NVIDIA DGX Spark, the first supported Spark Plug node" />
             <div className={styles.powerWash} aria-hidden="true" />
             <div className={styles.scanLine} aria-hidden="true" />
           </div>
@@ -68,11 +68,11 @@ export function Story() {
         </div>
 
         <div className={styles.terminal} data-stage={stage} aria-hidden="true">
-          <div><i /><i /><i /><span>SPARK PLUG INSTALLER</span></div>
-          <p data-done={stage >= 0}><b>01</b> node contract checked before install</p>
-          <p data-done={stage >= 1}><b>02</b> client enrolled to one node over HTTPS</p>
-          <p data-done={stage >= 2}><b>03</b> profile admitted against current capacity</p>
-          <p data-done={stage >= 3}><b>04</b> engines, queues, and state observable</p>
+          <div><i /><i /><i /><span>GW BROKER / ACTIVE PROFILE</span></div>
+          <p data-done={stage >= 0}><b>01</b> client enrolled to one exact node</p>
+          <p data-done={stage >= 1}><b>02</b> engine settings saved in one profile</p>
+          <p data-done={stage >= 2}><b>03</b> combined capacity checked before apply</p>
+          <p data-done={stage >= 3}><b>04</b> requests, queues, and state observable</p>
         </div>
 
         <div className={styles.beats}>

@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 const routes = [
-  ["/", /plug in/i],
+  ["/", /own the node.*run the work/i],
   ["/benchmarks", /no performance claims without a measured run/i],
   ["/privacy", /what this site collects today/i],
   ["/terms", /what this preview is—and is not/i],
@@ -35,24 +35,37 @@ test("homepage works without horizontal overflow at phone, tablet, and desktop w
   }
 });
 
-test("the installation story loads its photography and keeps non-affiliation copy", async ({ page }) => {
+test("the product story loads its photography and keeps non-affiliation copy", async ({ page }) => {
   await page.goto("/");
   const hardware = page.getByRole("img", {
-    name: /powering up as Spark Plug is installed/i,
-  });
+    name: /first supported Spark Plug node/i,
+  }).first();
   await expect
     .poll(() => hardware.evaluate((image: HTMLImageElement) => image.naturalWidth))
     .toBeGreaterThan(0);
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
-  await expect(page.getByText(/local control app and broker for a dedicated AI node/i)).toBeVisible();
+  await expect(page.getByText(/local control app and GW Broker/i).first()).toBeVisible();
+});
+
+test("approved integration marks load beside their visible names", async ({ page }) => {
+  await page.goto("/#workflow");
+  const harness = page.getByLabel("Compatible agent and coding harnesses");
+  for (const name of ["OPENCLAW", "HERMES", "PAPERCLIP", "CODEX", "CLAUDE CODE"]) {
+    await expect(harness.getByText(name, { exact: true })).toBeVisible();
+  }
+  const marks = harness.locator("img");
+  await expect(marks).toHaveCount(5);
+  for (let index = 0; index < 5; index += 1) {
+    await expect.poll(() => marks.nth(index).evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+  }
 });
 
 test("reduced motion lays the story out statically without scroll choreography", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.getByRole("heading", { level: 1, name: /plug in.*power up/i })).toBeVisible();
-  await expect(page.getByRole("img", { name: /powering up as Spark Plug is installed/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /own the node.*run the work/i })).toBeVisible();
+  await expect(page.getByRole("img", { name: /first supported Spark Plug node/i }).first()).toBeVisible();
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
   const storyIsStatic = await page.locator("section").first().evaluate(
     (section) => section.getBoundingClientRect().height < window.innerHeight * 3,
@@ -61,11 +74,6 @@ test("reduced motion lays the story out statically without scroll choreography",
 });
 
 test("benchmarks are honest: coming soon until measured rows exist", async ({ page }) => {
-  await page.goto("/#benchmarks");
-  const section = page.locator("#benchmarks");
-  await expect(section.getByText(/measured, not marketed/i)).toBeVisible();
-  await expect(section.getByRole("link", { name: /publication rules/i })).toBeVisible();
-
   await page.goto("/benchmarks");
   const rows = page.locator("tbody tr");
   const comingSoon = page.getByText("COMING SOON", { exact: true });
@@ -75,14 +83,35 @@ test("benchmarks are honest: coming soon until measured rows exist", async ({ pa
   await expect(page.getByText(/if a number is not measured under a documented method/i).first()).toBeVisible();
 });
 
-test("release status is explicit and reduced motion is honored", async ({ page }) => {
+test("release status is explicit, platform-aware, and reduced motion is honored", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/#release-status");
+  await page.goto("/#release");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.getByText(/there is no public product download, paid plan, or marketplace to buy today/i)).toBeVisible();
-  await expect(page.getByText(/dates, pricing, and hosted services are not announced/i)).toBeVisible();
-  await expect(page.getByRole("link", { name: /follow on github/i }).first()).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
-  await expect(page.getByRole("link", { name: /request release access/i }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
+  await expect(page.getByRole("button", { name: /preparing first release/i })).toBeDisabled();
+  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(3);
+  await expect(page.getByText(/your device/i).last()).toBeVisible();
+});
+
+test("the public release manifest never exposes an unfinished download", async ({ request }) => {
+  const response = await request.get("/releases/current.json");
+  expect(response.ok()).toBe(true);
+  const manifest = await response.json();
+  expect(manifest.releaseStatus).toBe("preparing");
+  for (const artifact of Object.values(manifest.platforms) as Array<{ status: string; url: string | null; sha256: string | null }>) {
+    expect(artifact.status).not.toBe("available");
+    expect(artifact.url).toBeNull();
+    expect(artifact.sha256).toBeNull();
+  }
+});
+
+test("the redesigned desktop homepage stays within twelve viewport heights", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const screenCount = await page.evaluate(
+    () => document.documentElement.scrollHeight / window.innerHeight,
+  );
+  expect(screenCount).toBeLessThanOrEqual(12);
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {
@@ -96,7 +125,7 @@ test("security and prelaunch indexing headers are present", async ({ request }) 
 
 test("root social card is explicit and detail pages do not inherit it", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /\/og\.png$/);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /\/og-v2\.png$/);
 
   await page.goto("/privacy");
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Privacy notice");

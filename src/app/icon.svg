@@ -1,6 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Spark Plug">
-  <rect width="64" height="64" rx="16" fill="#07100b"/>
-  <path d="M22 9v13M42 9v13" fill="none" stroke="#c6ff36" stroke-linecap="round" stroke-width="7"/>
-  <path d="M16 20h32v8c0 9.94-7.16 18.21-16.6 19.94V56" fill="none" stroke="#f4ffe1" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
-  <path d="M31 31h12l-8 8h9" fill="none" stroke="#24e8d2" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2f5f7"/>
+      <stop offset="1" stop-color="#8f989f"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d4ff57"/>
+      <stop offset="1" stop-color="#76b900"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#080d0a"/>
+  <g transform="translate(5 5) scale(.84)">
+    <path d="M17 19V7h7v12M40 19V7h7v12" stroke="url(#metal)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M12 20h40v18c0 9-7 16-16 16h-8c-9 0-16-7-16-16V20Z" fill="url(#metal)"/>
+    <path d="m43 3-25 31h12l-9 27 25-34H34Z" fill="url(#bolt)"/>
+  </g>
 </svg>

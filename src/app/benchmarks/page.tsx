@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import { BENCH_METHOD, PUBLISHED_RUNS } from "@/lib/benchmarks";
 import { detailMetadata } from "@/lib/metadata";
-import styles from "../page.module.css";
+import { BrandLogo } from "../_components/brand-logo";
+import styles from "./benchmarks.module.css";
 
 export const metadata = detailMetadata(
   "Benchmarks",
@@ -15,13 +16,10 @@ export default function BenchmarksPage() {
     <main className={styles.benchPage}>
       <header className={styles.benchPageHeader}>
         <Link className={styles.wordmark} href="/" aria-label="Spark Plug home">
-          <span aria-hidden="true" className={styles.mark}>
-            <span />
-          </span>
-          <span>SPARK PLUG</span>
+          <BrandLogo className={styles.brandLogo} />
         </Link>
-        <Link className={styles.headerCta} href="/#benchmarks">
-          ← Back to the story
+        <Link className={styles.headerCta} href="/#release">
+          ← Back to the release
         </Link>
       </header>
 

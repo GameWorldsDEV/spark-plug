@@ -18,7 +18,8 @@ export default function SecurityPage() {
       <ul>
         <li>Vercel serves this no-index preview and its server routes.</li>
         <li>There is no public product account, payment checkout, marketplace, or node connection on this site.</li>
-        <li>The release-access button opens your email application; it does not submit an address to a site database.</li>
+        <li>The download cards read a public release manifest and remain disabled until a verified artifact is published.</li>
+        <li>Platform highlighting happens in the browser and is not stored or sent to a Spark Plug account.</li>
         <li>This site does not need node credentials, local prompts, model files, or private outputs.</li>
       </ul>
 
@@ -36,6 +37,23 @@ export default function SecurityPage() {
         model state, queue state, memory admission, and output provenance. A client
         must not convert an accepted request into a false &ldquo;ready&rdquo; state or
         invent model capabilities that the engine did not report.
+      </p>
+
+      <h2>Routing authority</h2>
+      <p>
+        Compatible harnesses submit work to GW Broker. When automatic text routing
+        is enabled, NVIDIA NeMo Switchyard may recommend a candidate from the active
+        profile, but the broker retains authentication, admission, and final route
+        authority. Explicit engine and model routes bypass that advisory step. Media
+        jobs use separate typed ComfyUI endpoints.
+      </p>
+
+      <h2>Rabbit R1 boundary</h2>
+      <p>
+        Requests initiated on Rabbit R1 traverse Rabbit&rsquo;s third-party service
+        before reaching the user&rsquo;s computer. The integration remains labeled in
+        qualification and must not be described as end-to-end local. Local broker
+        and engine execution begins only after that transport boundary.
       </p>
 
       <h2>Public release controls</h2>

@@ -79,8 +79,10 @@ boundaries.
 
 - publish source, supported installers, documentation, release notes, checksums,
   and measured compatibility results together;
-- replace the website release-access CTA with verified repository and download
-  destinations;
+- activate the prepared website download card only for verified repository and
+  package destinations;
+- publish the matching `/releases/current.json` entry only when its HTTPS artifact
+  URL and SHA-256 checksum agree with the signed GitHub Release;
 - keep payments and hosted accounts on their independent activation gate;
 - authorize indexing only after metadata, legal, and public files are final.
 

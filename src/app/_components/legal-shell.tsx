@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { BrandLogo } from "./brand-logo";
 import styles from "./legal-shell.module.css";
 
 type LegalShellProps = {
@@ -14,7 +15,7 @@ export function LegalShell({ eyebrow, title, summary, children }: LegalShellProp
     <main className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="Spark Plug home">
-          <span aria-hidden="true" /> SPARK PLUG
+          <BrandLogo className={styles.brandLogo} />
         </Link>
         <nav aria-label="Legal and security pages">
           <Link href="/privacy">Privacy</Link>

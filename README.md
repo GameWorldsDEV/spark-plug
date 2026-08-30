@@ -29,6 +29,19 @@ after clean-room extraction and qualification.
    routes while engine-specific queues, memory, failures, and results remain
    observable.
 
+Compatible clients can include OpenClaw, Hermes, Paperclip, Codex through an
+OpenAI-compatible endpoint, Claude Code through its supported gateway, and other
+tools that implement the published endpoint contracts. Compatibility does not
+imply partnership or endorsement.
+
+## Release buttons
+
+The homepage reads the same versioned manifest served at
+`/releases/current.json`. It highlights the visitor's likely platform locally in
+the browser, but an installer button becomes active only when the manifest has a
+HTTPS artifact URL and a SHA-256 checksum. The GitHub repository remains available
+while Linux/DGX Spark, macOS, Windows, and Android packages are still preparing.
+
 See [Product contract](docs/PRODUCT.md) for current capability truth and
 [Release plan](docs/RELEASE-PLAN.md) for the path from the private working build
 to the first public package.
@@ -42,6 +55,8 @@ to the first public package.
 | `schemas` | Deny-by-default setup and entitlement schemas |
 | `supabase` | Dedicated public-service migrations and RLS tests; not activated |
 | `docs/PRODUCT.md` | Actual product workflow, support target, and current limits |
+| `docs/CONNECTIONS.md` | Broker, Switchyard, harness, remote-device, and Rabbit R1 boundaries |
+| `docs/BRAND-ASSETS.md` | Third-party compatibility-mark provenance and usage boundary |
 | `docs/RELEASE-PLAN.md` | Clean-room code handoff and release gates |
 | `docs/BILLING.md` | Supabase/Stripe/entitlement separation and activation checklist |
 | `docs/GITHUB.md` | Repository automation, traffic/stars policy, and release use |

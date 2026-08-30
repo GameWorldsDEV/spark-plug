@@ -31,10 +31,10 @@ export const metadata: Metadata = {
       "Pair clients, define workload profiles, apply them to the node, and observe real engine, model, queue, and memory state.",
     images: [
       {
-        url: "/og.png",
-        width: 1729,
-        height: 910,
-        alt: "Spark Plug routes local AI into a glowing GPU compute node",
+        url: "/og-v2.png",
+        width: 1731,
+        height: 909,
+        alt: "Spark Plug routes local AI work into an NVIDIA DGX Spark node",
       },
     ],
   },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Spark Plug — One control system for your local AI node.",
     description:
       "Pair clients, define workload profiles, apply them to the node, and observe real engine, model, queue, and memory state.",
-    images: ["/og.png"],
+    images: ["/og-v2.png"],
   },
   robots: { index: isIndexable, follow: isIndexable },
   referrer: "strict-origin-when-cross-origin",

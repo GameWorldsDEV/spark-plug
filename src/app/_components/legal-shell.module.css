@@ -23,13 +23,10 @@
   letter-spacing: .16em;
 }
 
-.brand span {
-  width: 13px;
-  height: 13px;
-  transform: rotate(45deg);
-  background: var(--lime);
-  box-shadow: 0 0 13px rgba(169,255,46,.5);
-}
+.brandLogo { display: flex; align-items: center; gap: 10px; }
+.brandLogo svg { width: 32px; height: 32px; filter: drop-shadow(0 0 9px rgba(169,255,46,.18)); }
+.brandLogo strong { color: #edf1ec; font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; }
+.brandLogo em { color: var(--lime); font-style: normal; }
 
 .header nav {
   display: flex;

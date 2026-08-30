@@ -1,4 +1,4 @@
-.story { position: relative; height: 430svh; color: #f4f7f1; background: #030706; --story-progress: 0; }
+.story { position: relative; height: 235svh; color: #f4f7f1; background: #030706; --story-progress: 0; }
 .sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; background: radial-gradient(circle at 70% 52%, #112018 0, #050a08 38%, #020403 72%); }
 .grid { position: absolute; inset: 0; opacity: .12; background-image: linear-gradient(rgba(168,255,50,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(168,255,50,.35) 1px, transparent 1px); background-size: 58px 58px; -webkit-mask-image: radial-gradient(circle at 66% 52%, #000, transparent 68%); mask-image: radial-gradient(circle at 66% 52%, #000, transparent 68%); }
 .heroCopy { position: absolute; z-index: 5; top: clamp(105px,15vh,155px); left: clamp(22px,6vw,92px); opacity: calc(1 - min(1, var(--story-progress) * 7)); transform: translateY(calc(var(--story-progress) * -45px)); }
@@ -82,7 +82,7 @@
 @keyframes burst { from{transform:translate(0,0) scale(1.8);opacity:1} to{transform:translate(var(--x),var(--y)) scale(0);opacity:0} }
 @keyframes routePulse { 0%,100%{opacity:.15;transform-origin:left} 45%{opacity:1} }
 @media (max-width:760px) {
-  .story { height: 390svh; }
+  .story { height: 260svh; }
   .heroCopy { top: 110px; }
   .heroCopy h1 { font-size: clamp(4.2rem,20vw,6.8rem); }
   .machineStage { top: 37%; left: 50%; width: 108vw; transform: translate(-50%,-45%) scale(calc(.72 + min(var(--story-progress), .24) * .58)); }

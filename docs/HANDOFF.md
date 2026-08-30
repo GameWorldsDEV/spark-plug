@@ -50,8 +50,8 @@ caches, customer data, or private Git history.
    `main`.
 8. After review, publish source, supported packages, checksums, release notes,
    and documentation as one release.
-9. Only then replace the website's “no public product download” statement with
-   verified repository and package destinations.
+9. Only then activate the matching website download card with verified package
+   destinations and checksums.
 
 ## Hosted-service integration sequence
 

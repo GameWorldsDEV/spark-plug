@@ -33,10 +33,20 @@ export default function TrademarksPage() {
 
       <h2>Connected clients and other marks</h2>
       <p>
-        Apple, macOS, iPhone, iPad, Tailscale, vLLM, ComfyUI, Colibri, Vercel,
+        Apple, macOS, iPhone, iPad, Android, Rabbit, Rabbit R1, Tailscale, OpenAI,
+        Codex, Anthropic, Claude, Claude Code, NVIDIA NeMo, Switchyard, OpenClaw,
+        Hermes, Paperclip, vLLM, ComfyUI, TRELLIS, Colibri, MLX, Ollama, Vercel,
         and other names are marks of their respective owners where applicable.
         Compatibility references do not imply endorsement, certification, or a
         commercial relationship.
+      </p>
+
+      <h2>Logos and compatibility tiles</h2>
+      <p>
+        The website uses third-party logos with owner authorization for descriptive
+        compatibility references and records their upstream provenance. The marks
+        remain subordinate to the Spark Plug identity and may be replaced or removed
+        when an upstream owner changes its branding or requests a change.
       </p>
 
       <h2>Future distributions and listings</h2>
