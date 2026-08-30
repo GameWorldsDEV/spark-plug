@@ -45,6 +45,7 @@ to the first public package.
 | `docs/RELEASE-PLAN.md` | Clean-room code handoff and release gates |
 | `docs/BILLING.md` | Supabase/Stripe/entitlement separation and activation checklist |
 | `docs/GITHUB.md` | Repository automation, traffic/stars policy, and release use |
+| `docs/HANDOFF.md` | Exact product-code and hosted-service delivery sequence |
 | `docs/PUBLIC_BOUNDARY.md` | Material that may and may not enter the public repository |
 | `docs/SECURITY.md` | Security design and release checklist |
 
