@@ -1,0 +1,229 @@
+.section {
+  overflow: hidden;
+  padding: clamp(76px, 9vw, 126px) 0;
+  color: #eef3ee;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(169, 255, 46, 0.08), transparent 31%),
+    #0b120e;
+}
+
+.heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  gap: clamp(36px, 7vw, 100px);
+  align-items: end;
+  padding: 0 clamp(22px, 6vw, 92px);
+}
+
+.eyebrow {
+  margin-bottom: 18px;
+  color: var(--lime);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+}
+
+.heading h2 {
+  max-width: 940px;
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 6.7vw, 7rem);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
+}
+
+.heading > p {
+  max-width: 50ch;
+  color: #98a39b;
+  font-size: 1.02rem;
+  line-height: 1.68;
+}
+
+.carousel {
+  width: 100%;
+  margin-top: clamp(45px, 6vw, 76px);
+  overflow: hidden;
+  border-block: 1px solid #344038;
+  background: rgba(4, 8, 6, 0.55);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: orbit 34s linear infinite;
+  will-change: transform;
+}
+
+.trackGroup {
+  display: flex;
+}
+
+.carousel:hover .track,
+.carousel:focus-within .track {
+  animation-play-state: paused;
+}
+
+.toolCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 76px minmax(155px, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  width: clamp(290px, 25vw, 380px);
+  min-height: 146px;
+  padding: 22px 24px;
+  border-right: 1px solid #344038;
+  color: #edf2ed;
+  background: rgba(10, 18, 13, 0.82);
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.toolCard:hover,
+.toolCard:focus-visible {
+  color: var(--lime);
+  background: #132018;
+  outline: none;
+}
+
+.toolCard:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--lime);
+}
+
+.iconShell {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid #3b493f;
+  border-radius: 15px;
+  background: #eef0e8;
+}
+
+.toolIcon {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.toolText {
+  display: grid;
+  gap: 8px;
+}
+
+.toolText strong {
+  font-family: var(--display);
+  font-size: 1.45rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.toolText small {
+  color: #89968e;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.external {
+  align-self: start;
+  color: #758178;
+  font-family: var(--mono);
+}
+
+.endpointBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 25px clamp(22px, 6vw, 92px) 0;
+}
+
+.endpointBadges span {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  padding: 10px 13px;
+  border: 1px solid #3c4941;
+  color: #a9b4ac;
+  background: #101813;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.endpointBadges i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 10px rgba(169, 255, 46, 0.65);
+}
+
+@keyframes orbit {
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 900px) {
+  .heading { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  .heading h2 { font-size: clamp(2.9rem, 14vw, 5rem); }
+  .toolCard {
+    grid-template-columns: 62px minmax(140px, 1fr) auto;
+    width: 290px;
+    min-height: 124px;
+    padding: 17px;
+  }
+  .iconShell { width: 62px; height: 62px; }
+  .toolIcon { width: 48px; height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel {
+    overflow: visible;
+    padding-inline: clamp(22px, 6vw, 92px);
+    border: 0;
+    mask-image: none;
+    background: transparent;
+  }
+
+  .track {
+    display: block;
+    width: auto;
+    animation: none;
+  }
+
+  .trackGroup:first-child {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid #344038;
+    border-left: 1px solid #344038;
+  }
+
+  .trackGroup[aria-hidden="true"] { display: none; }
+
+  .toolCard {
+    width: auto;
+    min-width: 0;
+    grid-template-columns: 58px minmax(0, 1fr);
+    padding: 16px;
+    border-bottom: 1px solid #344038;
+  }
+
+  .external { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 1050px) {
+  .trackGroup:first-child { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 620px) {
+  .trackGroup:first-child { grid-template-columns: 1fr; }
+}
