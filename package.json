@@ -24,14 +24,14 @@
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "@types/jest-axe": "^3.5.9",
-    "@types/node": "^20",
+    "@types/node": "^26",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.1",
+    "eslint": "^10",
+    "eslint-config-next": "16.3.3",
     "jest-axe": "^11.0.0",
     "jsdom": "^30.0.1",
-    "typescript": "^5",
+    "typescript": "^7",
     "vitest": "^4.1.11"
   }
 }
