@@ -50,6 +50,8 @@ test("the product story presents the real workflow and keeps non-affiliation cop
     await expect(page.getByRole("heading", { level: 3, name: step })).toBeVisible();
   }
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
+  const huggingFaceMark = page.locator('img[src="/integrations/hugging-face.svg"]');
+  await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
 });
 
 test("compatible tool links and endpoint boundaries are explicit", async ({ page }) => {
@@ -69,11 +71,12 @@ test("reduced motion lays the story out statically without scroll choreography",
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
   await expect(page.getByRole("heading", { level: 1, name: /your local ai.*one control hub/i })).toBeVisible();
   await expect(page.getByText("Install Spark Plug.", { exact: true }).last()).toBeVisible();
+  for (const stage of ["Add your engines.", "Connect your agents.", "Download your models.", "Build and load a profile.", "Run local. Switch when you need."]) {
+    await expect(page.getByRole("heading", { level: 2, name: stage }).last()).toBeVisible();
+  }
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
-  const storyIsStatic = await page.locator("section").first().evaluate(
-    (section) => section.getBoundingClientRect().height < window.innerHeight * 3,
-  );
-  expect(storyIsStatic).toBe(true);
+  await expect(page.locator('[class*="staticStory"]')).toBeVisible();
+  await expect(page.locator('[class*="machineStage"]')).toBeHidden();
 });
 
 test("benchmarks are honest: coming soon until measured rows exist", async ({ page }) => {
@@ -120,7 +123,7 @@ test("downloads follow the hero and the redesigned desktop page stays compact", 
   const screenCount = await page.evaluate(
     () => document.documentElement.scrollHeight / window.innerHeight,
   );
-  expect(screenCount).toBeLessThanOrEqual(18);
+  expect(screenCount).toBeLessThanOrEqual(18.5);
 });
 
 test("the Rabbit viewer uses the narrow embed contract, attribution, and reduced-motion fallback", async ({ page }) => {

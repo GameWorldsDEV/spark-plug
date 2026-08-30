@@ -2,13 +2,25 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+
+import { BrandLogo } from "./brand-logo";
 import styles from "./story.module.css";
 
 const beats = [
-  { label: "INSTALL", title: "Install Spark Plug.", copy: "Start with one control app on your DGX Spark. Add only the engines that match the work you want to run." },
-  { label: "PROFILES", title: "Build your workflows.", copy: "Combine models from separate engines in one saved profile, then switch the whole workload without rebuilding it by hand." },
-  { label: "AGENTS", title: "Connect your agents.", copy: "Give compatible agent and coding tools stable OpenAI-compatible or Anthropic-compatible endpoints through GW Broker." },
-  { label: "ROUTE", title: "Send work to the right model.", copy: "GW Broker admits and observes every request. Optional NVIDIA NeMo Switchyard routing selects only from models approved by the active profile." },
+  { label: "INSTALL", title: "Install Spark Plug.", copy: "The Spark Plug control app lands on your DGX Spark and becomes the place where engines, models, profiles, and work are managed." },
+  { label: "ENGINES", title: "Add your engines.", copy: "Install qualified engines through Spark Plug. vLLM is qualified first for DGX Spark; Colibri and ComfyUI are working builds. MLX and Ollama remain clearly marked roadmap options." },
+  { label: "AGENTS", title: "Connect your agents.", copy: "OpenClaw, Hermes Agent, Paperclip, Codex, and Claude Code connect to authorized OpenAI-compatible or Anthropic-compatible endpoints." },
+  { label: "MODELS", title: "Download your models.", copy: "Choose models from Hugging Face, download them to your own machine, and assign each model to the engine that will run it." },
+  { label: "PROFILE", title: "Build and load a profile.", copy: "Save engines, models, memory, queues, and routing as one reusable workflow. Spark Plug checks capacity before anything changes." },
+  { label: "RUN", title: "Run local. Switch when you need.", copy: "Load the approved profile, run the work locally, then switch between Code, Creative, and Background workflows from one control hub." },
+] as const;
+
+const engineMarks = [
+  ["vLLM", "/engines/vllm.svg", "INSTALLING"],
+  ["Colibri", "/engines/colibri.svg", "WORKING BUILD"],
+  ["ComfyUI", "/engines/comfyui.svg", "WORKING BUILD"],
+  ["MLX", "/engines/mlx.svg", "MAC ROADMAP"],
+  ["Ollama", "/engines/ollama.svg", "PLANNED"],
 ] as const;
 
 const toolMarks = [
@@ -16,6 +28,8 @@ const toolMarks = [
   ["Paperclip", "/integrations/paperclip.svg"], ["Codex", "/integrations/codex.svg"],
   ["Claude Code", "/integrations/claude-code.svg"],
 ] as const;
+
+const statuses = ["APP DOWNLOADING", "ENGINES CONFIGURING", "AGENTS CONNECTED", "MODELS DOWNLOADING", "PROFILE LOADING", "LOCAL AI READY"] as const;
 
 export function Story() {
   const root = useRef<HTMLElement>(null);
@@ -52,7 +66,7 @@ export function Story() {
         <header className={styles.heroCopy}>
           <p>SPARK PLUG / LOCAL AI CONTROL</p>
           <h1 id="story-title">Your local AI.<br /><em>One control hub.</em></h1>
-          <span>Install Spark Plug, download your models, build multi-engine profiles, and manage your AI machine from one place.</span>
+          <span>Install Spark Plug, add your engines and models, build reusable profiles, and run your AI machine from one place.</span>
           <div className={styles.actions}>
             <a href="#release">Download for DGX Spark</a>
             <a href="#profile-workflow">See how profiles work <b aria-hidden="true">↓</b></a>
@@ -62,26 +76,47 @@ export function Story() {
         <div className={styles.machineStage} data-stage={stage} aria-hidden="true">
           <div className={styles.aura}><i /><i /><i /></div>
           <div className={styles.orbits}><i /><i /><i /></div>
+          <div className={styles.appDownload}>
+            <BrandLogo className={styles.appBrand} />
+            <span><small>SPARK PLUG APP</small><strong>DOWNLOADING TO DGX</strong></span>
+            <b><i /></b>
+          </div>
+          <div className={styles.transferBeam}><i /><i /><i /><span /></div>
           <div className={styles.machine}>
             <Image src="/dgx/dgx-spark-quarter.webp" width={1430} height={1430} priority sizes="(max-width: 800px) 108vw, 62vw" alt="" />
             <div className={styles.powerWash} /><div className={styles.scanLine} />
           </div>
-          <div className={styles.installCard}><b>SP</b><span><strong>SPARK PLUG</strong><small>INSTALLING ON DGX SPARK</small></span><i /></div>
-          <div className={styles.engineRail}>
-            <span><b>vLLM</b><small>QUALIFIED FIRST</small></span><span><b>COLIBRI</b><small>WORKING BUILD</small></span>
-            <span><b>COMFYUI</b><small>WORKING BUILD</small></span><span><b>MLX</b><small>PLANNED / MAC</small></span>
-            <span><b>OLLAMA</b><small>PLANNED</small></span>
-          </div>
-          <div className={styles.profileDeck}>
-            <article><small>PROFILE 01</small><strong>CODE</strong><span>vLLM · Qwen</span></article>
-            <article><small>PROFILE 02</small><strong>CREATIVE</strong><span>vLLM + ComfyUI</span></article>
-            <article><small>PROFILE 03</small><strong>BACKGROUND</strong><span>Colibri · GLM</span></article>
+          <div className={styles.engineDownloads}>
+            {engineMarks.map(([name, icon, status], index) => (
+              <span key={name} data-roadmap={index > 2 || undefined}>
+                <Image src={icon} width={90} height={38} alt="" unoptimized />
+                <b>{name}</b><small>{status}</small><i />
+              </span>
+            ))}
           </div>
           <div className={styles.toolCloud}>
             {toolMarks.map(([name, icon]) => <span key={name}><Image src={icon} width={34} height={34} alt="" unoptimized /><b>{name}</b></span>)}
+            <div className={styles.agentEndpoint}>AUTHORIZED ENDPOINTS <i /></div>
           </div>
-          <div className={styles.routeMap}><span>AGENTS</span><i /><strong>GW<br />BROKER</strong><i /><b>SWITCHYARD</b><i /><span>APPROVED<br />MODELS</span></div>
-          <div className={styles.machineStatus}><i /><span>{["INSTALLING", "PROFILE READY", "TOOLS CONNECTED", "ROUTING OBSERVED"][stage]}</span></div>
+          <div className={styles.modelDownload}>
+            <div className={styles.huggingFace}><Image src="/integrations/hugging-face.svg" width={62} height={62} alt="" unoptimized /><span><small>HUGGING FACE</small><strong>CHOOSE YOUR MODELS</strong></span></div>
+            <div className={styles.modelFiles}><span>QWEN <i>42%</i></span><span>NEMOTRON <i>QUEUED</i></span><span>GLM <i>READY</i></span></div>
+            <div className={styles.modelBeam}><i /><i /><i /></div>
+          </div>
+          <div className={styles.profileConsole}>
+            <header><small>BUILD PROFILE</small><strong>CREATIVE + CODE</strong></header>
+            <div><span>vLLM <b>QWEN</b></span><i>READY</i></div>
+            <div><span>ComfyUI <b>MEDIA</b></span><i>READY</i></div>
+            <div><span>GW Broker <b>ROUTES</b></span><i>CHECKED</i></div>
+            <footer><span /><b>LOADING PROFILE</b></footer>
+          </div>
+          <div className={styles.completion}>
+            <div><small>ACTIVE PROFILE</small><strong>CODE</strong><span>vLLM · Qwen</span></div>
+            <i>⇄</i>
+            <div><small>SWITCH TO</small><strong>CREATIVE</strong><span>vLLM + ComfyUI</span></div>
+            <b><i />LOCAL AI READY</b>
+          </div>
+          <div className={styles.machineStatus}><i /><span>{statuses[stage]}</span></div>
         </div>
 
         <div className={styles.beats} aria-live="polite">

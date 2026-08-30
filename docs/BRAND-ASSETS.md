@@ -12,6 +12,7 @@ All third-party files are local, unmodified copies unless noted.
 | `public/integrations/paperclip.svg` | Paperclip | `PaperclipAI/paperclip`, `docs/favicon.svg` | Referential brand use; trademark rights separate | None |
 | `public/integrations/codex.svg` | OpenAI | `PaperclipAI/paperclip`, `doc/assets/logos/codex.svg`; see `openai.com/brand` | OpenAI brand guidelines; trademark rights reserved | None |
 | `public/integrations/claude-code.svg` | Anthropic | `PaperclipAI/paperclip`, `doc/assets/logos/claude.svg`; see `anthropic.com/press-kit` | Anthropic brand guidelines; trademark rights reserved | None |
+| `public/integrations/hugging-face.svg` | Hugging Face | Official `huggingface/brand-assets`, `hf-logo-monochrome.svg`; see `huggingface.co/brand` | Official brand asset for descriptive compatibility use; trademark rights reserved | SVG formatting optimized; geometry retained |
 | `public/engines/vllm.svg` | vLLM project | `vllm-project/media-kit`, `vLLM-Full-Dark-Mode-Logo.svg` | Official media kit; no SPDX license metadata in media-kit repository; trademark rights separate | None |
 | `public/engines/colibri.svg` | JustVugg / Colibri | `JustVugg/colibri`, `assets/colibri-logo.svg` | Apache-2.0 repository; trademark rights separate | None |
 | `public/engines/comfyui.svg` | Comfy Org | `Comfy-Org/ComfyUI_frontend`, `apps/website/public/affiliates/brand/comfy-full-logo-yellow.svg` | GPL-3.0 repository; brand rights separate | None |
