@@ -1,63 +1,55 @@
-import { LegalShell } from "../_components/legal-shell";
 import { detailMetadata } from "@/lib/metadata";
+import { LegalShell } from "../_components/legal-shell";
 
 export const metadata = detailMetadata(
   "Privacy notice",
-  "How the Spark Plug launch site handles waitlist, account, creator, and purchase information.",
+  "What the current Spark Plug preview site does and does not collect.",
   "/privacy",
 );
 
 export default function PrivacyPage() {
   return (
     <LegalShell
-      eyebrow="PRELAUNCH NOTICE / UPDATED AUGUST 18, 2026"
-      title="Privacy without mystery."
-      summary="This notice describes the launch-site data boundary. It does not turn local Spark Plug outputs, prompts, routes, or credentials into cloud data."
+      eyebrow="PREVIEW-SITE NOTICE / UPDATED AUGUST 30, 2026"
+      title="What this site collects today."
+      summary="This notice covers the current public preview. There are no public Spark Plug product accounts, payments, marketplace listings, or node connections on this site."
     >
-      <h2>What this site collects</h2>
+      <h2>Information you send</h2>
       <p>
-        The early-access form collects the email address you submit, the time of
-        consent, and a short-lived one-way request fingerprint used to limit spam.
-        The site host may also process ordinary security logs such as IP address,
-        browser type, requested URL, and request time.
+        The release-access link opens an email addressed to hello@gameworlds.ai.
+        This website does not receive or store that message through a signup form.
+        Your email provider and the recipient&rsquo;s email service process whatever
+        information you choose to send.
       </p>
+
+      <h2>Hosting data</h2>
       <p>
-        When public accounts open, the service may also store profile details,
-        public setup listings, subscription status, purchases, creator verification
-        records, and payout state. Required fields and retention periods will be
-        disclosed before account registration opens.
+        Vercel hosts this website and may process ordinary request and security data,
+        such as IP address, browser and device information, requested URL, and time.
+        The site does not use advertising trackers and does not set a product account
+        or analytics cookie.
       </p>
 
       <h2>What this site does not collect by default</h2>
       <ul>
         <li>Local prompts, model conversations, or agent session history.</li>
         <li>Local model files, weights, credentials, or service tokens.</li>
-        <li>Private output files or host/container filesystem paths.</li>
-        <li>A private Spark Plug configuration unless you explicitly publish a scrubbed setup manifest.</li>
+        <li>Private output files or host and container filesystem paths.</li>
+        <li>Private Spark Plug profiles, routes, node identities, or configuration.</li>
       </ul>
 
-      <h2>How information is used</h2>
+      <h2>Future services are not presented as active</h2>
       <p>
-        Waitlist information is used to send requested launch updates, prevent abuse,
-        and measure basic signup reliability. Account and marketplace information will
-        be used to provide the service, enforce ownership and entitlements, support
-        creators, prevent fraud, and meet legal obligations.
+        If accounts, hosted profiles, payments, or a marketplace open later, this
+        notice will be replaced or updated before those features collect data. Their
+        required fields, purposes, processors, retention, and user controls are not
+        presented here as current behavior.
       </p>
 
-      <h2>Processors and transfers</h2>
+      <h2>Questions and requests</h2>
       <p>
-        The planned launch architecture uses Vercel to host the website and Supabase
-        for application data and authentication. Stripe is the planned payment
-        processor for paid subscriptions and creator purchases; card details should
-        be entered directly into Stripe-hosted payment surfaces, not stored by Spark
-        Plug. The final production processor list and regional terms will be published
-        before paid access opens.
-      </p>
-
-      <h2>Control and requests</h2>
-      <p>
-        You can unsubscribe from launch messages using the link in an email. To ask
-        for access, correction, or deletion, contact{" "}
+        To ask about information sent by email, or request access, correction, or
+        deletion where applicable, contact{" "}
         <a href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20privacy%20request">
           hello@gameworlds.ai
         </a>.

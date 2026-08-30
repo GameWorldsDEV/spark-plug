@@ -26,10 +26,7 @@ export type BenchmarkRun = {
 };
 
 export const BENCH_METHOD =
-  "Runs are measured by the broker itself on a single DGX Spark: median of " +
-  "at least five requests, greedy decode, otherwise-idle box, reported with " +
-  "the measurement date and broker build. If a number is not measured, it " +
-  "is not shown.";
+  "Publication rule: run through the Spark Plug broker on the supported DGX Spark test node; record the node, broker, engine, model, quantization, context, output, concurrency, load state, request count, summary method, and date. If a number is not measured under a documented method, it is not shown.";
 
 export const PUBLISHED_RUNS: BenchmarkRun[] = [
   // Intentionally empty until the first measured runs are published.

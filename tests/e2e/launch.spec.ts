@@ -3,11 +3,11 @@ import { expect, test } from "@playwright/test";
 
 const routes = [
   ["/", /plug in/i],
-  ["/benchmarks", /measured on our own box/i],
-  ["/privacy", /privacy without mystery/i],
-  ["/terms", /clear rules for shared setups/i],
-  ["/trademarks", /names stay with their owners/i],
-  ["/security", /trust the wiring you can inspect/i],
+  ["/benchmarks", /no performance claims without a measured run/i],
+  ["/privacy", /what this site collects today/i],
+  ["/terms", /what this preview is—and is not/i],
+  ["/trademarks", /compatibility does not mean endorsement/i],
+  ["/security", /separate what is live from what is planned/i],
 ] as const;
 
 for (const [route, heading] of routes) {
@@ -44,7 +44,7 @@ test("the installation story loads its photography and keeps non-affiliation cop
     .poll(() => hardware.evaluate((image: HTMLImageElement) => image.naturalWidth))
     .toBeGreaterThan(0);
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
-  await expect(page.getByText(/node-and-client system for running local models/i)).toBeVisible();
+  await expect(page.getByText(/local control app and broker for a dedicated AI node/i)).toBeVisible();
 });
 
 test("reduced motion lays the story out statically without scroll choreography", async ({ page }) => {
@@ -64,7 +64,7 @@ test("benchmarks are honest: coming soon until measured rows exist", async ({ pa
   await page.goto("/#benchmarks");
   const section = page.locator("#benchmarks");
   await expect(section.getByText(/measured, not marketed/i)).toBeVisible();
-  await expect(section.getByRole("link", { name: /benchmark method/i })).toBeVisible();
+  await expect(section.getByRole("link", { name: /publication rules/i })).toBeVisible();
 
   await page.goto("/benchmarks");
   const rows = page.locator("tbody tr");
@@ -72,16 +72,16 @@ test("benchmarks are honest: coming soon until measured rows exist", async ({ pa
   if ((await rows.count()) === 1 && (await comingSoon.count()) > 0) {
     await expect(comingSoon).toBeVisible();
   }
-  await expect(page.getByText(/median of at least five requests/i).first()).toBeVisible();
+  await expect(page.getByText(/if a number is not measured under a documented method/i).first()).toBeVisible();
 });
 
-test("pricing remains explicit and reduced motion is honored", async ({ page }) => {
+test("release status is explicit and reduced motion is honored", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/#plans");
+  await page.goto("/#release-status");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.getByRole("heading", { level: 3, name: /\$5.*month/i })).toBeVisible();
-  await expect(page.getByText("$48 annually when available.")).toBeVisible();
-  await expect(page.getByText(/security, routing, engines, local accounts, and accessibility are never Pro gates/i)).toBeVisible();
+  await expect(page.getByText(/there is no public download, paid plan, or marketplace to buy today/i)).toBeVisible();
+  await expect(page.getByText(/dates, pricing, and hosted services are not announced/i)).toBeVisible();
+  await expect(page.getByRole("link", { name: /request release access/i }).first()).toBeVisible();
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {

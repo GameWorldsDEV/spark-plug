@@ -7,11 +7,11 @@ const isIndexable = process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
   title: {
-    default: "Spark Plug — Route local AI without losing control",
+    default: "Spark Plug — Control the local AI node you own",
     template: "%s | Spark Plug",
   },
   description:
-    "A local-first model broker that connects agents to the AI hardware, tools, and creative workflows you already own.",
+    "A node-and-client control system for local AI models, media engines, profiles, queues, and authorized tools on hardware you own.",
   applicationName: "Spark Plug",
   keywords: [
     "local AI",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "Spark Plug",
-    title: "Spark Plug — Route local AI. Keep control.",
+    title: "Spark Plug — One control system for your local AI node.",
     description:
-      "One dependable path between your agents and the AI hardware, models, and creative tools you already own.",
+      "Pair clients, define workload profiles, apply them to the node, and observe real engine, model, queue, and memory state.",
     images: [
       {
         url: "/og.png",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Spark Plug — Route local AI. Keep control.",
+    title: "Spark Plug — One control system for your local AI node.",
     description:
-      "One dependable path between your agents and the AI hardware, models, and creative tools you already own.",
+      "Pair clients, define workload profiles, apply them to the node, and observe real engine, model, queue, and memory state.",
     images: ["/og.png"],
   },
   robots: { index: isIndexable, follow: isIndexable },

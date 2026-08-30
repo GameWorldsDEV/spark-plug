@@ -1,56 +1,57 @@
-import { LegalShell } from "../_components/legal-shell";
 import { detailMetadata } from "@/lib/metadata";
+import { LegalShell } from "../_components/legal-shell";
 
 export const metadata = detailMetadata(
-  "Terms preview",
-  "Prelaunch operating terms for the Spark Plug website, software, and community marketplace.",
+  "Pre-release notice",
+  "Current status and basic use conditions for the Spark Plug public preview website.",
   "/terms",
 );
 
 export default function TermsPage() {
   return (
     <LegalShell
-      eyebrow="PRELAUNCH TERMS / REVIEW DRAFT"
-      title="Clear rules for shared setups."
-      summary="These are transparent prelaunch terms for review. Final consumer, subscription, and marketplace terms must be published before accounts or payments open."
+      eyebrow="PUBLIC PREVIEW / NOT PRODUCT TERMS"
+      title="What this preview is—and is not."
+      summary="This website explains a product in development. It is not a software download, product account, subscription offer, marketplace, or promise of a release date."
     >
-      <h2>The software and the service</h2>
+      <h2>Current scope</h2>
       <p>
-        Spark Plug includes locally operated software and an optional hosted website
-        for accounts, subscriptions, public profiles, and setup discovery. The free
-        community program is separate from optional Pro visual features and the
-        creator marketplace.
+        You may read and link to this public preview for lawful purposes. Do not use
+        the site to probe, disrupt, overload, or bypass its security controls. The
+        product descriptions distinguish the working private build from the public
+        release still being prepared.
       </p>
 
-      <h2>Your systems and content</h2>
+      <h2>No public software license or purchase yet</h2>
       <p>
-        You control the models, hardware, tools, prompts, and outputs you operate.
-        You are responsible for securing those systems, reviewing requested setup
-        permissions, following model and software licenses, and ensuring that your
-        use complies with applicable law and the rights of others.
+        Visiting this site does not grant a license to unreleased Spark Plug source,
+        binaries, branding, or private product materials. No price, paid plan, hosted
+        account, marketplace listing, or payment checkout is currently offered here.
+        Final software licenses and any service terms must be published with the
+        corresponding release or service.
       </p>
 
-      <h2>Community and creator listings</h2>
-      <ul>
-        <li>Only publish content and configurations you have the right to distribute.</li>
-        <li>Never include credentials, private paths, user data, session history, or customer outputs.</li>
-        <li>Disclose dependencies, permissions, routes, and material compatibility limitations.</li>
-        <li>Do not claim affiliation or endorsement that does not exist.</li>
-        <li>Paid listings require Pro, a ready payout account, and published payout/refund terms.</li>
-        <li>Unverified publishers must remain clearly labeled; verification is a trust class, not a paid entitlement.</li>
-      </ul>
+      <h2>Product responsibility</h2>
+      <p>
+        When software is released, operators remain responsible for the models,
+        hardware, credentials, tools, prompts, outputs, and third-party services they
+        choose; for reviewing requested permissions; and for following applicable
+        software and model licenses. The release documentation will define the
+        supported installation target and known limitations.
+      </p>
 
       <h2>Availability and changes</h2>
       <p>
-        Prelaunch software may change, pause, or contain defects. No preview statement
-        guarantees a release date, compatibility target, marketplace fee, or feature.
-        Material paid-plan changes will be disclosed before renewal and handled under
-        the final subscription terms.
+        This preview and the product under development may change, pause, or contain
+        errors. A working feature in the private build is not automatically a promise
+        that it will appear in the first public release. Public support, pricing,
+        subscription, marketplace, refund, and consumer terms will be stated before
+        the relevant offer opens.
       </p>
 
       <h2>Contact</h2>
       <p>
-        Questions about these terms can be sent to{" "}
+        Questions about this notice can be sent to{" "}
         <a href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20terms">
           hello@gameworlds.ai
         </a>.

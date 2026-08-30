@@ -63,5 +63,6 @@
 .plans .sectionHead > p,
 .planGrid article > small,
 .planPromise { color: #99a49d; }
+.releaseCta{display:inline-block;margin-top:24px;padding:18px 24px;border:1px solid #0b120c;background:#0b120c;color:var(--lime);font-family:var(--mono);font-size:.66rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase}.releaseCta span{margin-left:10px}.releaseNote{margin-top:14px!important;font-family:var(--mono);font-size:.64rem!important}
 
 .releasePath .eyebrow { color: #254807; }

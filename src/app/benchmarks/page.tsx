@@ -6,7 +6,7 @@ import styles from "../page.module.css";
 
 export const metadata = detailMetadata(
   "Benchmarks",
-  "Model performance measured on our own DGX Spark by the Spark Plug broker. Coming soon — no reprinted leaderboards, no estimates.",
+  "Spark Plug benchmark publication rules and the current measured-results ledger. No estimates or copied leaderboard numbers.",
   "/benchmarks",
 );
 
@@ -27,13 +27,12 @@ export default function BenchmarksPage() {
 
       <div className={styles.benchHero}>
         <p className={styles.sectionIndex}>MEASURED, NOT MARKETED / COMING SOON</p>
-        <h1>Benchmarks measured on our own box.</h1>
+        <h1>No performance claims without a measured run.</h1>
         <p>
-          Every number that will appear on this page is produced by the Spark
-          Plug broker running a model on our own NVIDIA DGX Spark, with the
-          method and date attached. Nothing is reprinted from another
-          leaderboard, estimated, or projected — if we didn&rsquo;t measure
-          it, it isn&rsquo;t here.
+          Spark Plug does not have a public benchmark result yet. When a result
+          is published here, it will come from the Spark Plug broker on the
+          supported DGX Spark test node and include enough configuration and
+          method detail to explain what was actually measured.
         </p>
       </div>
 
@@ -43,7 +42,7 @@ export default function BenchmarksPage() {
       >
         <div className={styles.benchPanel}>
           <p className={styles.panelTag} id="bench-runs-title">
-            PUBLISHED RUNS / DGX SPARK
+            PUBLISHED RESULTS / CURRENTLY EMPTY
           </p>
           <div className={styles.benchTableWrap}>
             <table className={styles.benchTable}>
@@ -74,8 +73,8 @@ export default function BenchmarksPage() {
                     <td className={styles.benchComingSoon} colSpan={6}>
                       <strong>COMING SOON</strong>
                       <span>
-                        The first broker-signed runs land in these columns.
-                        The table stays empty until they do.
+                        No measured results have passed the publication gate.
+                        The table stays empty until one does.
                       </span>
                     </td>
                   </tr>
@@ -90,57 +89,37 @@ export default function BenchmarksPage() {
           <article className={styles.benchCard}>
             <p className={styles.panelTag}>THE TEST BENCH</p>
             <p>
-              All runs execute on a single NVIDIA DGX Spark — GB10 Grace
-              Blackwell, 128&nbsp;GB unified memory — driven end-to-end by the
-              Spark Plug broker, the same path your agents use. That means the
-              numbers include the queue, the ledger, and the real serving
-              stack, not a bare-metal best case.
+              The first supported test target is one NVIDIA DGX Spark with a
+              GB10 Grace Blackwell Superchip and 128&nbsp;GB unified memory.
+              Published tests will run through the broker and serving stack,
+              not a separate best-case command that bypasses the product.
             </p>
           </article>
           <article className={styles.benchCard}>
             <p className={styles.panelTag}>WHAT WILL BE REPORTED</p>
             <p>
-              Model and quantisation, the context window it ran at, prefill
-              and decode throughput, the measurement date, and the broker
-              build. Each row is reproducible from its method line: median of
-              at least five requests, greedy decode, otherwise-idle box.
+              Each result must name the node configuration, Spark Plug and
+              engine builds, model and quantization, context and output sizes,
+              concurrency, warm or cold state, request count, summary method,
+              and measurement date. Different test conditions are not merged.
             </p>
           </article>
           <article className={styles.benchCard}>
-            <p className={styles.panelTag}>READY FOR THE NEWEST QWEN</p>
+            <p className={styles.panelTag}>WHAT THE TABLE DOES NOT CLAIM</p>
             <p>
-              First candidates for the bench:{" "}
-              <a
-                href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
-                rel="noopener noreferrer"
-              >
-                Qwen3.6-35B-A3B
-              </a>{" "}
-              via{" "}
-              <a
-                href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-NVFP4"
-                rel="noopener noreferrer"
-              >
-                Unsloth&rsquo;s NVFP4 build
-              </a>
-              , with the community&rsquo;s{" "}
-              <a
-                href="https://huggingface.co/Koopah/Qwen3.6-35B-A3B-NVFP4-DSPARK"
-                rel="noopener noreferrer"
-              >
-                DGX-Spark-tuned speculative-decoding draft
-              </a>{" "}
-              alongside it.
+              An accepted request is not proof that a model was resident or
+              ready. A model&rsquo;s advertised context limit is not proof that
+              the full window was tested. An empty table means exactly that:
+              Spark Plug is making no public speed or capacity claim yet.
             </p>
           </article>
           <article className={styles.benchCard}>
-            <p className={styles.panelTag}>THE WIDER PICTURE</p>
+            <p className={styles.panelTag}>HOW TO READ A FUTURE RESULT</p>
             <p>
-              For independent, industry-wide comparisons, cross-reference{" "}
-              <a href="https://artificialanalysis.ai" rel="noopener noreferrer">
-                Artificial Analysis
-              </a>
-              . We link to their work instead of reprinting their data.
+              A result will describe one tested configuration, not every model,
+              prompt, context length, client, or DGX Spark installation. Use it
+              to reproduce that configuration—not as a universal performance
+              guarantee.
             </p>
           </article>
         </div>

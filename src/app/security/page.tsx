@@ -1,62 +1,65 @@
-import { LegalShell } from "../_components/legal-shell";
 import { detailMetadata } from "@/lib/metadata";
+import { LegalShell } from "../_components/legal-shell";
 
 export const metadata = detailMetadata(
   "Security boundary",
-  "The planned security model for Spark Plug accounts, setup manifests, entitlements, and local outputs.",
+  "What the current Spark Plug preview site does, and the security boundary the public node release must pass.",
   "/security",
 );
 
 export default function SecurityPage() {
   return (
     <LegalShell
-      eyebrow="SECURITY MODEL / PRELAUNCH"
-      title="Trust the wiring you can inspect."
-      summary="The hosted launch service is designed as a narrow account and marketplace plane. It does not need broad access to the local broker, model credentials, or private outputs."
+      eyebrow="SECURITY BOUNDARY / UPDATED AUGUST 30, 2026"
+      title="Separate what is live from what is planned."
+      summary="This preview is a public website, not a remote control plane for your node. The public software release must preserve node-owned authentication and keep private runtime state out of the public repository."
     >
-      <h2>Service boundary</h2>
+      <h2>This website today</h2>
       <ul>
-        <li>Vercel serves the site and server routes; secrets remain server-only.</li>
-        <li>Supabase Row Level Security scopes private records to their owner.</li>
-        <li>Stripe webhooks, not browser claims, authoritatively update paid entitlements.</li>
-        <li>The local Spark Plug broker remains the authority for model capability facts and output provenance.</li>
+        <li>Vercel serves this no-index preview and its server routes.</li>
+        <li>There is no public product account, payment checkout, marketplace, or node connection on this site.</li>
+        <li>The release-access button opens your email application; it does not submit an address to a site database.</li>
+        <li>This site does not need node credentials, local prompts, model files, or private outputs.</li>
       </ul>
 
-      <h2>Setup manifest safety</h2>
+      <h2>The node and client boundary</h2>
       <p>
-        Public setup packs should be declarative, versioned, checksummed, and scrubbed.
-        The installer must show routes, dependencies, tools, requested filesystem or
-        network access, and the publisher identity before mutation. Secret fields,
-        host-specific paths, and session data are rejected at publication time.
+        A Spark Plug account belongs to a specific node. Discovery may locate that
+        node, but it does not authenticate a client. Enrollment and credentials use
+        the node&rsquo;s reviewed HTTPS path. Optional Tailscale connectivity can make
+        the node reachable; it does not replace Spark Plug authentication.
       </p>
 
-      <h2>Entitlements and payments</h2>
+      <h2>Runtime authority</h2>
       <p>
-        Product entitlements are derived from a server-owned subscription record.
-        Client UI flags are presentation only and never authorize premium downloads,
-        creator payouts, or private profile reads. Payment events are processed
-        idempotently and retained with provider event identifiers for audit.
+        The broker on the node is authoritative for the active profile, engine and
+        model state, queue state, memory admission, and output provenance. A client
+        must not convert an accepted request into a false &ldquo;ready&rdquo; state or
+        invent model capabilities that the engine did not report.
+      </p>
+
+      <h2>Public release controls</h2>
+      <p>
+        Public source is extracted into a clean repository through an allowlisted
+        review. Credentials, profiles, prompts, outputs, histories, node identities,
+        addresses, private routes, internal paths, and deployment topology are
+        excluded. Installer artifacts must be versioned and checksummed, show their
+        requested changes, and pass preflight checks before mutating a node.
       </p>
 
       <h2>Report a vulnerability</h2>
       <p>
-        Send a concise report, affected surface, reproduction steps, and expected
-        impact to{" "}
+        Send the affected surface, reproduction steps, and expected impact to{" "}
         <a href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20security%20report">
           hello@gameworlds.ai
         </a>. Do not include live credentials, private user data, or destructive proof.
       </p>
-      <h2>Release qualification</h2>
+
+      <h2>Claim qualification</h2>
       <p>
-        Features are described as available only after source review, a clean
-        installation check, and a real runtime canary. Work still crossing those
-        gates is labeled qualifying or omitted from release claims.
-      </p>
-      <p>
-        The public edition is produced from reviewed, allowlisted changes and a
-        dedicated secret and provenance scrub. Private credentials, profiles,
-        routes, node identities, histories, and internal addresses are never
-        public release inputs.
+        A feature is a public release claim only after source review, installation
+        validation on the supported target, and a real runtime canary. Work still
+        crossing those gates is labeled in qualification or omitted.
       </p>
     </LegalShell>
   );
