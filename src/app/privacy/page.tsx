@@ -38,6 +38,16 @@ export default function PrivacyPage() {
         or analytics cookie.
       </p>
 
+      <h2>Rabbit R1 model viewer</h2>
+      <p>
+        The Rabbit R1 section loads an interactive 3D model from Sketchfab. When
+        that section loads, the browser contacts Sketchfab and may send ordinary
+        request information such as IP address, browser and device details,
+        referrer, and time. The viewer is requested with Sketchfab&rsquo;s do-not-track
+        option, but Sketchfab remains an independent third-party service governed
+        by its own terms and privacy practices.
+      </p>
+
       <h2>What this site does not collect by default</h2>
       <ul>
         <li>Local prompts, model conversations, or agent session history.</li>

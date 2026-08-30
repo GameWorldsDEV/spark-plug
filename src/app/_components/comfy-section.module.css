@@ -248,7 +248,7 @@
 .arbitration > p:not(.eyebrow) { margin-top: 20px; color: #a7b0a8; font-size: .96rem; line-height: 1.58; }
 .arbitration ol { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 26px; border-top: 1px solid #303a31; border-left: 1px solid #303a31; list-style: none; }
 .arbitration li { display: grid; gap: 8px; min-width: 0; padding: 14px 10px; border-right: 1px solid #303a31; border-bottom: 1px solid #303a31; }
-.arbitration li span, .arbitration li small { color: #6c786e; font-size: .47rem; }
+.arbitration li span, .arbitration li small { color: #849188; font-size: .47rem; }
 .arbitration li strong { color: #f2ff59; font-size: .58rem; letter-spacing: .07em; }
 .arbitration li small { overflow-wrap: anywhere; line-height: 1.35; text-transform: uppercase; }
 .boundary { max-width: 1480px; margin: 30px auto 0; color: #59614f; font-size: .53rem; letter-spacing: .06em; line-height: 1.55; text-transform: uppercase; }

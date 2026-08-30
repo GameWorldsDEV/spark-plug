@@ -12,7 +12,7 @@ const beats = [
 ] as const;
 
 const toolMarks = [
-  ["OpenClaw", "/integrations/openclaw.svg"], ["Hermes", "/integrations/hermes.svg"],
+  ["OpenClaw", "/integrations/openclaw.svg"], ["Hermes", "/integrations/hermes.png"],
   ["Paperclip", "/integrations/paperclip.svg"], ["Codex", "/integrations/codex.svg"],
   ["Claude Code", "/integrations/claude-code.svg"],
 ] as const;
@@ -69,7 +69,8 @@ export function Story() {
           <div className={styles.installCard}><b>SP</b><span><strong>SPARK PLUG</strong><small>INSTALLING ON DGX SPARK</small></span><i /></div>
           <div className={styles.engineRail}>
             <span><b>vLLM</b><small>QUALIFIED FIRST</small></span><span><b>COLIBRI</b><small>WORKING BUILD</small></span>
-            <span><b>COMFYUI</b><small>WORKING BUILD</small></span><span><b>MLX + OLLAMA</b><small>PLANNED</small></span>
+            <span><b>COMFYUI</b><small>WORKING BUILD</small></span><span><b>MLX</b><small>PLANNED / MAC</small></span>
+            <span><b>OLLAMA</b><small>PLANNED</small></span>
           </div>
           <div className={styles.profileDeck}>
             <article><small>PROFILE 01</small><strong>CODE</strong><span>vLLM · Qwen</span></article>

@@ -35,8 +35,8 @@ export default function TrademarksPage() {
       <p>
         Apple, macOS, iPhone, iPad, Android, Rabbit, Rabbit R1, Tailscale, OpenAI,
         Codex, Anthropic, Claude, Claude Code, NVIDIA NeMo, Switchyard, OpenClaw,
-        Hermes, Paperclip, vLLM, ComfyUI, TRELLIS, Colibri, MLX, Ollama, Vercel,
-        and other names are marks of their respective owners where applicable.
+        Hermes, Paperclip, vLLM, ComfyUI, TRELLIS, Colibri, MLX, Ollama, Headscale,
+        Sketchfab, Vercel, and other names are marks of their respective owners where applicable.
         Compatibility references do not imply endorsement, certification, or a
         commercial relationship.
       </p>

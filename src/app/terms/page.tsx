@@ -56,6 +56,13 @@ export default function TermsPage() {
         what information they submit through the device and for reviewing the
         permissions granted to the connected computer and harness.
       </p>
+      <p>
+        The public preview embeds the &ldquo;Rabbit R1 | AI&rdquo; 3D model by
+        Sketchfab creator ItsKevin under the Creative Commons Attribution 4.0
+        license. The viewer loads from Sketchfab automatically, remains subject to
+        Sketchfab&rsquo;s service terms, and does not imply affiliation with Rabbit,
+        Teenage Engineering, Sketchfab, or the model creator.
+      </p>
 
       <h2>Availability and changes</h2>
       <p>

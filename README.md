@@ -17,15 +17,18 @@ after clean-room extraction and qualification.
 
 ## How the product works
 
-1. **Pair** — enroll a browser, Mac, iPhone, or iPad client to one node over its
-   HTTPS authentication path.
-2. **Build** — select models and save vLLM, Colibri, ComfyUI, memory, context,
+1. **Install and pair** — install Spark Plug, then enroll an authorized browser,
+   Mac, iPhone, or iPad control surface to one node over its HTTPS path.
+2. **Download models** — choose the models each qualified or working-build
+   engine needs for the work you intend to run.
+3. **Create profiles** — save vLLM, Colibri, ComfyUI, memory, context,
    streaming, concurrency, residency, media, and allowed routing settings as a
    profile.
-3. **Apply** — validate the profile against the selected compute target, then
+4. **Switch profiles** — validate a complete reusable workflow against the
+   selected compute target, then
    start or stop the required services without confusing accepted, loading, and
    ready states.
-4. **Work** — authorized apps and agents submit work through stable broker
+5. **Run work** — authorized apps and agents submit work through stable broker
    routes while engine-specific queues, memory, failures, and results remain
    observable.
 
@@ -51,12 +54,14 @@ to the first public package.
 | Area | Purpose |
 | --- | --- |
 | `src/app` | Public website and inactive hosted-service routes |
+| `src/app/why-spark-plug` | Local-ownership, safety, infrastructure, and authorization explainer |
 | `contracts` | Versioned public API contracts |
 | `schemas` | Deny-by-default setup and entitlement schemas |
 | `supabase` | Dedicated public-service migrations and RLS tests; not activated |
 | `docs/PRODUCT.md` | Actual product workflow, support target, and current limits |
 | `docs/CONNECTIONS.md` | Broker, Switchyard, harness, remote-device, and Rabbit R1 boundaries |
 | `docs/BRAND-ASSETS.md` | Third-party compatibility-mark provenance and usage boundary |
+| `docs/HOMEPAGE-REDESIGN-PLAN.md` | Implemented homepage structure, truth boundaries, and visual gates |
 | `docs/RELEASE-PLAN.md` | Clean-room code handoff and release gates |
 | `docs/BILLING.md` | Supabase/Stripe/entitlement separation and activation checklist |
 | `docs/GITHUB.md` | Repository automation, traffic/stars policy, and release use |

@@ -38,7 +38,7 @@ export default function WhySparkPlugPage() {
     <main className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="Spark Plug home"><BrandLogo className={styles.brandLogo} /></Link>
-        <Link className={styles.back} href="/#product">← Back to the product</Link>
+        <Link className={styles.back} href="/#profile-workflow">← Back to the product</Link>
       </header>
 
       <section className={styles.hero} aria-labelledby="why-title">

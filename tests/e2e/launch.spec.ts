@@ -2,7 +2,8 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 const routes = [
-  ["/", /own the node.*run the work/i],
+  ["/", /your local ai.*one control hub/i],
+  ["/why-spark-plug", /local ai should feel owned—not improvised/i],
   ["/benchmarks", /no performance claims without a measured run/i],
   ["/privacy", /what this site collects today/i],
   ["/terms", /what this preview is—and is not/i],
@@ -15,15 +16,21 @@ for (const [route, heading] of routes) {
     await page.goto(route);
     await expect(page.getByRole("heading", { level: 1, name: heading })).toBeVisible();
 
-    const results = await new AxeBuilder({ page }).analyze();
+    // Sketchfab owns the document inside its cross-origin viewer. Audit the
+    // public-site DOM here; the iframe contract is verified separately below.
+    const results = await new AxeBuilder({ page }).exclude("iframe").analyze();
     expect(results.violations).toEqual([]);
   });
 }
 
 test("homepage works without horizontal overflow at phone, tablet, and desktop widths", async ({ page }) => {
   for (const viewport of [
+    { width: 320, height: 700 },
+    { width: 375, height: 812 },
     { width: 390, height: 844 },
-    { width: 820, height: 1180 },
+    { width: 430, height: 932 },
+    { width: 768, height: 1024 },
+    { width: 1280, height: 640 },
     { width: 1440, height: 900 },
   ]) {
     await page.setViewportSize(viewport);
@@ -35,37 +42,33 @@ test("homepage works without horizontal overflow at phone, tablet, and desktop w
   }
 });
 
-test("the product story loads its photography and keeps non-affiliation copy", async ({ page }) => {
+test("the product story presents the real workflow and keeps non-affiliation copy", async ({ page }) => {
   await page.goto("/");
-  const hardware = page.getByRole("img", {
-    name: /first supported Spark Plug node/i,
-  }).first();
-  await expect
-    .poll(() => hardware.evaluate((image: HTMLImageElement) => image.naturalWidth))
-    .toBeGreaterThan(0);
+  await expect(page.getByRole("link", { name: /download for dgx spark/i })).toHaveAttribute("href", "#release");
+  await expect(page.getByRole("link", { name: /see how profiles work/i })).toHaveAttribute("href", "#profile-workflow");
+  for (const step of ["Install Spark Plug", "Download models", "Create profiles", "Switch profiles", "Run work"]) {
+    await expect(page.getByRole("heading", { level: 3, name: step })).toBeVisible();
+  }
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
-  await expect(page.getByText(/local control app and GW Broker/i).first()).toBeVisible();
 });
 
-test("approved integration marks load beside their visible names", async ({ page }) => {
-  await page.goto("/#workflow");
-  const harness = page.getByLabel("Compatible agent and coding harnesses");
-  for (const name of ["OPENCLAW", "HERMES", "PAPERCLIP", "CODEX", "CLAUDE CODE"]) {
-    await expect(harness.getByText(name, { exact: true })).toBeVisible();
+test("compatible tool links and endpoint boundaries are explicit", async ({ page }) => {
+  await page.goto("/#tools");
+  const tools = page.getByLabel("Compatible tools");
+  for (const name of ["OpenClaw", "Hermes Agent", "Paperclip", "Codex", "Claude Code"]) {
+    await expect(tools.getByRole("link", { name: new RegExp(name, "i") })).toBeVisible();
   }
-  const marks = harness.locator("img");
-  await expect(marks).toHaveCount(5);
-  for (let index = 0; index < 5; index += 1) {
-    await expect.poll(() => marks.nth(index).evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
-  }
+  await expect(page.getByText("OpenAI-compatible endpoint", { exact: true })).toBeVisible();
+  await expect(page.getByText("Anthropic-compatible endpoint", { exact: true })).toBeVisible();
+  await expect(page.getByText(/not a partnership or endorsement/i)).toBeVisible();
 });
 
 test("reduced motion lays the story out statically without scroll choreography", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.getByRole("heading", { level: 1, name: /own the node.*run the work/i })).toBeVisible();
-  await expect(page.getByRole("img", { name: /first supported Spark Plug node/i }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /your local ai.*one control hub/i })).toBeVisible();
+  await expect(page.getByText("Install Spark Plug.", { exact: true }).last()).toBeVisible();
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
   const storyIsStatic = await page.locator("section").first().evaluate(
     (section) => section.getBoundingClientRect().height < window.innerHeight * 3,
@@ -90,7 +93,7 @@ test("release status is explicit, platform-aware, and reduced motion is honored"
   await expect(page.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
   await expect(page.getByRole("button", { name: /preparing first release/i })).toBeDisabled();
   await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(3);
-  await expect(page.getByText(/your device/i).last()).toBeVisible();
+  await expect(page.getByLabel("Spark Plug platform releases").locator("article")).toHaveCount(4);
 });
 
 test("the public release manifest never exposes an unfinished download", async ({ request }) => {
@@ -105,19 +108,39 @@ test("the public release manifest never exposes an unfinished download", async (
   }
 });
 
-test("the redesigned desktop homepage stays within twelve viewport heights", async ({ page }) => {
+test("downloads follow the hero and the redesigned desktop page stays compact", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
+  const order = await page.evaluate(() => {
+    const story = document.querySelector("section");
+    const release = document.querySelector("#release");
+    return story?.nextElementSibling === release;
+  });
+  expect(order).toBe(true);
   const screenCount = await page.evaluate(
     () => document.documentElement.scrollHeight / window.innerHeight,
   );
-  expect(screenCount).toBeLessThanOrEqual(12);
+  expect(screenCount).toBeLessThanOrEqual(18);
+});
+
+test("the Rabbit viewer uses the narrow embed contract, attribution, and reduced-motion fallback", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/#rabbit-r1");
+  const viewer = page.getByTitle("Interactive 3D model of the Rabbit R1");
+  await expect(viewer).toHaveAttribute("src", /sketchfab\.com\/models\/603e8491e9494904827369f6408a265a\/embed/);
+  await expect(viewer).toHaveAttribute("src", /autostart=1/);
+  await expect(viewer).toHaveAttribute("src", /autospin=0/);
+  await expect(viewer).toHaveAttribute("src", /scrollwheel=0/);
+  await expect(viewer).toHaveAttribute("src", /dnt=1/);
+  await expect(page.getByText(/Rabbit R1 \| AI by ItsKevin on Sketchfab/i)).toBeVisible();
+  await expect(page.getByText(/viewer loads automatically and contacts Sketchfab/i)).toBeVisible();
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {
   const response = await request.get("/");
   expect(response.ok()).toBe(true);
   expect(response.headers()["content-security-policy"]).toContain("frame-ancestors 'none'");
+  expect(response.headers()["content-security-policy"]).toContain("frame-src https://sketchfab.com");
   expect(response.headers()["x-content-type-options"]).toBe("nosniff");
   expect(response.headers()["x-frame-options"]).toBe("DENY");
   expect(response.headers()["x-robots-tag"]).toBe("noindex, nofollow");

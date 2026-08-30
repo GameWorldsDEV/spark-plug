@@ -106,9 +106,9 @@
   text-transform: uppercase;
 }
 
-[data-route="fast"] { --route-color: var(--fast); }
-[data-route="code"] { --route-color: var(--code); }
-[data-route="background"] { --route-color: var(--background); }
+.section [data-route="fast"] { --route-color: var(--fast); }
+.section [data-route="code"] { --route-color: var(--code); }
+.section [data-route="background"] { --route-color: var(--background); }
 
 .explicitCard { --route-color: var(--explicit); border-style: dashed; }
 
