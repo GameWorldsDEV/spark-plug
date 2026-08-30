@@ -5,11 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./story.module.css";
 
 const beats = [
-  { label: "PAIR", title: "Connect your tools.", copy: "Enroll a browser, native client, or compatible agent harness to one exact node over HTTPS." },
-  { label: "PROFILE", title: "Shape the workload.", copy: "Choose models and tune each engine’s context, concurrency, streaming, residency, media, and routing policy." },
-  { label: "APPLY", title: "Prove that it fits.", copy: "GW Broker checks the complete plan against live capacity before it changes models or runtime state." },
-  { label: "WORK", title: "Route and observe.", copy: "Send work through stable endpoints while engines, queues, memory, and results remain visible." },
-];
+  { label: "INSTALL", title: "Install Spark Plug.", copy: "Start with one control app on your DGX Spark. Add only the engines that match the work you want to run." },
+  { label: "PROFILES", title: "Build your workflows.", copy: "Combine models from separate engines in one saved profile, then switch the whole workload without rebuilding it by hand." },
+  { label: "AGENTS", title: "Connect your agents.", copy: "Give compatible agent and coding tools stable OpenAI-compatible or Anthropic-compatible endpoints through GW Broker." },
+  { label: "ROUTE", title: "Send work to the right model.", copy: "GW Broker admits and observes every request. Optional NVIDIA NeMo Switchyard routing selects only from models approved by the active profile." },
+] as const;
+
+const toolMarks = [
+  ["OpenClaw", "/integrations/openclaw.svg"], ["Hermes", "/integrations/hermes.svg"],
+  ["Paperclip", "/integrations/paperclip.svg"], ["Codex", "/integrations/codex.svg"],
+  ["Claude Code", "/integrations/claude-code.svg"],
+] as const;
 
 export function Story() {
   const root = useRef<HTMLElement>(null);
@@ -24,8 +30,9 @@ export function Story() {
       const rect = node.getBoundingClientRect();
       const distance = Math.max(1, node.offsetHeight - window.innerHeight);
       const progress = Math.min(1, Math.max(0, -rect.top / distance));
+      const nextStage = Math.min(beats.length - 1, Math.floor(progress * beats.length));
       node.style.setProperty("--story-progress", String(progress));
-      setStage(Math.min(3, Math.floor(progress * 4.1)));
+      setStage((current) => current === nextStage ? current : nextStage);
     };
     const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
     update();
@@ -42,52 +49,47 @@ export function Story() {
     <section className={styles.story} ref={root} aria-labelledby="story-title">
       <div className={styles.sticky}>
         <div className={styles.grid} aria-hidden="true" />
-        <div className={styles.heroCopy}>
-          <p>LOCAL AI / ONE CONTROL SYSTEM</p>
-          <h1 id="story-title">Own the node.<br /><em>Run the work.</em></h1>
-          <span>GW Broker for models, media, agents, and devices</span>
-        </div>
+        <header className={styles.heroCopy}>
+          <p>SPARK PLUG / LOCAL AI CONTROL</p>
+          <h1 id="story-title">Your local AI.<br /><em>One control hub.</em></h1>
+          <span>Install Spark Plug, download your models, build multi-engine profiles, and manage your AI machine from one place.</span>
+          <div className={styles.actions}>
+            <a href="#release">Download for DGX Spark</a>
+            <a href="#profile-workflow">See how profiles work <b aria-hidden="true">↓</b></a>
+          </div>
+        </header>
 
-        <div className={styles.machineStage} data-stage={stage}>
-          <div className={styles.aura} aria-hidden="true"><i /><i /><i /></div>
-          <div className={styles.orbits} aria-hidden="true"><i /><i /><i /></div>
-          <div className={styles.particles} aria-hidden="true">
-            {Array.from({ length: 12 }).map((_, index) => <i key={index} />)}
-          </div>
-          <div className={styles.downloadPacket} aria-hidden="true">
-            <span>SP</span><div><strong>SPARK PLUG</strong><small>release candidate</small></div><b>↓</b>
-          </div>
-          <div className={styles.installBeam} aria-hidden="true"><i /></div>
+        <div className={styles.machineStage} data-stage={stage} aria-hidden="true">
+          <div className={styles.aura}><i /><i /><i /></div>
+          <div className={styles.orbits}><i /><i /><i /></div>
           <div className={styles.machine}>
-            <Image src="/dgx/dgx-spark-quarter.webp" width={1430} height={1430} priority sizes="(max-width: 800px) 108vw, 62vw" alt="NVIDIA DGX Spark, the first supported Spark Plug node" />
-            <div className={styles.powerWash} aria-hidden="true" />
-            <div className={styles.scanLine} aria-hidden="true" />
+            <Image src="/dgx/dgx-spark-quarter.webp" width={1430} height={1430} priority sizes="(max-width: 800px) 108vw, 62vw" alt="" />
+            <div className={styles.powerWash} /><div className={styles.scanLine} />
           </div>
-          <div className={styles.machineStatus}><i /><span>{["PREFLIGHT CHECK", "CLIENT ENROLLED", "PROFILE APPLYING", "RUNTIME OBSERVED"][stage]}</span></div>
-          <div className={styles.routeBurst} aria-hidden="true"><i /><i /><i /><i /></div>
+          <div className={styles.installCard}><b>SP</b><span><strong>SPARK PLUG</strong><small>INSTALLING ON DGX SPARK</small></span><i /></div>
+          <div className={styles.engineRail}>
+            <span><b>vLLM</b><small>QUALIFIED FIRST</small></span><span><b>COLIBRI</b><small>WORKING BUILD</small></span>
+            <span><b>COMFYUI</b><small>WORKING BUILD</small></span><span><b>MLX + OLLAMA</b><small>PLANNED</small></span>
+          </div>
+          <div className={styles.profileDeck}>
+            <article><small>PROFILE 01</small><strong>CODE</strong><span>vLLM · Qwen</span></article>
+            <article><small>PROFILE 02</small><strong>CREATIVE</strong><span>vLLM + ComfyUI</span></article>
+            <article><small>PROFILE 03</small><strong>BACKGROUND</strong><span>Colibri · GLM</span></article>
+          </div>
+          <div className={styles.toolCloud}>
+            {toolMarks.map(([name, icon]) => <span key={name}><Image src={icon} width={34} height={34} alt="" unoptimized /><b>{name}</b></span>)}
+          </div>
+          <div className={styles.routeMap}><span>AGENTS</span><i /><strong>GW<br />BROKER</strong><i /><b>SWITCHYARD</b><i /><span>APPROVED<br />MODELS</span></div>
+          <div className={styles.machineStatus}><i /><span>{["INSTALLING", "PROFILE READY", "TOOLS CONNECTED", "ROUTING OBSERVED"][stage]}</span></div>
         </div>
 
-        <div className={styles.terminal} data-stage={stage} aria-hidden="true">
-          <div><i /><i /><i /><span>GW BROKER / ACTIVE PROFILE</span></div>
-          <p data-done={stage >= 0}><b>01</b> client enrolled to one exact node</p>
-          <p data-done={stage >= 1}><b>02</b> engine settings saved in one profile</p>
-          <p data-done={stage >= 2}><b>03</b> combined capacity checked before apply</p>
-          <p data-done={stage >= 3}><b>04</b> requests, queues, and state observable</p>
+        <div className={styles.beats} aria-live="polite">
+          {beats.map((beat, index) => <article key={beat.label} data-active={stage === index} aria-hidden={stage !== index}><p>{String(index + 1).padStart(2, "0")} / {beat.label}</p><h2>{beat.title}</h2><span>{beat.copy}</span></article>)}
         </div>
-
-        <div className={styles.beats}>
-          {beats.map((beat, index) => (
-            <article key={beat.label} data-active={stage === index}>
-              <p>{String(index + 1).padStart(2, "0")} / {beat.label}</p>
-              <h2>{beat.title}</h2>
-              <span>{beat.copy}</span>
-            </article>
-          ))}
+        <div className={styles.staticStory}>
+          {beats.map((beat, index) => <article key={beat.label}><p>{String(index + 1).padStart(2, "0")} / {beat.label}</p><h2>{beat.title}</h2><span>{beat.copy}</span></article>)}
         </div>
-
-        <div className={styles.progress} aria-hidden="true">
-          <span /><div>{beats.map((beat, index) => <i key={beat.label} data-active={stage >= index} />)}</div>
-        </div>
+        <div className={styles.progress} aria-hidden="true"><span /><div>{beats.map((beat, index) => <i key={beat.label} data-active={stage >= index} />)}</div></div>
         <p className={styles.disclaimer}>Real DGX Spark development hardware. Spark Plug is independent software and is not affiliated with NVIDIA.</p>
       </div>
     </section>
