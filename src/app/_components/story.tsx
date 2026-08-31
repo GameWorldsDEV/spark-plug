@@ -82,7 +82,12 @@ export function Story() {
           </div>
         </header>
 
-        <div className={styles.scene} data-stage={stage} aria-hidden="true">
+        <div
+          className={styles.scene}
+          data-stage={stage}
+          data-intro={!started || undefined}
+          aria-hidden="true"
+        >
           <div className={styles.installStack}>
             <div className={styles.appCard}><BrandLogo className={styles.appLogo} /><span><small>SPARK PLUG APP</small><strong>DOWNLOADING TO DGX</strong></span><b><i /></b></div>
             <div className={styles.greenPath}><i /><i /><i /></div>

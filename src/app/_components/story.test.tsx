@@ -10,7 +10,8 @@ describe("Story", () => {
     expect(storyStages.map(({ status }) => status)).toEqual([
       "APP DOWNLOADING", "ENGINES CONFIGURING", "AGENTS CONNECTED", "MODELS DOWNLOADING", "CAPACITY CHECKED", "LOCAL AI READY",
     ]);
-    render(<Story />);
+    const { container } = render(<Story />);
+    expect(container.querySelector('[data-stage="0"][data-intro="true"]')).toBeTruthy();
     for (const item of storyStages) {
       expect(screen.getAllByRole("heading", { name: item.title, hidden: true }).length).toBeGreaterThan(0);
       expect(screen.getAllByText(item.status).length).toBeGreaterThan(0);
