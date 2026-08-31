@@ -9,6 +9,25 @@ const MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const MODEL_ID = "603e8491e9494904827369f6408a265a";
 const MODEL_URL = "https://sketchfab.com/3d-models/rabbit-r1-ai-603e8491e9494904827369f6408a265a";
 const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
+const RABBIT_AGENT_DOCS = "https://www.rabbit.tech/support/article/agents-on-rabbit-r1";
+
+export const rabbitOutboundPath = [
+  ["Rabbit R1", "VOICE OR TEXT"],
+  ["Rabbit service", "PROMPT CROSSES CLOUD"],
+  ["Rabbit Agent", "ENROLLED COMPUTER"],
+  ["Supported harness", "OPENCLAW · HERMES · CLAUDE CODE"],
+  ["GW Broker", "AUTHENTICATE + ADMIT"],
+  ["Approved local engine/model", "INFERENCE MAY RUN LOCALLY"],
+] as const;
+
+export const rabbitReturnPath = [
+  ["Approved local engine/model", "RESPONSE CREATED"],
+  ["GW Broker", "RESULT OBSERVED"],
+  ["Supported harness", "SESSION RESULT"],
+  ["Rabbit Agent", "ENROLLED COMPUTER"],
+  ["Rabbit service", "RESPONSE CROSSES CLOUD"],
+  ["Rabbit R1", "ANSWER RETURNS"],
+] as const;
 
 function subscribeToMotion(callback: () => void) {
   const query = window.matchMedia(MOTION_QUERY);
@@ -55,81 +74,117 @@ export function RabbitSection() {
 
   return (
     <section className={styles.section} id="rabbit-r1" aria-labelledby="rabbit-title">
-      <div className={styles.viewerColumn}>
-        <div className={styles.viewerShell}>
-          <div
-            className={styles.staticFallback}
-            aria-hidden={!viewerFailed}
-          >
-            <div
-              className={styles.fallbackDevice}
-              role={viewerFailed ? "img" : undefined}
-              aria-label={viewerFailed ? "Static Rabbit R1 preview" : undefined}
-            >
-              <span>r1</span>
-              <i aria-hidden="true" />
-              <strong>SPARK PLUG</strong>
-            </div>
-            {viewerFailed && (
-              <p>
-                The interactive model could not load.{" "}
-                <a href={MODEL_URL} rel="noopener noreferrer">View it on Sketchfab ↗</a>
-              </p>
-            )}
+      <div className={styles.intro}>
+        <div className={styles.copy}>
+          <p className={styles.eyebrow}>RABBIT R1 / INTEGRATION-FEASIBILITY PREVIEW</p>
+          <h2 id="rabbit-title">Ask on Rabbit. Run approved work at home.</h2>
+          <p className={styles.lead}>
+            Rabbit documents a way to reach supported agents on an enrolled
+            computer. Spark Plug is evaluating that path so an approved harness
+            could submit work to local models through GW Broker.
+          </p>
+          <div className={styles.previewState}>
+            <span>CANARY REQUIRED</span>
+            <p>This is a feasibility route—not a supported-today Spark Plug integration.</p>
           </div>
-
-          {!viewerFailed && (
-            <iframe
-              ref={viewerRef}
-              key={reducedMotion ? "reduced" : "animated"}
-              className={styles.viewer}
-              title="Interactive 3D model of the Rabbit R1"
-              src={getRabbitEmbedUrl(reducedMotion)}
-              allow="autoplay; fullscreen; xr-spatial-tracking"
-              allowFullScreen
-            />
-          )}
-
-          <div className={styles.viewerLabel} aria-hidden="true">
-            <span>INTERACTIVE MODEL</span>
-            <strong>{reducedMotion ? "ROTATION OFF" : "GENTLE ROTATION"}</strong>
-          </div>
+          <p className={styles.integrationBoundary}>
+            Inference may run locally after the prompt reaches the enrolled
+            computer. Both the prompt and the response still cross Rabbit
+            infrastructure, and Spark Plug authentication still applies.
+          </p>
+          <p className={styles.rabbitLinks}>
+            <a href={RABBIT_AGENT_DOCS} rel="noopener noreferrer">Rabbit Agent documentation ↗</a>
+            <Link href="/terms#rabbit-r1">Read the complete disclosure</Link>
+          </p>
+          <p className={styles.nonAffiliation}>
+            Independent compatibility exploration. No Rabbit partnership,
+            sponsorship, or endorsement.
+          </p>
         </div>
 
-        <p className={styles.attribution}>
-          <a href={MODEL_URL} rel="noopener noreferrer">Rabbit R1 | AI</a>
-          {" by ItsKevin on Sketchfab — "}
-          <a href={LICENSE_URL} rel="noopener noreferrer">CC BY 4.0</a>.
-        </p>
+        <div className={styles.viewerColumn}>
+          <div className={styles.viewerShell}>
+            <div className={styles.staticFallback} aria-hidden={!viewerFailed}>
+              <div
+                className={styles.fallbackDevice}
+                role={viewerFailed ? "img" : undefined}
+                aria-label={viewerFailed ? "Static Rabbit R1 preview" : undefined}
+              >
+                <span>r1</span><i aria-hidden="true" /><strong>SPARK PLUG</strong>
+              </div>
+              {viewerFailed && (
+                <p>The interactive model could not load. <a href={MODEL_URL} rel="noopener noreferrer">View it on Sketchfab ↗</a></p>
+              )}
+            </div>
+
+            {!viewerFailed && (
+              <iframe
+                ref={viewerRef}
+                key={reducedMotion ? "reduced" : "animated"}
+                className={styles.viewer}
+                title="Interactive 3D model of the Rabbit R1"
+                src={getRabbitEmbedUrl(reducedMotion)}
+                allow="autoplay; fullscreen; xr-spatial-tracking"
+                allowFullScreen
+              />
+            )}
+
+            <div className={styles.viewerLabel} aria-hidden="true">
+              <span>INTERACTIVE MODEL</span>
+              <strong>{reducedMotion ? "ROTATION OFF" : "GENTLE ROTATION"}</strong>
+            </div>
+          </div>
+          <p className={styles.attribution}>
+            <a href={MODEL_URL} rel="noopener noreferrer">Rabbit R1 | AI</a>
+            {" by ItsKevin on Sketchfab — "}
+            <a href={LICENSE_URL} rel="noopener noreferrer">CC BY 4.0</a>.
+          </p>
+          <p className={styles.viewerPrivacy}>
+            The 3D viewer loads automatically and contacts Sketchfab.
+            Sketchfab&apos;s terms and privacy practices apply.
+          </p>
+        </div>
       </div>
 
-      <div className={styles.copy}>
-        <p className={styles.eyebrow}>RABBIT R1 / INTEGRATION PREVIEW</p>
-        <h2 id="rabbit-title">Bring Spark Plug to your Rabbit R1.</h2>
-        <p className={styles.lead}>
-          Start from the handheld you already carry, then send approved work to
-          the Spark Plug broker and models running on your own machine.
-        </p>
+      <div className={styles.roundTrip}>
+        <header>
+          <div><p className={styles.eyebrow}>THE COMPLETE BOUNDARY</p><h3>One prompt. One response. Two cloud crossings.</h3></div>
+          <p>Rabbit&apos;s public documentation names Rabbit Agent and supported third-party harnesses. The exact Spark Plug route remains subject to enrollment, authentication, endpoint compatibility, and a real canary.</p>
+        </header>
 
-        <div className={styles.flow} aria-label="Rabbit R1 request path">
-          <div><span>01</span><strong>ASK</strong><small>Rabbit R1</small></div>
-          <i aria-hidden="true">→</i>
-          <div><span>02</span><strong>TRANSPORT</strong><small>Rabbit service</small></div>
-          <i aria-hidden="true">→</i>
-          <div><span>03</span><strong>RUN</strong><small>Spark Plug node</small></div>
+        <div className={styles.pathGroup}>
+          <div className={styles.pathLabel}><span>01</span><strong>PROMPT / OUTBOUND</strong><small>toward local inference</small></div>
+          <ol className={styles.path} aria-label="Rabbit prompt outbound path">
+            {rabbitOutboundPath.map(([name, boundary], index) => (
+              <li key={name}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{name}</strong>
+                <small>{boundary}</small>
+              </li>
+            ))}
+          </ol>
         </div>
 
-        <p className={styles.disclosure}>
-          Rabbit transports requests between the device and the connected
-          computer. Local execution begins after that transport reaches Spark
-          Plug. This independent integration is not a Rabbit partnership or
-          endorsement. <Link href="/terms#rabbit-r1">Read the complete disclosure.</Link>
-        </p>
+        <div className={styles.pathGroup} data-direction="return">
+          <div className={styles.pathLabel}><span>02</span><strong>RESPONSE / RETURN</strong><small>back to the handheld</small></div>
+          <ol className={styles.path} aria-label="Rabbit response return path">
+            {rabbitReturnPath.map(([name, boundary], index) => (
+              <li key={`${name}-return`}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{name}</strong>
+                <small>{boundary}</small>
+              </li>
+            ))}
+          </ol>
+        </div>
 
-        <p className={styles.viewerPrivacy}>
-          The 3D viewer loads automatically and contacts Sketchfab. Sketchfab&apos;s
-          terms and privacy practices apply.
-        </p>
+        <div className={styles.failureRow} aria-label="Rabbit integration feasibility gates">
+          <span>RABBIT SERVICE ONLINE</span>
+          <span>COMPUTER ENROLLED</span>
+          <span>HARNESS AVAILABLE</span>
+          <span>BROKER ADMITS REQUEST</span>
+          <span>LOCAL MODEL READY</span>
+        </div>
       </div>
     </section>
   );
