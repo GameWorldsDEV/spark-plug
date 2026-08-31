@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { BrandLogo } from "./brand-logo";
+import { stripeSupportUrl } from "../../lib/support-links";
 import styles from "./site-footer.module.css";
 
 type SiteFooterProps = {
@@ -29,6 +30,7 @@ export function SiteFooter({ repositoryUrl }: SiteFooterProps) {
       </div>
       <nav aria-label="Footer navigation">
         <a href={repositoryUrl} rel="noopener noreferrer">GitHub</a>
+        <a href={stripeSupportUrl} rel="noopener noreferrer">Support</a>
         <Link href="/why-spark-plug">Why Spark Plug</Link>
         <Link href="/benchmarks">Benchmarks</Link>
         <Link href="/security">Security</Link>

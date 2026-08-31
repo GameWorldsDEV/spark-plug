@@ -25,7 +25,13 @@
   text-transform: uppercase;
 }
 
-.intro a {
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.actions a {
   display: inline-flex;
   gap: 9px;
   padding: 12px 14px;
@@ -37,8 +43,17 @@
   text-transform: uppercase;
 }
 
-.intro a:hover,
-.intro a:focus-visible { color: #071006; background: var(--lime); }
+.actions a:hover,
+.actions a:focus-visible { color: #071006; background: var(--lime); }
+
+.supportNote {
+  max-width: 38rem;
+  margin-top: 18px;
+  color: #8b978f;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  line-height: 1.65;
+}
 
 .metrics {
   display: grid;

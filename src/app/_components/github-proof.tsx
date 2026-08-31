@@ -1,4 +1,5 @@
 import { getGitHubMetrics, githubMetricsRepositoryUrl, type GitHubMetrics } from "../../lib/github-metrics";
+import { githubSponsorsStatus, stripeSupportUrl } from "../../lib/support-links";
 import styles from "./github-proof.module.css";
 
 type GitHubProofProps = { metrics?: GitHubMetrics };
@@ -19,7 +20,14 @@ export async function GitHubProof({ metrics: providedMetrics }: GitHubProofProps
       <div className={styles.intro}>
         <p>OPEN DEVELOPMENT / LIVE GITHUB SIGNALS</p>
         <h2 id="github-proof-title">Follow the build.</h2>
-        <a href={githubMetricsRepositoryUrl} rel="noopener noreferrer">Open the GitHub repository <span aria-hidden="true">↗</span></a>
+        <div className={styles.actions}>
+          <a href={githubMetricsRepositoryUrl} rel="noopener noreferrer">Open the GitHub repository <span aria-hidden="true">↗</span></a>
+          <a href={stripeSupportUrl} rel="noopener noreferrer">Support Spark Plug <span aria-hidden="true">↗</span></a>
+        </div>
+        <p className={styles.supportNote}>
+          Choose any amount from $1. GitHub Sponsors is {githubSponsorsStatus === "pending" ? "coming soon" : "available"}.
+          Optional support is not a purchase or a tax-deductible charitable donation.
+        </p>
       </div>
       <dl className={styles.metrics}>
         <div><dt>GitHub stars</dt><dd><strong>{stars}</strong><small>Public repository total</small></dd></div>

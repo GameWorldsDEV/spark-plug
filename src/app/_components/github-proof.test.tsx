@@ -21,6 +21,13 @@ describe("GitHubProof", () => {
     expect(screen.getByText("0")).toBeInTheDocument();
     expect(screen.getByText("Latest release downloads")).toBeInTheDocument();
     expect(screen.getByText(/not repository clones or all-time traffic/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /support Spark Plug/i })).toHaveAttribute(
+      "href",
+      "https://buy.stripe.com/aFa5kC2AQ6Jg3aj4UKdMI00",
+    );
+    expect(screen.getByText(/choose any amount from \$1/i)).toBeInTheDocument();
+    expect(screen.getByText(/GitHub Sponsors is coming soon/i)).toBeInTheDocument();
+    expect(screen.getByText(/not a purchase or a tax-deductible/i)).toBeInTheDocument();
     expect(await axe(container)).toHaveNoViolations();
   });
 
