@@ -135,13 +135,13 @@ test("the public release manifest never exposes an unfinished download", async (
   }
 });
 
-test("downloads follow the hero and the complete desktop page stays within its reviewed budget", async ({ page }) => {
+test("node downloads stay near the bottom and the complete desktop page stays within its reviewed budget", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   const order = await page.evaluate(() => {
-    const story = document.querySelector("section");
+    const roadmap = document.querySelector("#roadmap");
     const release = document.querySelector("#release");
-    return story?.nextElementSibling === release;
+    return roadmap?.nextElementSibling === release;
   });
   expect(order).toBe(true);
   const screenCount = await page.evaluate(

@@ -26,21 +26,20 @@ describe("ToolsCarousel", () => {
 });
 
 describe("RoutingSection", () => {
-  it("describes a concise return path and keeps Switchyard advisory", async () => {
+  it("shows distinct round-trip routes to different approved models", async () => {
     const { container } = render(<RoutingSection />);
 
-    expect(screen.getByRole("heading", { name: /one request in/i })).toBeInTheDocument();
-    const flow = screen.getByRole("list", { name: /how a routed request moves/i });
-    expect(within(flow).getAllByRole("listitem")).toHaveLength(4);
-    expect(within(flow).getByText("GW Broker")).toBeInTheDocument();
-    expect(within(flow).getByText("Switchyard")).toBeInTheDocument();
-    expect(screen.getByText(/result returns through GW Broker/i)).toBeInTheDocument();
-    expect(screen.getByText(/Switchyard skipped. Broker admission still applies/i)).toBeInTheDocument();
-    expect(screen.getByText(/vLLM \/ Nemotron 8B/i)).toBeInTheDocument();
-    expect(screen.getByText(/Colibri \/ GLM-5.2/i)).toBeInTheDocument();
-    expect(screen.getByText("MLX").nextSibling).toHaveTextContent("Planned");
-    expect(screen.getByText("Ollama").nextSibling).toHaveTextContent("Planned");
-    expect(screen.getByText(/ComfyUI image, video, 3D/i)).toHaveTextContent(/not Switchyard text routing/i);
+    expect(screen.getByRole("heading", { name: /one broker.*right model/i })).toBeInTheDocument();
+    expect(screen.getByLabelText("Illustrative requests")).toHaveTextContent("What time is it?");
+    expect(screen.getByLabelText("Illustrative requests")).toHaveTextContent("Build a watch app.");
+    expect(screen.getByLabelText("Illustrative requests")).toHaveTextContent("Prepare five days of reports.");
+    expect(screen.getByLabelText("Illustrative model destinations")).toHaveTextContent("vLLM / Nemotron 8B");
+    expect(screen.getByLabelText("Illustrative model destinations")).toHaveTextContent("vLLM / Qwen 27B");
+    expect(screen.getByLabelText("Illustrative model destinations")).toHaveTextContent("Colibri / GLM-5.2");
+    const legend = screen.getByRole("list", { name: /request route examples/i });
+    expect(within(legend).getAllByRole("listitem")).toHaveLength(4);
+    expect(screen.getByText(/explicit model selection bypasses Switchyard.*never Broker admission/i)).toBeInTheDocument();
+    expect(screen.getByText(/ComfyUI media workflows/i)).toHaveTextContent(/not Switchyard text routing/i);
     expect(await axe(container)).toHaveNoViolations();
   });
 });
