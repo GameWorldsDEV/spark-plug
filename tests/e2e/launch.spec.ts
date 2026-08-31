@@ -64,26 +64,28 @@ test("the mobile hero uses store-specific client actions without overlapping the
   await expect(page.getByRole("link", { name: /see compatible tools/i })).toBeVisible();
 });
 
-test("the mobile agent stage clears the sticky header and its headline", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
+test("mobile runtime badges clear the stage labels and the agent grid clears the header", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 700 });
   await page.goto("/");
   const story = page.locator('section[class*="story"]');
   const distance = await story.evaluate((element) => Math.max(1, element.clientHeight - innerHeight));
-  await page.evaluate((y) => scrollTo(0, y), distance * 0.42);
   const scene = page.locator('[class*="scene"][data-stage]');
-  await expect(scene).toHaveAttribute("data-stage", "2");
-  const spacing = await page.evaluate(() => {
-    const header = document.querySelector("main > header")?.getBoundingClientRect();
-    const agents = document.querySelector('[class*="agentStack"]')?.getBoundingClientRect();
-    const status = document.querySelector('[class*="machineStatus"]')?.getBoundingClientRect();
-    const headline = document.querySelector('[class*="beats"] article[data-active="true"] h2')?.getBoundingClientRect();
-    return {
-      headerGap: header && agents ? agents.top - header.bottom : -1,
-      headlineGap: status && headline ? headline.top - status.bottom : -1,
-    };
-  });
-  expect(spacing.headerGap).toBeGreaterThanOrEqual(20);
-  expect(spacing.headlineGap).toBeGreaterThanOrEqual(20);
+  for (const { stage, progress } of [{ stage: "1", progress: 0.25 }, { stage: "2", progress: 0.42 }]) {
+    await page.evaluate(({ y }) => scrollTo(0, y), { y: distance * progress });
+    await expect(scene).toHaveAttribute("data-stage", stage);
+    const spacing = await page.evaluate(() => {
+      const header = document.querySelector("main > header")?.getBoundingClientRect();
+      const agents = document.querySelector('[class*="agentStack"]')?.getBoundingClientRect();
+      const status = document.querySelector('[class*="machineStatus"]')?.getBoundingClientRect();
+      const label = document.querySelector('[class*="beats"] article[data-active="true"] p')?.getBoundingClientRect();
+      return {
+        headerGap: header && agents ? agents.top - header.bottom : -1,
+        labelGap: status && label ? label.top - status.bottom : -1,
+      };
+    });
+    expect(spacing.labelGap).toBeGreaterThanOrEqual(20);
+    if (stage === "2") expect(spacing.headerGap).toBeGreaterThanOrEqual(20);
+  }
 });
 
 test("compatible tool links and endpoint boundaries are explicit", async ({ page }) => {

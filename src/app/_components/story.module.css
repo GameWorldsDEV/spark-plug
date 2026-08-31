@@ -69,6 +69,7 @@
   .scene[data-intro]{opacity:0;visibility:hidden}
   /* Keep the complete agent intake below the sticky masthead and lift its
      status away from the stage headline on narrow phone screens. */
+  .scene[data-stage="1"] .machineStatus{bottom:2%}
   .scene[data-stage="2"] .agentStack{top:5%}
   .scene[data-stage="2"] .machineStatus{bottom:12%}
 }
@@ -79,6 +80,14 @@
   .mobileStoreActions button>i{width:25px;height:25px;flex-basis:25px;font-size:.48rem}
   .mobileStoreActions small{font-size:.31rem}
   .mobileStoreActions strong{font-size:.67rem}
+}
+
+/* Mobile browser chrome can leave a medium-short visual viewport even on a
+   tall phone. In that band, park the runtime badge over the lower machine
+   surface instead of letting it enter the stage-copy area. */
+@media(max-width:760px) and (min-height:621px) and (max-height:800px){
+  .scene[data-stage="1"] .machineStatus,
+  .scene[data-stage="2"] .machineStatus{bottom:28%}
 }
 
 @media(max-width:760px) and (max-height:620px){
