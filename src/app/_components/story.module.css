@@ -35,7 +35,7 @@
 }
 
 @media(max-width:760px) and (max-height:620px){
-  .scene[data-intro]{top:100%;width:min(54vw,220px)}
+  .scene[data-intro]{top:calc(100% + 64px);width:min(54vw,220px)}
   .scene[data-intro] .installStack{top:-8%;width:96%}
   .scene[data-intro] .appCard{gap:7px;padding:8px 9px}
   .scene[data-intro] .appLogo svg{width:28px;height:28px}
