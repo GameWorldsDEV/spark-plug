@@ -27,8 +27,8 @@ const toolMarks = [
   { name: "OpenClaw", icon: "/integrations/openclaw.svg" },
   { name: "Hermes Agent", icon: "/integrations/hermes.png" },
   { name: "Paperclip", icon: "/integrations/paperclip.svg" },
-  { name: "Codex" },
-  { name: "Claude Code" },
+  { name: "Codex", icon: "/integrations/codex.png" },
+  { name: "Claude Code", icon: "/integrations/claude-code.png" },
 ] as const;
 
 export function Story() {
@@ -109,7 +109,7 @@ export function Story() {
           </div>
 
           <div className={styles.agentStack}>
-            {toolMarks.map((tool) => <span key={tool.name} data-text-only={!('icon' in tool) || undefined}>{'icon' in tool ? <Image src={tool.icon} width={30} height={30} alt="" unoptimized /> : <i>AI</i>}<b>{tool.name}</b></span>)}
+            {toolMarks.map((tool) => <span key={tool.name}><Image src={tool.icon} width={30} height={30} alt="" unoptimized /><b>{tool.name}</b></span>)}
             <strong>AUTHORIZED ENDPOINTS</strong><i />
           </div>
 

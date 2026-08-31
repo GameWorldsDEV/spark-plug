@@ -18,9 +18,9 @@ describe("ToolsCarousel", () => {
     expect(screen.getByText("OpenAI-compatible endpoint")).toBeInTheDocument();
     expect(screen.getByText("Anthropic-compatible endpoint")).toBeInTheDocument();
     expect(within(region).getAllByText(/compatibility only/i)).toHaveLength(1);
-    expect(container.querySelectorAll("img[data-tool-mark]")).toHaveLength(6);
-    expect(container.querySelector('[src="/integrations/codex.svg"]')).not.toBeInTheDocument();
-    expect(container.querySelector('[src="/integrations/claude-code.svg"]')).not.toBeInTheDocument();
+    expect(container.querySelectorAll("img[data-tool-mark]")).toHaveLength(10);
+    expect(container.querySelectorAll('[src="/integrations/codex.png"]')).toHaveLength(2);
+    expect(container.querySelectorAll('[src="/integrations/claude-code.png"]')).toHaveLength(2);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

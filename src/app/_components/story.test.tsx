@@ -29,9 +29,9 @@ describe("Story", () => {
     expect(screen.getByText("PLANNED / MAC NODES")).toBeInTheDocument();
     expect(screen.getByText("PLANNED")).toBeInTheDocument();
     for (const name of ["OpenClaw", "Hermes Agent", "Paperclip", "Codex", "Claude Code", "HUGGING FACE"]) expect(screen.getByText(name)).toBeInTheDocument();
-    expect(container.querySelectorAll('img[alt=""]')).toHaveLength(10);
-    expect(container.querySelector('img[src="/integrations/codex.svg"]')).toBeNull();
-    expect(container.querySelector('img[src="/integrations/claude-code.svg"]')).toBeNull();
+    expect(container.querySelectorAll('img[alt=""]')).toHaveLength(12);
+    expect(container.querySelector('img[src="/integrations/codex.png"]')).toBeInTheDocument();
+    expect(container.querySelector('img[src="/integrations/claude-code.png"]')).toBeInTheDocument();
     expect(await axe(container)).toHaveNoViolations();
   });
 });

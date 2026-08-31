@@ -24,13 +24,13 @@ const tools = [
   {
     name: "Codex",
     description: "Coding agent",
-    monogram: "CODEX",
+    icon: "/integrations/codex.png",
     href: "https://openai.com/codex/",
   },
   {
     name: "Claude Code",
     description: "Coding agent",
-    monogram: "CC",
+    icon: "/integrations/claude-code.png",
     href: "https://www.anthropic.com/claude-code",
   },
 ] as const;
@@ -46,21 +46,17 @@ function ToolCards({ duplicate = false }: { duplicate?: boolean }) {
           rel="noopener noreferrer"
           tabIndex={duplicate ? -1 : undefined}
         >
-          <span className={styles.iconShell} data-text-tile={"monogram" in tool || undefined}>
-            {"icon" in tool ? (
-              <Image
-                alt=""
-                className={styles.toolIcon}
-                data-tool-mark={tool.name}
-                height={72}
-                loading="eager"
-                src={tool.icon}
-                unoptimized
-                width={72}
-              />
-            ) : (
-              <b aria-hidden="true">{tool.monogram}</b>
-            )}
+          <span className={styles.iconShell}>
+            <Image
+              alt=""
+              className={styles.toolIcon}
+              data-tool-mark={tool.name}
+              height={72}
+              loading="eager"
+              src={tool.icon}
+              unoptimized
+              width={72}
+            />
           </span>
           <span className={styles.toolText}>
             <strong>{tool.name}</strong>

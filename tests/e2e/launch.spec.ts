@@ -73,6 +73,13 @@ test("compatible tool links and endpoint boundaries are explicit", async ({ page
   await expect(page.getByText("OpenAI-compatible endpoint", { exact: true })).toBeVisible();
   await expect(page.getByText("Anthropic-compatible endpoint", { exact: true })).toBeVisible();
   await expect(page.getByText(/not a partnership or endorsement/i)).toBeVisible();
+  for (const asset of ["codex.png", "claude-code.png"]) {
+    const marks = page.locator(`img[src="/integrations/${asset}"]`);
+    await expect(marks).toHaveCount(3);
+    await expect.poll(async () => marks.evaluateAll((images: HTMLImageElement[]) =>
+      images.every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0),
+    )).toBe(true);
+  }
 });
 
 test("reduced motion lays the story out statically without scroll choreography", async ({ page }) => {
