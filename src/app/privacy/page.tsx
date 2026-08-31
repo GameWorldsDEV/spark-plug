@@ -48,6 +48,17 @@ export default function PrivacyPage() {
         by its own terms and privacy practices.
       </p>
 
+      <h2>Future Rabbit integration boundary</h2>
+      <p>
+        The product integration shown on this preview is not an active website
+        connection. If enabled in a future release, prompts initiated on Rabbit R1
+        and responses returned to it will cross Rabbit infrastructure and may appear
+        in Rabbit-provided history or account surfaces under Rabbit&rsquo;s practices.
+        Local model inference does not make that round trip entirely local. Spark
+        Plug does not control Rabbit&rsquo;s collection, retention, deletion, or service
+        availability.
+      </p>
+
       <h2>What this site does not collect by default</h2>
       <ul>
         <li>Local prompts, model conversations, or agent session history.</li>

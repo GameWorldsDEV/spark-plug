@@ -35,7 +35,7 @@ export const currentRelease: PublicReleaseManifest = {
     macos: {
       label: "macOS",
       architecture: "Universal client",
-      status: "coming-soon",
+      status: "preparing",
       url: null,
       sha256: null,
     },

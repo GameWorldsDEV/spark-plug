@@ -55,15 +55,22 @@ Windows engine.
 
 ## Rabbit R1
 
-Rabbit R1 is an integration preview. A request initiated on the handheld crosses
-Rabbit's service before arriving at the user's computer. Only after that
-third-party transport can the computer submit approved work to a local GW Broker
-and local engines. The path therefore must not be described as end-to-end local.
+Rabbit R1 is an integration-feasibility preview. Rabbit's current public setup
+supports Rabbit Agent on an enrolled computer and selected harnesses, but does
+not establish a generic direct Rabbit-to-local-LLM protocol. The intended canary
+path is Rabbit R1 -> Rabbit service -> Rabbit Agent on the enrolled computer ->
+supported harness -> authenticated GW Broker -> approved local engine/model.
+The returned response follows the reverse path through Rabbit infrastructure.
+Both the prompt and response therefore cross a third-party service even when
+model inference itself runs locally. The path must not be described as direct,
+supported today, or end-to-end local.
 
 The released setup flow must require an explicit acknowledgement of Rabbit's
 third-party transport, terms, privacy practices, availability, and account
 requirements. Spark Plug and GameWorlds are not affiliated with, sponsored by,
-or endorsed by Rabbit.
+or endorsed by Rabbit. Spark Plug does not control Rabbit's service history,
+retention, deletion, or availability. The public integration claim remains gated
+on a real canary of the complete authentication, request, failure, and return path.
 
 ## Release claim rule
 

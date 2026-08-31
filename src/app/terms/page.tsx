@@ -45,16 +45,19 @@ export default function TermsPage() {
         Rabbit R1 support is an independent integration preview. Spark Plug and
         GameWorlds are not affiliated with, sponsored by, or endorsed by Rabbit.
         A request initiated on Rabbit R1 is transported through Rabbit&rsquo;s service
-        to the user&rsquo;s computer before it can reach a local Spark Plug broker.
-        That third-party transport is outside Spark Plug&rsquo;s local execution boundary
-        and remains subject to Rabbit&rsquo;s terms, privacy practices, availability, and
-        account requirements.
+        to Rabbit Agent on an enrolled computer and then through a compatible
+        harness before it can reach a local Spark Plug broker. Any returned response
+        travels back through that harness, Rabbit Agent, and Rabbit&rsquo;s service before
+        reaching the handheld. Both directions are outside Spark Plug&rsquo;s local
+        execution boundary and remain subject to Rabbit&rsquo;s terms, privacy practices,
+        availability, account requirements, and service history behavior.
       </p>
       <p>
         Enabling a released Rabbit integration will require an explicit in-product
         acknowledgement of that boundary. Users remain responsible for deciding
         what information they submit through the device and for reviewing the
-        permissions granted to the connected computer and harness.
+        permissions granted to the connected computer and harness. Spark Plug does
+        not control Rabbit&rsquo;s retention, deletion, history, or service operation.
       </p>
       <p>
         The public preview embeds the &ldquo;Rabbit R1 | AI&rdquo; 3D model by
