@@ -11,19 +11,19 @@ import styles from "../page.module.css";
 
 const platformOrder: ReleasePlatform[] = ["linux", "macos", "windows", "android"];
 
-const controlSurfaces = [
+const mobileStores = [
   {
-    id: "iphone",
-    family: "Mobile control",
-    label: "iPhone",
-    architecture: "Working control build",
+    id: "ios",
+    family: "iPhone + iPad control",
+    label: "iOS App Store",
+    architecture: "Mobile and tablet clients",
     status: "Coming soon",
   },
   {
-    id: "ipad",
-    family: "Tablet control",
-    label: "iPad",
-    architecture: "Working control build",
+    id: "android",
+    family: "Android control",
+    label: "Google Play",
+    architecture: "Mobile client",
     status: "Coming soon",
   },
 ] as const;
@@ -34,6 +34,13 @@ export function detectReleasePlatform(value: string): ReleasePlatform | null {
   if (platform.includes("win")) return "windows";
   if (platform.includes("mac") || platform.includes("iphone") || platform.includes("ipad")) return "macos";
   if (platform.includes("linux") || platform.includes("ubuntu")) return "linux";
+  return null;
+}
+
+export function detectMobileStore(value: string): "ios" | "android" | null {
+  const platform = value.toLowerCase();
+  if (platform.includes("android")) return "android";
+  if (platform.includes("iphone") || platform.includes("ipad") || platform.includes("ios")) return "ios";
   return null;
 }
 
@@ -48,6 +55,11 @@ export function ReleaseDownloads({ manifest }: { manifest: PublicReleaseManifest
         `${navigatorWithData.userAgentData?.platform ?? navigator.platform} ${navigator.userAgent}`,
       );
     },
+    () => null,
+  );
+  const detectedStore = useSyncExternalStore(
+    () => () => undefined,
+    () => detectMobileStore(`${navigator.platform} ${navigator.userAgent}`),
     () => null,
   );
 
@@ -91,21 +103,15 @@ export function ReleaseDownloads({ manifest }: { manifest: PublicReleaseManifest
 
         <p className={styles.downloadGroupLabel}>Mobile + tablet control</p>
         <div className={styles.downloadGrid} aria-label="Spark Plug mobile control releases">
-          {controlSurfaces.map((surface) => (
-            <article key={surface.id}>
+          {mobileStores.map((surface) => (
+            <article key={surface.id} data-detected={detectedStore === surface.id || undefined}>
+              {detectedStore === surface.id && <small>YOUR DEVICE</small>}
               <span>{surface.family}</span>
               <h3>{surface.label}</h3>
               <p>{surface.architecture}</p>
               <button type="button" disabled>{surface.status}</button>
             </article>
           ))}
-          <article data-detected={detected === "android" || undefined}>
-            {detected === "android" && <small>YOUR DEVICE</small>}
-            <span>Mobile control</span>
-            <h3>{manifest.platforms.android.label}</h3>
-            <p>{manifest.platforms.android.architecture}</p>
-            <button type="button" disabled>Coming soon</button>
-          </article>
         </div>
       </div>
     </div>

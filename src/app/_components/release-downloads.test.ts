@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { detectReleasePlatform } from "./release-downloads";
+import { detectMobileStore, detectReleasePlatform } from "./release-downloads";
 
 describe("release platform detection", () => {
   it.each([
@@ -15,5 +15,14 @@ describe("release platform detection", () => {
 
   it("leaves unknown platforms neutral", () => {
     expect(detectReleasePlatform("unknown device")).toBeNull();
+  });
+
+  it.each([
+    ["iPhone", "ios"],
+    ["iPad", "ios"],
+    ["Linux; Android 16", "android"],
+    ["MacIntel", null],
+  ])("maps %s to its mobile store %s", (value, expected) => {
+    expect(detectMobileStore(value)).toBe(expected);
   });
 });

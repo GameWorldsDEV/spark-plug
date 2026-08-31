@@ -44,10 +44,6 @@ export default function Home() {
 
       <div id="main-content">
         <Story />
-        <section className={styles.release} id="release" aria-labelledby="release-title">
-          <h2 id="release-title" className={styles.srOnly}>Spark Plug releases</h2>
-          <ReleaseDownloads manifest={currentRelease} />
-        </section>
         <GitHubProof />
         <ToolsCarousel />
         <RoutingSection />
@@ -57,6 +53,11 @@ export default function Home() {
         <RabbitSection />
         <WhyTeaser />
         <RoadmapSection />
+
+        <section className={styles.release} id="release" aria-labelledby="release-title">
+          <h2 id="release-title" className={styles.srOnly}>Spark Plug releases</h2>
+          <ReleaseDownloads manifest={currentRelease} />
+        </section>
 
         <section className={styles.faq} aria-labelledby="faq-title">
           <div><p className={styles.eyebrow}>STRAIGHT ANSWERS</p><h2 id="faq-title">Before you plug in.</h2></div>

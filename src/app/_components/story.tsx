@@ -77,8 +77,16 @@ export function Story() {
           <h1 id="story-title">Your local AI.<br /><em>One control hub.</em></h1>
           <span>Install Spark Plug, add your engines and models, build reusable profiles, and run your AI machine from one place.</span>
           <div className={styles.actions}>
-            <a href="#release" tabIndex={introVisible ? 0 : -1}>Download for DGX Spark</a>
-            <a href="#tools" tabIndex={introVisible ? 0 : -1}>See compatible tools <b aria-hidden="true">↓</b></a>
+            <a className={styles.nodeDownload} href="#release" tabIndex={introVisible ? 0 : -1}>Download for DGX Spark</a>
+            <div className={styles.mobileStoreActions} aria-label="Mobile client apps">
+              <button type="button" disabled aria-label="iOS App Store — coming soon">
+                <i aria-hidden="true">iOS</i><span><small>COMING SOON ON THE</small><strong>App Store</strong></span>
+              </button>
+              <button type="button" disabled aria-label="Google Play — coming soon">
+                <i aria-hidden="true">▶</i><span><small>COMING SOON ON</small><strong>Google Play</strong></span>
+              </button>
+            </div>
+            <a className={styles.toolsCta} href="#tools" tabIndex={introVisible ? 0 : -1}>See compatible tools <b aria-hidden="true">↓</b></a>
           </div>
         </header>
 

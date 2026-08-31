@@ -54,6 +54,16 @@ test("the product story presents the real workflow and keeps non-affiliation cop
   await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
 });
 
+test("the mobile hero uses store-specific client actions without overlapping the animation", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: /ios app store.*coming soon/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /google play.*coming soon/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /download for dgx spark/i })).toBeHidden();
+  await expect(page.locator('[data-intro="true"]')).toBeHidden();
+  await expect(page.getByRole("link", { name: /see compatible tools/i })).toBeVisible();
+});
+
 test("compatible tool links and endpoint boundaries are explicit", async ({ page }) => {
   await page.goto("/#tools");
   const tools = page.getByLabel("Compatible tools");
@@ -96,12 +106,12 @@ test("release status is explicit, platform-aware, and reduced motion is honored"
   const release = page.getByRole("region", { name: "Spark Plug releases" });
   await expect(release.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
   await expect(page.getByRole("button", { name: /public artifact preparing/i })).toHaveCount(0);
-  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(6);
+  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(5);
   await expect(page.getByLabel("Spark Plug platform releases").locator("article")).toHaveCount(3);
   const mobileReleases = page.getByLabel("Spark Plug mobile control releases");
-  await expect(mobileReleases.locator("article")).toHaveCount(3);
-  await expect(mobileReleases.getByRole("heading", { name: "iPhone", exact: true })).toBeVisible();
-  await expect(mobileReleases.getByRole("heading", { name: "iPad", exact: true })).toBeVisible();
+  await expect(mobileReleases.locator("article")).toHaveCount(2);
+  await expect(mobileReleases.getByRole("heading", { name: "iOS App Store", exact: true })).toBeVisible();
+  await expect(mobileReleases.getByRole("heading", { name: "Google Play", exact: true })).toBeVisible();
 });
 
 test("GitHub proof uses aggregate labels without fabricating a release count", async ({ page }) => {
