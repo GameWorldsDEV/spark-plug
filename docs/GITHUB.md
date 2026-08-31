@@ -23,9 +23,25 @@ maintainers under **Insights → Traffic**. Stars and forks are public signals.
 No third-party tracking script, GitHub user identity, or star event is copied
 into Spark Plug accounts, billing, or local telemetry.
 
-Review traffic in GitHub itself. If aggregate metrics are later displayed on the
-website, fetch only public aggregate counts through a cached server route with a
-strict budget; do not add a browser analytics SDK merely to display stars.
+The website may display two narrowly defined public aggregates:
+
+- the repository `stargazers_count`; and
+- the sum of asset `download_count` values on GitHub's latest public release.
+
+These counts are fetched by the Next.js server from the allowlisted
+`GameWorldsDEV/spark-plug` repository, cached for one hour, and bounded by a
+three-second timeout. An optional `GITHUB_TOKEN` is server-only and must never be
+prefixed with `NEXT_PUBLIC_`, returned to a browser, or written to logs. The
+browser receives only rendered aggregate numbers.
+
+A missing latest release is displayed as **Preparing**, not zero. GitHub errors,
+rate limits, timeouts, or malformed responses are displayed as **Unavailable**.
+A numeric zero is shown only when GitHub actually returns a valid zero. The
+download label always says **Latest release downloads**; it is not an all-time
+download, repository-clone, traffic, user, billing, or entitlement metric.
+
+Review clone, referrer, and popular-content traffic in GitHub itself. Do not add
+a browser analytics SDK merely to display repository interest.
 
 ## Release use
 
