@@ -17,14 +17,14 @@ describe("RabbitSection", () => {
       "Rabbit R1",
       "Rabbit service",
       "Rabbit Agent",
-      "Supported harness",
-      "GW Broker",
-      "Approved local engine/model",
+      "Approved local harness",
+      "Spark Plug + Guardian",
+      "Approved local model",
     ]);
     expect(rabbitReturnPath.map(([name]) => name)).toEqual([
-      "Approved local engine/model",
-      "GW Broker",
-      "Supported harness",
+      "Approved local model",
+      "Spark Plug + Guardian",
+      "Approved local harness",
       "Rabbit Agent",
       "Rabbit service",
       "Rabbit R1",
@@ -32,20 +32,21 @@ describe("RabbitSection", () => {
 
     const outbound = screen.getByRole("list", { name: "Rabbit prompt outbound path" });
     const returned = screen.getByRole("list", { name: "Rabbit response return path" });
-    expect(within(outbound).getByText("PROMPT CROSSES CLOUD")).toBeVisible();
-    expect(within(returned).getByText("RESPONSE CROSSES CLOUD")).toBeVisible();
-    expect(within(outbound).getByText("INFERENCE MAY RUN LOCALLY")).toBeVisible();
-    expect(within(returned).getByText("ANSWER RETURNS")).toBeVisible();
+    expect(within(outbound).getByText("TRANSPORT TO YOUR COMPUTER")).toBeVisible();
+    expect(within(returned).getByText("TRANSPORT BACK TO THE DEVICE")).toBeVisible();
+    expect(within(outbound).getByText("INFERENCE RUNS ON YOUR HARDWARE")).toBeVisible();
+    expect(within(returned).getByText("YOUR ANSWER RETURNS")).toBeVisible();
   });
 
-  it("keeps the Rabbit claim at feasibility and states both cloud crossings", () => {
+  it("presents Rabbit Agent handling invitingly while keeping the transport boundary", () => {
     render(<RabbitSection />);
 
-    expect(screen.getByText("RABBIT R1 / INTEGRATION-FEASIBILITY PREVIEW")).toBeVisible();
-    expect(screen.getByText("CANARY REQUIRED")).toBeVisible();
-    expect(screen.getByText(/not a supported-today Spark Plug integration/i)).toBeVisible();
-    expect(screen.getByText(/Both the prompt and the response still cross Rabbit infrastructure/i)).toBeVisible();
-    expect(screen.getByText(/Spark Plug authentication still applies/i)).toBeVisible();
+    expect(screen.getByText("RABBIT R1 / AGENT HANDLING")).toBeVisible();
+    expect(screen.getByRole("heading", { name: /bring rabbit r1 into your local ai workflow/i })).toBeVisible();
+    expect(screen.getByText("EARLY ACCESS VALIDATION")).toBeVisible();
+    expect(screen.getByText(/validating the Rabbit Agent connection path before its public release/i)).toBeVisible();
+    expect(screen.getByText(/Guardian policy and GW Broker check identity, permissions, capacity/i)).toBeVisible();
+    expect(screen.getByText(/Rabbit still transports the prompt and response/i)).toBeVisible();
     expect(screen.getByText(/No Rabbit partnership, sponsorship, or endorsement/i)).toBeVisible();
     expect(screen.getByRole("link", { name: "Rabbit Agent documentation ↗" })).toHaveAttribute(
       "href",

@@ -13,20 +13,20 @@ const RABBIT_AGENT_DOCS = "https://www.rabbit.tech/support/article/agents-on-rab
 
 export const rabbitOutboundPath = [
   ["Rabbit R1", "VOICE OR TEXT"],
-  ["Rabbit service", "PROMPT CROSSES CLOUD"],
-  ["Rabbit Agent", "ENROLLED COMPUTER"],
-  ["Supported harness", "OPENCLAW · HERMES · CLAUDE CODE"],
-  ["GW Broker", "AUTHENTICATE + ADMIT"],
-  ["Approved local engine/model", "INFERENCE MAY RUN LOCALLY"],
+  ["Rabbit service", "TRANSPORT TO YOUR COMPUTER"],
+  ["Rabbit Agent", "REACHES THE ENROLLED COMPUTER"],
+  ["Approved local harness", "OPENCLAW · HERMES · CLAUDE CODE"],
+  ["Spark Plug + Guardian", "POLICY · AUTHENTICATION · ADMISSION"],
+  ["Approved local model", "INFERENCE RUNS ON YOUR HARDWARE"],
 ] as const;
 
 export const rabbitReturnPath = [
-  ["Approved local engine/model", "RESPONSE CREATED"],
-  ["GW Broker", "RESULT OBSERVED"],
-  ["Supported harness", "SESSION RESULT"],
+  ["Approved local model", "RESPONSE CREATED LOCALLY"],
+  ["Spark Plug + Guardian", "RESULT OBSERVED + RELEASED"],
+  ["Approved local harness", "SESSION RESULT"],
   ["Rabbit Agent", "ENROLLED COMPUTER"],
-  ["Rabbit service", "RESPONSE CROSSES CLOUD"],
-  ["Rabbit R1", "ANSWER RETURNS"],
+  ["Rabbit service", "TRANSPORT BACK TO THE DEVICE"],
+  ["Rabbit R1", "YOUR ANSWER RETURNS"],
 ] as const;
 
 function subscribeToMotion(callback: () => void) {
@@ -76,28 +76,28 @@ export function RabbitSection() {
     <section className={styles.section} id="rabbit-r1" aria-labelledby="rabbit-title">
       <div className={styles.intro}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>RABBIT R1 / INTEGRATION-FEASIBILITY PREVIEW</p>
-          <h2 id="rabbit-title">Ask on Rabbit. Run approved work at home.</h2>
+          <p className={styles.eyebrow}>RABBIT R1 / AGENT HANDLING</p>
+          <h2 id="rabbit-title">Bring Rabbit R1 into your local AI workflow</h2>
           <p className={styles.lead}>
-            Rabbit documents a way to reach supported agents on an enrolled
-            computer. Spark Plug is evaluating that path so an approved harness
-            could submit work to local models through GW Broker.
+            Connect Rabbit Agent to the local harnesses and models you approve.
+            Spark Plug coordinates the workflow while Guardian policy and GW Broker
+            check identity, permissions, capacity, and the active profile before work runs.
           </p>
           <div className={styles.previewState}>
-            <span>CANARY REQUIRED</span>
-            <p>This is a feasibility route—not a supported-today Spark Plug integration.</p>
+            <span>EARLY ACCESS VALIDATION</span>
+            <p>We are validating the Rabbit Agent connection path before its public release.</p>
           </div>
           <p className={styles.integrationBoundary}>
-            Inference may run locally after the prompt reaches the enrolled
-            computer. Both the prompt and the response still cross Rabbit
-            infrastructure, and Spark Plug authentication still applies.
+            After Rabbit delivers a request to your enrolled computer, an approved
+            local harness can hand it to Spark Plug. Inference runs on your hardware;
+            Rabbit still transports the prompt and response between the R1 and that computer.
           </p>
           <p className={styles.rabbitLinks}>
             <a href={RABBIT_AGENT_DOCS} rel="noopener noreferrer">Rabbit Agent documentation ↗</a>
             <Link href="/terms#rabbit-r1">Read the complete disclosure</Link>
           </p>
           <p className={styles.nonAffiliation}>
-            Independent compatibility exploration. No Rabbit partnership,
+            Independent Rabbit Agent compatibility. No Rabbit partnership,
             sponsorship, or endorsement.
           </p>
         </div>
@@ -148,12 +148,12 @@ export function RabbitSection() {
 
       <div className={styles.roundTrip}>
         <header>
-          <div><p className={styles.eyebrow}>THE COMPLETE BOUNDARY</p><h3>One prompt. One response. Two cloud crossings.</h3></div>
-          <p>Rabbit&apos;s public documentation names Rabbit Agent and supported third-party harnesses. The exact Spark Plug route remains subject to enrollment, authentication, endpoint compatibility, and a real canary.</p>
+          <div><p className={styles.eyebrow}>HOW RABBIT AGENT CONNECTS</p><h3>Ask from Rabbit. Run locally. Get the answer back.</h3></div>
+          <p>Spark Plug gives Rabbit Agent a managed path into your approved local harness. Guardian policy and GW Broker keep every request inside the permissions, model routes, and capacity limits you set.</p>
         </header>
 
         <div className={styles.pathGroup}>
-          <div className={styles.pathLabel}><span>01</span><strong>PROMPT / OUTBOUND</strong><small>toward local inference</small></div>
+          <div className={styles.pathLabel}><span>01</span><strong>ASK FROM RABBIT R1</strong><small>to your approved local model</small></div>
           <ol className={styles.path} aria-label="Rabbit prompt outbound path">
             {rabbitOutboundPath.map(([name, boundary], index) => (
               <li key={name}>
@@ -166,7 +166,7 @@ export function RabbitSection() {
         </div>
 
         <div className={styles.pathGroup} data-direction="return">
-          <div className={styles.pathLabel}><span>02</span><strong>RESPONSE / RETURN</strong><small>back to the handheld</small></div>
+          <div className={styles.pathLabel}><span>02</span><strong>ANSWER RETURNS</strong><small>from your local model to Rabbit R1</small></div>
           <ol className={styles.path} aria-label="Rabbit response return path">
             {rabbitReturnPath.map(([name, boundary], index) => (
               <li key={`${name}-return`}>
@@ -182,6 +182,7 @@ export function RabbitSection() {
           <span>RABBIT SERVICE ONLINE</span>
           <span>COMPUTER ENROLLED</span>
           <span>HARNESS AVAILABLE</span>
+          <span>GUARDIAN POLICY APPROVES</span>
           <span>BROKER ADMITS REQUEST</span>
           <span>LOCAL MODEL READY</span>
         </div>

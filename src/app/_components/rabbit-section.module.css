@@ -59,6 +59,7 @@
 .copy h2 {
   max-width: 760px;
   font-size: clamp(3.7rem, 7.1vw, 7.5rem);
+  overflow-wrap: anywhere;
 }
 
 .lead {
@@ -314,6 +315,7 @@
 .roundTrip h3 {
   max-width: 820px;
   font-size: clamp(2.8rem, 5.7vw, 6.2rem);
+  overflow-wrap: anywhere;
 }
 
 .roundTrip header > p {
@@ -433,7 +435,7 @@
 
 .failureRow {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   margin-top: 28px;
   border-top: 1px solid #3f312b;
   border-left: 1px solid #3f312b;
@@ -480,13 +482,13 @@
 
 @media (max-width: 620px) {
   .section { padding-inline: 20px; }
-  .copy h2 { font-size: clamp(3.35rem, 17vw, 5.6rem); }
+  .copy h2 { font-size: clamp(3rem, 14vw, 4.8rem); }
   .previewState { align-items: flex-start; flex-direction: column; }
   .viewerShell { min-height: 500px; border-radius: 18px; }
   .viewerLabel { align-items: flex-start; flex-direction: column; gap: 4px; border-radius: 12px; }
   .fallbackDevice { width: min(74%, 280px); }
   .roundTrip { padding: 18px; }
-  .roundTrip h3 { font-size: clamp(2.7rem, 13vw, 4.3rem); }
+  .roundTrip h3 { font-size: clamp(2.45rem, 11.5vw, 3.8rem); }
   .path { grid-template-columns: 1fr; }
   .path li,
   .path li:nth-child(2n),
