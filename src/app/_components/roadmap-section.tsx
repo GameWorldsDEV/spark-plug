@@ -9,7 +9,7 @@ const roadmap = [
     copy: "DGX Spark with Linux is the first qualified node target. Browser, Mac, iPhone, and iPad control surfaces are working builds.",
   },
   {
-    status: "PREPARING",
+    status: "COMING SOON",
     title: "Public installers",
     copy: "Matching installers and approved native-client artifacts stay disabled until their release evidence is ready.",
   },

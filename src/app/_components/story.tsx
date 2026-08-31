@@ -78,7 +78,7 @@ export function Story() {
           <span>Install Spark Plug, add your engines and models, build reusable profiles, and run your AI machine from one place.</span>
           <div className={styles.actions}>
             <a href="#release" tabIndex={introVisible ? 0 : -1}>Download for DGX Spark</a>
-            <a href="#profile-workflow" tabIndex={introVisible ? 0 : -1}>See how profiles work <b aria-hidden="true">↓</b></a>
+            <a href="#tools" tabIndex={introVisible ? 0 : -1}>See compatible tools <b aria-hidden="true">↓</b></a>
           </div>
         </header>
 

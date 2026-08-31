@@ -17,7 +17,7 @@ describe("Story", () => {
       expect(screen.getAllByText(item.status).length).toBeGreaterThan(0);
     }
     expect(screen.getByRole("link", { name: /download for dgx spark/i })).toHaveAttribute("href", "#release");
-    expect(screen.getByRole("link", { name: /see how profiles work/i })).toHaveAttribute("href", "#profile-workflow");
+    expect(screen.getByRole("link", { name: /see compatible tools/i })).toHaveAttribute("href", "#tools");
   });
 
   it("labels planned engines separately and keeps every decorative mark beside text", async () => {

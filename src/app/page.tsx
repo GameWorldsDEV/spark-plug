@@ -5,7 +5,6 @@ import { ComfySection } from "./_components/comfy-section";
 import { DevicesSection } from "./_components/devices-section";
 import { EnginesSection } from "./_components/engines-section";
 import { GitHubProof } from "./_components/github-proof";
-import { ProfileWorkflow } from "./_components/profile-workflow";
 import { RabbitSection } from "./_components/rabbit-section";
 import { ReleaseDownloads } from "./_components/release-downloads";
 import { RoadmapSection } from "./_components/roadmap-section";
@@ -34,7 +33,6 @@ export default function Home() {
           <BrandLogo className={styles.brandLogo} />
         </Link>
         <nav className={styles.nav} aria-label="Primary navigation">
-          <a href="#profile-workflow">Profiles</a>
           <a href="#tools">Tools</a>
           <a href="#routing">Routing</a>
           <a href="#engines">Engines</a>
@@ -51,7 +49,6 @@ export default function Home() {
           <ReleaseDownloads manifest={currentRelease} />
         </section>
         <GitHubProof />
-        <ProfileWorkflow />
         <ToolsCarousel />
         <RoutingSection />
         <EnginesSection />

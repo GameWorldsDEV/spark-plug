@@ -17,14 +17,14 @@ const controlSurfaces = [
     family: "Mobile control",
     label: "iPhone",
     architecture: "Working control build",
-    status: "Public artifact preparing",
+    status: "Coming soon",
   },
   {
     id: "ipad",
     family: "Tablet control",
     label: "iPad",
     architecture: "Working control build",
-    status: "Public artifact preparing",
+    status: "Coming soon",
   },
 ] as const;
 
@@ -70,7 +70,7 @@ export function ReleaseDownloads({ manifest }: { manifest: PublicReleaseManifest
           {platformOrder.filter((platform) => platform !== "android").map((platform) => {
             const artifact = manifest.platforms[platform];
             const available = artifact.status === "available" && artifact.url;
-            const state = artifact.status === "preparing" ? "Public artifact preparing" : artifact.status === "coming-soon" ? "Coming soon" : `Download ${manifest.version}`;
+            const state = artifact.status === "preparing" || artifact.status === "coming-soon" ? "Coming soon" : `Download ${manifest.version}`;
             const family = platform === "linux" ? "Node software" : platform === "macos" ? "Desktop control" : "Desktop control + future node";
             const workingBuild = platform === "macos";
             return (

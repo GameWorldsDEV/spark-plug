@@ -24,7 +24,7 @@ describe("GitHubProof", () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 
-  it("shows Preparing instead of a false zero when no release exists", async () => {
+  it("shows Coming soon instead of a false zero when no release exists", async () => {
     render(await GitHubProof({ metrics: {
       stars: 4,
       latestReleaseDownloads: null,
@@ -33,7 +33,7 @@ describe("GitHubProof", () => {
       status: "preparing",
     } }));
 
-    expect(screen.getByText("Preparing")).toBeInTheDocument();
+    expect(screen.getByText("Coming soon")).toBeInTheDocument();
     expect(screen.getByText("No public release asset yet")).toBeInTheDocument();
   });
 

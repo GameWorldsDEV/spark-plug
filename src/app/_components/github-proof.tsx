@@ -9,7 +9,7 @@ export async function GitHubProof({ metrics: providedMetrics }: GitHubProofProps
   const metrics = providedMetrics ?? await getGitHubMetrics();
   const stars = metrics.stars === null ? "Unavailable" : count.format(metrics.stars);
   const downloads = metrics.status === "preparing"
-    ? "Preparing"
+    ? "Coming soon"
     : metrics.latestReleaseDownloads === null
       ? "Unavailable"
       : count.format(metrics.latestReleaseDownloads);

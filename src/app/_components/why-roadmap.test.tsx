@@ -15,12 +15,12 @@ describe("WhyTeaser", () => {
 });
 
 describe("RoadmapSection", () => {
-  it("keeps current builds, preparing artifacts, next work, and roadmap separate", async () => {
+  it("keeps current builds, coming-soon artifacts, next work, and roadmap separate", async () => {
     const { container } = render(<RoadmapSection />);
     const timeline = screen.getByRole("list");
 
     expect(within(timeline).getByText("NOW")).toBeInTheDocument();
-    expect(within(timeline).getByText("PREPARING")).toBeInTheDocument();
+    expect(within(timeline).getByText("COMING SOON")).toBeInTheDocument();
     expect(within(timeline).getByText("NEXT")).toBeInTheDocument();
     expect(within(timeline).getByText("ROADMAP")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /benchmarks/i })).toHaveAttribute("href", "/benchmarks");

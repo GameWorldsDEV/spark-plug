@@ -34,7 +34,7 @@ three-second timeout. An optional `GITHUB_TOKEN` is server-only and must never b
 prefixed with `NEXT_PUBLIC_`, returned to a browser, or written to logs. The
 browser receives only rendered aggregate numbers.
 
-A missing latest release is displayed as **Preparing**, not zero. GitHub errors,
+A missing latest release is displayed as **Coming soon**, not zero. GitHub errors,
 rate limits, timeouts, or malformed responses are displayed as **Unavailable**.
 A numeric zero is shown only when GitHub actually returns a valid zero. The
 download label always says **Latest release downloads**; it is not an all-time

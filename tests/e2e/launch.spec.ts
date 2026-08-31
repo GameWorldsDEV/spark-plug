@@ -47,10 +47,8 @@ test("homepage works without horizontal overflow at phone, tablet, and desktop w
 test("the product story presents the real workflow and keeps non-affiliation copy", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("link", { name: /download for dgx spark/i })).toHaveAttribute("href", "#release");
-  await expect(page.getByRole("link", { name: /see how profiles work/i })).toHaveAttribute("href", "#profile-workflow");
-  for (const step of ["Install Spark Plug", "Download models", "Create profiles", "Switch profiles", "Run work"]) {
-    await expect(page.getByRole("heading", { level: 3, name: step })).toBeVisible();
-  }
+  await expect(page.getByRole("link", { name: /see compatible tools/i })).toHaveAttribute("href", "#tools");
+  await expect(page.locator("#profile-workflow")).toHaveCount(0);
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
   const huggingFaceMark = page.locator('img[src="/integrations/hugging-face.svg"]');
   await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
@@ -97,8 +95,8 @@ test("release status is explicit, platform-aware, and reduced motion is honored"
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
   const release = page.getByRole("region", { name: "Spark Plug releases" });
   await expect(release.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
-  await expect(page.getByRole("button", { name: /public artifact preparing/i })).toHaveCount(4);
-  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(2);
+  await expect(page.getByRole("button", { name: /public artifact preparing/i })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(6);
   await expect(page.getByLabel("Spark Plug platform releases").locator("article")).toHaveCount(3);
   const mobileReleases = page.getByLabel("Spark Plug mobile control releases");
   await expect(mobileReleases.locator("article")).toHaveCount(3);
