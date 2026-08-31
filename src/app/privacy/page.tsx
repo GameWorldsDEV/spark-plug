@@ -10,7 +10,7 @@ export const metadata = detailMetadata(
 export default function PrivacyPage() {
   return (
     <LegalShell
-      eyebrow="PREVIEW-SITE NOTICE / UPDATED AUGUST 30, 2026"
+      eyebrow="PREVIEW-SITE NOTICE / UPDATED AUGUST 31, 2026"
       title="What this site collects today."
       summary="This notice covers the current public preview. There are no public Spark Plug product accounts, payments, marketplace listings, software downloads, or node connections on this site."
     >

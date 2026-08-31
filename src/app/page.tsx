@@ -4,6 +4,7 @@ import { BrandLogo } from "./_components/brand-logo";
 import { ComfySection } from "./_components/comfy-section";
 import { DevicesSection } from "./_components/devices-section";
 import { EnginesSection } from "./_components/engines-section";
+import { GitHubProof } from "./_components/github-proof";
 import { ProfileWorkflow } from "./_components/profile-workflow";
 import { RabbitSection } from "./_components/rabbit-section";
 import { ReleaseDownloads } from "./_components/release-downloads";
@@ -49,6 +50,7 @@ export default function Home() {
           <h2 id="release-title" className={styles.srOnly}>Spark Plug releases</h2>
           <ReleaseDownloads manifest={currentRelease} />
         </section>
+        <GitHubProof />
         <ProfileWorkflow />
         <ToolsCarousel />
         <RoutingSection />

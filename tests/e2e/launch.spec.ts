@@ -30,7 +30,9 @@ test("homepage works without horizontal overflow at phone, tablet, and desktop w
     { width: 390, height: 844 },
     { width: 430, height: 932 },
     { width: 768, height: 1024 },
+    { width: 1280, height: 720 },
     { width: 1280, height: 640 },
+    { width: 1366, height: 507 },
     { width: 1440, height: 900 },
   ]) {
     await page.setViewportSize(viewport);
@@ -93,10 +95,24 @@ test("release status is explicit, platform-aware, and reduced motion is honored"
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#release");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
-  await expect(page.getByRole("button", { name: /preparing first release/i })).toBeDisabled();
-  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(3);
-  await expect(page.getByLabel("Spark Plug platform releases").locator("article")).toHaveCount(4);
+  const release = page.getByRole("region", { name: "Spark Plug releases" });
+  await expect(release.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
+  await expect(page.getByRole("button", { name: /public artifact preparing/i })).toHaveCount(4);
+  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(2);
+  await expect(page.getByLabel("Spark Plug platform releases").locator("article")).toHaveCount(3);
+  const mobileReleases = page.getByLabel("Spark Plug mobile control releases");
+  await expect(mobileReleases.locator("article")).toHaveCount(3);
+  await expect(mobileReleases.getByRole("heading", { name: "iPhone", exact: true })).toBeVisible();
+  await expect(mobileReleases.getByRole("heading", { name: "iPad", exact: true })).toBeVisible();
+});
+
+test("GitHub proof uses aggregate labels without fabricating a release count", async ({ page }) => {
+  await page.goto("/");
+  const proof = page.getByRole("region", { name: /follow the build/i });
+  await expect(proof.getByText("GitHub stars", { exact: true })).toBeVisible();
+  await expect(proof.getByText("Latest release downloads", { exact: true })).toBeVisible();
+  await expect(proof.getByText(/GitHub aggregate counts.*refreshed hourly/i)).toBeVisible();
+  await expect(proof.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
 });
 
 test("the public release manifest never exposes an unfinished download", async ({ request }) => {
@@ -111,7 +127,7 @@ test("the public release manifest never exposes an unfinished download", async (
   }
 });
 
-test("downloads follow the hero and the redesigned desktop page stays compact", async ({ page }) => {
+test("downloads follow the hero and the complete desktop page stays within its reviewed budget", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   const order = await page.evaluate(() => {
@@ -123,7 +139,7 @@ test("downloads follow the hero and the redesigned desktop page stays compact", 
   const screenCount = await page.evaluate(
     () => document.documentElement.scrollHeight / window.innerHeight,
   );
-  expect(screenCount).toBeLessThanOrEqual(18.5);
+  expect(screenCount).toBeLessThanOrEqual(22);
 });
 
 test("the Rabbit viewer uses the narrow embed contract, attribution, and reduced-motion fallback", async ({ page }) => {
