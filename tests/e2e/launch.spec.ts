@@ -64,27 +64,38 @@ test("the mobile hero uses store-specific client actions without overlapping the
   await expect(page.getByRole("link", { name: /see compatible tools/i })).toBeVisible();
 });
 
-test("mobile runtime badges clear the stage labels and the agent grid clears the header", async ({ page }) => {
+test("all mobile runtime badges stay in their copy rail and clear every heading", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 700 });
   await page.goto("/");
   const story = page.locator('section[class*="story"]');
   const distance = await story.evaluate((element) => Math.max(1, element.clientHeight - innerHeight));
   const scene = page.locator('[class*="scene"][data-stage]');
-  for (const { stage, progress } of [{ stage: "1", progress: 0.25 }, { stage: "2", progress: 0.42 }]) {
+  const stages = [
+    { stage: "0", progress: 0.08 },
+    { stage: "1", progress: 0.25 },
+    { stage: "2", progress: 0.42 },
+    { stage: "3", progress: 0.58 },
+    { stage: "4", progress: 0.75 },
+    { stage: "5", progress: 0.92 },
+  ];
+  for (const { stage, progress } of stages) {
     await page.evaluate(({ y }) => scrollTo(0, y), { y: distance * progress });
     await expect(scene).toHaveAttribute("data-stage", stage);
-    const spacing = await page.evaluate(() => {
+    const activeBeat = page.locator('[class*="beats"] article[data-active="true"]');
+    const status = activeBeat.locator('small[class*="beatStatus"]');
+    await expect(status).toBeVisible();
+    await expect(page.locator('[class*="scene"] [class*="machineStatus"]')).toBeHidden();
+    const statusBox = await status.boundingBox();
+    const headingBox = await activeBeat.getByRole("heading", { level: 2 }).boundingBox();
+    expect(statusBox).not.toBeNull();
+    expect(headingBox).not.toBeNull();
+    expect(statusBox!.y + statusBox!.height).toBeLessThanOrEqual(headingBox!.y);
+    const headerGap = await page.evaluate(() => {
       const header = document.querySelector("main > header")?.getBoundingClientRect();
       const agents = document.querySelector('[class*="agentStack"]')?.getBoundingClientRect();
-      const status = document.querySelector('[class*="machineStatus"]')?.getBoundingClientRect();
-      const label = document.querySelector('[class*="beats"] article[data-active="true"] p')?.getBoundingClientRect();
-      return {
-        headerGap: header && agents ? agents.top - header.bottom : -1,
-        labelGap: status && label ? label.top - status.bottom : -1,
-      };
+      return header && agents ? agents.top - header.bottom : -1;
     });
-    expect(spacing.labelGap).toBeGreaterThanOrEqual(20);
-    if (stage === "2") expect(spacing.headerGap).toBeGreaterThanOrEqual(20);
+    if (stage === "2") expect(headerGap).toBeGreaterThanOrEqual(20);
   }
 });
 

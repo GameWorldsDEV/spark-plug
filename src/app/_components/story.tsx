@@ -144,7 +144,11 @@ export function Story() {
         <div className={styles.beats} data-started={started || undefined} aria-live="polite" aria-hidden={!started || undefined}>
           {storyStages.map((item, index) => (
             <article key={item.key} data-active={stage === index} aria-hidden={!started || stage !== index}>
-              <p>{String(index + 1).padStart(2, "0")} / {item.label}</p><h2>{item.title}</h2><span>{item.copy}</span>
+              <div className={styles.beatMeta}>
+                <p>{String(index + 1).padStart(2, "0")} / {item.label}</p>
+                <small className={styles.beatStatus}><i />{item.status}</small>
+              </div>
+              <h2>{item.title}</h2><span>{item.copy}</span>
             </article>
           ))}
         </div>
