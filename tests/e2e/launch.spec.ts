@@ -16,9 +16,7 @@ for (const [route, heading] of routes) {
     await page.goto(route);
     await expect(page.getByRole("heading", { level: 1, name: heading })).toBeVisible();
 
-    // Sketchfab owns the document inside its cross-origin viewer. Audit the
-    // public-site DOM here; the iframe contract is verified separately below.
-    const results = await new AxeBuilder({ page }).exclude("iframe").analyze();
+    const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);
   });
 }
@@ -50,7 +48,7 @@ test("the product story presents the real workflow and keeps non-affiliation cop
   await expect(page.getByRole("link", { name: /see compatible tools/i })).toHaveAttribute("href", "#tools");
   await expect(page.locator("#profile-workflow")).toHaveCount(0);
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
-  const huggingFaceMark = page.locator('img[src="/integrations/hugging-face.svg"]');
+  const huggingFaceMark = page.locator('img[src="/integrations/hugging-face.svg"]').first();
   await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
 });
 
@@ -192,24 +190,36 @@ test("node downloads stay near the bottom and the complete desktop page stays wi
   expect(screenCount).toBeLessThanOrEqual(22);
 });
 
-test("the Rabbit viewer uses the narrow embed contract, attribution, and reduced-motion fallback", async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/#rabbit-r1");
-  const viewer = page.getByTitle("Interactive 3D model of the Rabbit R1");
-  await expect(viewer).toHaveAttribute("src", /sketchfab\.com\/models\/603e8491e9494904827369f6408a265a\/embed/);
-  await expect(viewer).toHaveAttribute("src", /autostart=1/);
-  await expect(viewer).toHaveAttribute("src", /autospin=0/);
-  await expect(viewer).toHaveAttribute("src", /scrollwheel=0/);
-  await expect(viewer).toHaveAttribute("src", /dnt=1/);
-  await expect(page.getByText(/Rabbit R1 \| AI by ItsKevin on Sketchfab/i)).toBeVisible();
-  await expect(page.getByText(/viewer loads automatically and contacts Sketchfab/i)).toBeVisible();
+test("marketplace and training previews stay truthful and engine-aware", async ({ page }) => {
+  await page.goto("/#marketplace");
+  await expect(page.locator("#rabbit-r1")).toHaveCount(0);
+  const marketplace = page.locator("#marketplace");
+  await expect(marketplace.getByRole("heading", { name: /start with a profile.*make it yours/i })).toBeVisible();
+  await expect(marketplace.getByRole("button", { name: /catalog preparing/i })).toHaveCount(3);
+  await expect(marketplace.getByText(/no profile download is advertised as live yet/i)).toBeVisible();
+  const huggingFaceMark = marketplace.locator('img[src="/integrations/hugging-face.svg"]');
+  await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+  for (const engine of ["vLLM", "Colibri", "ComfyUI", "MLX", "Ollama"]) {
+    await expect(marketplace.getByText(engine, { exact: true }).last()).toBeVisible();
+  }
+
+  const training = page.locator("#training");
+  await expect(training.getByRole("heading", { name: /tune the model.*keep control of the adapter/i })).toBeVisible();
+  await expect(training.getByText("UNSLOTH INTEGRATION", { exact: true })).toBeVisible();
+  await expect(training.getByText("LORA WORKFLOWS", { exact: true })).toBeVisible();
+  await expect(training.getByText(/not a first-release claim/i)).toBeVisible();
+
+  const roadmap = page.locator("#roadmap");
+  for (const title of ["DGX Spark clustering", "Apple Mac nodes", "Windows nodes"]) {
+    await expect(roadmap.getByRole("heading", { name: title, exact: true })).toBeVisible();
+  }
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {
   const response = await request.get("/");
   expect(response.ok()).toBe(true);
   expect(response.headers()["content-security-policy"]).toContain("frame-ancestors 'none'");
-  expect(response.headers()["content-security-policy"]).toContain("frame-src https://sketchfab.com");
+  expect(response.headers()["content-security-policy"]).not.toContain("sketchfab.com");
   expect(response.headers()["x-content-type-options"]).toBe("nosniff");
   expect(response.headers()["x-frame-options"]).toBe("DENY");
   expect(response.headers()["x-robots-tag"]).toBe("noindex, nofollow");

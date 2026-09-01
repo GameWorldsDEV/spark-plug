@@ -1,0 +1,68 @@
+.section {
+  padding: clamp(78px, 9vw, 128px) clamp(22px, 6vw, 92px);
+  color: #eff4ee;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(169, 255, 46, .11), transparent 28%),
+    linear-gradient(145deg, #07100b, #040806 64%);
+}
+
+.heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+  gap: clamp(44px, 8vw, 120px);
+  align-items: end;
+}
+
+.eyebrow,
+.intro strong,
+.intro small,
+.profileGrid header,
+.profileGrid dt,
+.profileGrid button,
+.huggingFace p,
+.modelSource li,
+.boundary { font-family: var(--mono); }
+
+.eyebrow { margin-bottom: 18px; color: var(--lime); font-size: .62rem; font-weight: 850; letter-spacing: .16em; }
+.heading h2 { max-width: 900px; font-family: var(--display); font-size: clamp(3.2rem, 6.8vw, 7rem); font-weight: 900; line-height: .84; letter-spacing: -.065em; text-transform: uppercase; }
+.intro { display: grid; gap: 17px; }
+.intro strong { width: max-content; padding: 8px 10px; border: 1px solid rgba(169,255,46,.45); color: var(--lime); font-size: .52rem; letter-spacing: .11em; }
+.intro p { max-width: 55ch; color: #a3aea6; font-size: 1rem; line-height: 1.65; }
+.intro small { max-width: 70ch; color: #6f7d73; font-size: .5rem; line-height: 1.6; }
+
+.profileGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(48px, 7vw, 86px); border-top: 1px solid #354239; border-left: 1px solid #354239; }
+.profileGrid article { display: grid; min-width: 0; min-height: 410px; align-content: start; padding: clamp(22px, 2.6vw, 34px); border-right: 1px solid #354239; border-bottom: 1px solid #354239; background: rgba(8, 17, 11, .78); }
+.profileGrid header { display: flex; justify-content: space-between; gap: 14px; color: #75847a; font-size: .46rem; letter-spacing: .1em; }
+.profileGrid header b { color: var(--lime); font-size: .43rem; }
+.profileGrid h3 { margin-top: 54px; font-family: var(--display); font-size: clamp(2rem, 3.4vw, 3.7rem); line-height: .9; text-transform: uppercase; }
+.profileGrid > article > p { margin-top: 13px; color: #8f9c93; line-height: 1.5; }
+.profileGrid dl { display: grid; gap: 1px; margin-top: 30px; background: #2a362e; }
+.profileGrid dl div { padding: 13px; background: #08100b; }
+.profileGrid dt { margin-bottom: 7px; color: #718077; font-size: .43rem; letter-spacing: .1em; }
+.profileGrid dd { color: #c4cdc6; font-size: .76rem; }
+.profileGrid button { width: 100%; margin-top: auto; padding: 13px; border: 1px solid #445149; color: #748078; background: transparent; font-size: .48rem; font-weight: 800; letter-spacing: .09em; opacity: 1; }
+
+.modelSource { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); gap: 28px clamp(40px, 7vw, 95px); margin-top: clamp(50px, 7vw, 88px); padding: clamp(24px, 4vw, 52px); border: 1px solid rgba(255, 210, 30, .42); background: linear-gradient(120deg, rgba(255,210,30,.075), rgba(7,13,9,.86)); }
+.huggingFace { display: flex; gap: 25px; align-items: center; }
+.huggingFace img { width: clamp(72px, 9vw, 112px); height: auto; filter: drop-shadow(0 0 22px rgba(255,210,30,.18)); }
+.huggingFace div { display: grid; gap: 10px; }
+.huggingFace p { color: #ffd21e; font-size: .52rem; font-weight: 850; letter-spacing: .13em; }
+.huggingFace h3 { max-width: 700px; font-family: var(--display); font-size: clamp(2rem, 4vw, 4.2rem); line-height: .9; text-transform: uppercase; }
+.huggingFace span { max-width: 65ch; color: #a5aea7; line-height: 1.6; }
+.modelSource ul { list-style: none; border-top: 1px solid #39443c; }
+.modelSource li { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid #39443c; font-size: .48rem; letter-spacing: .07em; }
+.modelSource li span { color: #8e9a92; text-align: right; }
+.boundary { grid-column: 1 / -1; color: #6f7b73; font-size: .48rem; line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .heading, .modelSource { grid-template-columns: 1fr; }
+  .profileGrid { grid-template-columns: 1fr; }
+  .profileGrid article { min-height: 350px; }
+}
+
+@media (max-width: 620px) {
+  .heading h2 { font-size: clamp(2.85rem, 13.8vw, 5rem); }
+  .profileGrid h3 { margin-top: 38px; }
+  .huggingFace { align-items: flex-start; flex-direction: column; }
+  .modelSource { padding: 22px; }
+}

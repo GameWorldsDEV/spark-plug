@@ -17,7 +17,7 @@ export default function SecurityPage() {
       <h2>This website today</h2>
       <ul>
         <li>Vercel serves this no-index preview and its server routes.</li>
-        <li>There is no public product account, payment checkout, marketplace, or node connection on this site.</li>
+        <li>There is no active public product account, payment checkout, marketplace transaction, profile publishing interface, training job, or node connection on this site.</li>
         <li>The download cards read a public release manifest and remain disabled until a verified artifact is published.</li>
         <li>Platform highlighting happens in the browser and is not stored or sent to a Spark Plug account.</li>
         <li>This site does not need node credentials, local prompts, model files, or private outputs.</li>
@@ -48,12 +48,13 @@ export default function SecurityPage() {
         jobs use separate typed ComfyUI endpoints.
       </p>
 
-      <h2>Rabbit R1 boundary</h2>
+      <h2>Marketplace and training boundary</h2>
       <p>
-        Requests initiated on Rabbit R1 traverse Rabbit&rsquo;s third-party service
-        before reaching the user&rsquo;s computer. The integration remains labeled in
-        qualification and must not be described as end-to-end local. Local broker
-        and engine execution begins only after that transport boundary.
+        A public profile must remain declarative, schema-validated configuration
+        that a user reviews before application; it must never become executable
+        marketplace code. Planned training runs must validate dataset and model
+        sources, capacity, output paths, and adapter provenance before they can be
+        presented as supported.
       </p>
 
       <h2>Public release controls</h2>

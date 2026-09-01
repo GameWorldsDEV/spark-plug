@@ -9,9 +9,9 @@ app, download models, combine multiple engines and models into reusable
 profiles, switch profiles, connect compatible agent harnesses, and route work
 through GW Broker with optional NVIDIA NeMo Switchyard advice.
 
-The page order is hero, release downloads, profiles, compatible tools, routing,
-engines and telemetry, ComfyUI, remote control, Rabbit R1, Why Spark Plug,
-roadmap, FAQ, and GameWorlds footer.
+The page order is hero, compatible tools, routing, engines and telemetry,
+ComfyUI, remote control, curated profile marketplace, local training roadmap,
+Why Spark Plug, roadmap, release downloads, FAQ, and GameWorlds footer.
 
 ## Truth boundaries
 
@@ -21,8 +21,11 @@ roadmap, FAQ, and GameWorlds footer.
   artifacts remain disabled until their release evidence exists.
 - ComfyUI supports typed image, video, and 3D work plus audio outputs through
   imported or custom workflows; there is no dedicated typed audio endpoint.
-- Local node telemetry stays on the node by default. Optional cloud routes,
-  Rabbit transport, and the public Sketchfab viewer have separate disclosures.
+- Local node telemetry stays on the node by default. Optional cloud routes and
+  user-initiated hosted profile or model downloads have separate disclosures.
+- The public marketplace interface, Unsloth integration, LoRA training,
+  DGX Spark clustering, and Apple Silicon nodes remain clearly labeled as
+  preparing, coming soon, or roadmap work until their release gates pass.
 - Compatibility marks are descriptive and do not imply partnership or endorsement.
 
 ## Visual acceptance

@@ -20,9 +20,12 @@ describe("RoadmapSection", () => {
     const timeline = screen.getByRole("list");
 
     expect(within(timeline).getByText("NOW")).toBeInTheDocument();
-    expect(within(timeline).getByText("COMING SOON")).toBeInTheDocument();
+    expect(within(timeline).getAllByText("COMING SOON")).toHaveLength(3);
     expect(within(timeline).getByText("NEXT")).toBeInTheDocument();
     expect(within(timeline).getByText("ROADMAP")).toBeInTheDocument();
+    expect(within(timeline).getByRole("heading", { name: "DGX Spark clustering" })).toBeInTheDocument();
+    expect(within(timeline).getByRole("heading", { name: "Apple Mac nodes" })).toBeInTheDocument();
+    expect(within(timeline).getByRole("heading", { name: "Windows nodes" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /benchmarks/i })).toHaveAttribute("href", "/benchmarks");
     expect(screen.getAllByRole("img", { name: /reserved space for a scrubbed/i })).toHaveLength(2);
     expect(await axe(container)).toHaveNoViolations();

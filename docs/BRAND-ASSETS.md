@@ -34,14 +34,5 @@ presented as a separate Claude Code trademark or partnership badge.
 | `public/connectivity/headscale.svg` | Headscale project | `juanfont/headscale`, `docs/assets/logo/headscale3-dots.svg` | BSD-3-Clause repository; trademark rights separate | None |
 | `public/brand/gameworlds.png` | GameWorlds | Owner-provided source: `/Volumes/Crucible 9/MAC DESKTOP BACKUP/AR-Monsters Test/Assets/gameworlds logo.png` | Owner-authorized first-party brand use | None; SHA-256 `00d81f92a4a639aa158d9e08b1c80b9865d24e1f15456f3259aee71851e1c13b` |
 
-## Remote third-party content
-
-The Rabbit section embeds **Rabbit R1 | AI** by ItsKevin from Sketchfab, model
-ID `603e8491e9494904827369f6408a265a`. The model is licensed under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and is attributed
-visibly beside the viewer. The viewer is not copied into this repository; it
-loads from Sketchfab with `dnt=1`. CC BY does not grant Rabbit or Teenage
-Engineering trademark, trade-dress, design, partnership, or endorsement rights.
-
 Recheck upstream branding, license terms, and removal requests before each major
 public release. Keep Spark Plug and GameWorlds visually primary.

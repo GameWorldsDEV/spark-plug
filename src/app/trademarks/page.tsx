@@ -33,10 +33,10 @@ export default function TrademarksPage() {
 
       <h2>Connected clients and other marks</h2>
       <p>
-        Apple, macOS, iPhone, iPad, Android, Rabbit, Rabbit R1, Tailscale, OpenAI,
+        Apple, macOS, iPhone, iPad, Android, Tailscale, OpenAI,
         Codex, Anthropic, Claude, Claude Code, NVIDIA NeMo, Switchyard, OpenClaw,
         Hermes, Paperclip, vLLM, ComfyUI, TRELLIS, Colibri, MLX, Ollama, Headscale,
-        Sketchfab, Vercel, and other names are marks of their respective owners where applicable.
+        Hugging Face, Unsloth, Vercel, and other names are marks of their respective owners where applicable.
         Compatibility references do not imply endorsement, certification, or a
         commercial relationship.
       </p>

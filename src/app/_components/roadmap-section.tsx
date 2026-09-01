@@ -19,9 +19,19 @@ const roadmap = [
     copy: "Bring approved profile control and node visibility to Android without turning the phone into a compute node.",
   },
   {
+    status: "COMING SOON",
+    title: "DGX Spark clustering",
+    copy: "Coordinate multiple qualified DGX Spark nodes only after membership, aggregate capacity, scheduling, failure handling, and cluster benchmarks pass review.",
+  },
+  {
+    status: "COMING SOON",
+    title: "Apple Mac nodes",
+    copy: "Apple Silicon nodes will center on MLX and other independently qualified engines. This is separate from the working Mac control client.",
+  },
+  {
     status: "ROADMAP",
-    title: "Mac + Windows nodes",
-    copy: "Mac nodes center on MLX and other qualified engines. Windows AMD and NVIDIA paths will be qualified independently.",
+    title: "Windows nodes",
+    copy: "Windows AMD and NVIDIA paths will be qualified independently, with their own installer, engines, capacity rules, and evidence.",
   },
 ] as const;
 
@@ -37,7 +47,7 @@ export function RoadmapSection() {
 
       <ol className={styles.timeline}>
         {roadmap.map((item, index) => (
-          <li key={item.status}>
+          <li key={item.title}>
             <span>{item.status}</span>
             <div><small>{String(index + 1).padStart(2, "0")}</small><h3>{item.title}</h3><p>{item.copy}</p></div>
           </li>

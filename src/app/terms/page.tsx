@@ -40,31 +40,18 @@ export default function TermsPage() {
         supported installation target and known limitations.
       </p>
 
-      <h2 id="rabbit-r1">Rabbit R1 and other third-party services</h2>
+      <h2>Profiles, models, and training tools</h2>
       <p>
-        Rabbit R1 support is an independent integration preview. Spark Plug and
-        GameWorlds are not affiliated with, sponsored by, or endorsed by Rabbit.
-        A request initiated on Rabbit R1 is transported through Rabbit&rsquo;s service
-        to Rabbit Agent on an enrolled computer and then through a compatible
-        harness before it can reach a local Spark Plug broker. Any returned response
-        travels back through that harness, Rabbit Agent, and Rabbit&rsquo;s service before
-        reaching the handheld. Both directions are outside Spark Plug&rsquo;s local
-        execution boundary and remain subject to Rabbit&rsquo;s terms, privacy practices,
-        availability, account requirements, and service history behavior.
+        Marketplace profiles remain declarative configuration, not trusted plug-ins.
+        Operators must review a profile before applying it and remain responsible for
+        model licenses, dataset rights, engine compatibility, requested downloads,
+        training inputs, generated adapters, and third-party service terms.
       </p>
       <p>
-        Enabling a released Rabbit integration will require an explicit in-product
-        acknowledgement of that boundary. Users remain responsible for deciding
-        what information they submit through the device and for reviewing the
-        permissions granted to the connected computer and harness. Spark Plug does
-        not control Rabbit&rsquo;s retention, deletion, history, or service operation.
-      </p>
-      <p>
-        The public preview embeds the &ldquo;Rabbit R1 | AI&rdquo; 3D model by
-        Sketchfab creator ItsKevin under the Creative Commons Attribution 4.0
-        license. The viewer loads from Sketchfab automatically, remains subject to
-        Sketchfab&rsquo;s service terms, and does not imply affiliation with Rabbit,
-        Teenage Engineering, Sketchfab, or the model creator.
+        The public marketplace, public profile downloads, Unsloth integration, and
+        LoRA training workspace are not active offers on this preview. Their final
+        review, moderation, license, billing, privacy, and security terms must be
+        published before those services open.
       </p>
 
       <h2>Availability and changes</h2>

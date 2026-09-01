@@ -38,25 +38,13 @@ export default function PrivacyPage() {
         or analytics cookie.
       </p>
 
-      <h2>Rabbit R1 model viewer</h2>
+      <h2>Marketplace and model-source preview</h2>
       <p>
-        The Rabbit R1 section loads an interactive 3D model from Sketchfab. When
-        that section loads, the browser contacts Sketchfab and may send ordinary
-        request information such as IP address, browser and device details,
-        referrer, and time. The viewer is requested with Sketchfab&rsquo;s do-not-track
-        option, but Sketchfab remains an independent third-party service governed
-        by its own terms and privacy practices.
-      </p>
-
-      <h2>Future Rabbit integration boundary</h2>
-      <p>
-        The product integration shown on this preview is not an active website
-        connection. If enabled in a future release, prompts initiated on Rabbit R1
-        and responses returned to it will cross Rabbit infrastructure and may appear
-        in Rabbit-provided history or account surfaces under Rabbit&rsquo;s practices.
-        Local model inference does not make that round trip entirely local. Spark
-        Plug does not control Rabbit&rsquo;s collection, retention, deletion, or service
-        availability.
+        The marketplace cards and model-source marks on this preview are static,
+        locally hosted explanations. They do not contact Hugging Face, open a public
+        marketplace account, or download a profile or model. A future user-initiated
+        profile or model download will have its own source, license, account, network,
+        and privacy boundary.
       </p>
 
       <h2>What this site does not collect by default</h2>
@@ -69,7 +57,7 @@ export default function PrivacyPage() {
 
       <h2>Future services are not presented as active</h2>
       <p>
-        If accounts, hosted profiles, payments, or a marketplace open later, this
+        If accounts, hosted profiles, payments, training services, or a marketplace open later, this
         notice will be replaced or updated before those features collect data. Their
         required fields, purposes, processors, retention, and user controls are not
         presented here as current behavior.
