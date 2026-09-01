@@ -154,6 +154,24 @@ test("release status is explicit, platform-aware, and reduced motion is honored"
   await expect(mobileReleases.getByRole("heading", { name: "Google Play", exact: true })).toBeVisible();
 });
 
+test("an iPad requesting the desktop site is detected as iOS, not macOS", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "platform", { configurable: true, get: () => "MacIntel" });
+    Object.defineProperty(navigator, "maxTouchPoints", { configurable: true, get: () => 5 });
+    Object.defineProperty(navigator, "userAgent", {
+      configurable: true,
+      get: () => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 Version/18.6 Mobile/15E148 Safari/604.1",
+    });
+  });
+  await page.setViewportSize({ width: 1024, height: 768 });
+  await page.goto("/#release");
+
+  const macos = page.getByRole("heading", { name: "macOS", exact: true }).locator("..");
+  const ios = page.getByRole("heading", { name: "iOS App Store", exact: true }).locator("..");
+  await expect(macos.getByText("YOUR DEVICE", { exact: true })).toHaveCount(0);
+  await expect(ios.getByText("YOUR DEVICE", { exact: true })).toBeVisible();
+});
+
 test("GitHub proof uses aggregate labels without fabricating a release count", async ({ page }) => {
   await page.goto("/");
   const proof = page.getByRole("region", { name: /follow the build/i });

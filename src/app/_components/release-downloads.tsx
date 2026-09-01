@@ -28,19 +28,37 @@ const mobileStores = [
   },
 ] as const;
 
-export function detectReleasePlatform(value: string): ReleasePlatform | null {
+function isIPadOSDesktopMode(value: string, maxTouchPoints = 0) {
+  const platform = value.toLowerCase();
+  return maxTouchPoints > 1 && (
+    platform.includes("macintosh") ||
+    platform.includes("macintel") ||
+    platform.includes("mac os")
+  );
+}
+
+export function detectReleasePlatform(value: string, maxTouchPoints = 0): ReleasePlatform | null {
   const platform = value.toLowerCase();
   if (platform.includes("android")) return "android";
   if (platform.includes("win")) return "windows";
-  if (platform.includes("mac") || platform.includes("iphone") || platform.includes("ipad")) return "macos";
+  const isIOS = platform.includes("iphone") ||
+    platform.includes("ipad") ||
+    platform.includes("ios") ||
+    isIPadOSDesktopMode(value, maxTouchPoints);
+  if (isIOS) return null;
+  if (platform.includes("mac")) return "macos";
   if (platform.includes("linux") || platform.includes("ubuntu")) return "linux";
   return null;
 }
 
-export function detectMobileStore(value: string): "ios" | "android" | null {
+export function detectMobileStore(value: string, maxTouchPoints = 0): "ios" | "android" | null {
   const platform = value.toLowerCase();
   if (platform.includes("android")) return "android";
-  if (platform.includes("iphone") || platform.includes("ipad") || platform.includes("ios")) return "ios";
+  const isIOS = platform.includes("iphone") ||
+    platform.includes("ipad") ||
+    platform.includes("ios") ||
+    isIPadOSDesktopMode(value, maxTouchPoints);
+  if (isIOS) return "ios";
   return null;
 }
 
@@ -48,18 +66,19 @@ export function ReleaseDownloads({ manifest }: { manifest: PublicReleaseManifest
   const detected = useSyncExternalStore(
     () => () => undefined,
     () => {
-    const navigatorWithData = navigator as Navigator & {
-      userAgentData?: { platform?: string };
-    };
+      const navigatorWithData = navigator as Navigator & {
+        userAgentData?: { platform?: string };
+      };
       return detectReleasePlatform(
         `${navigatorWithData.userAgentData?.platform ?? navigator.platform} ${navigator.userAgent}`,
+        navigator.maxTouchPoints,
       );
     },
     () => null,
   );
   const detectedStore = useSyncExternalStore(
     () => () => undefined,
-    () => detectMobileStore(`${navigator.platform} ${navigator.userAgent}`),
+    () => detectMobileStore(`${navigator.platform} ${navigator.userAgent}`, navigator.maxTouchPoints),
     () => null,
   );
 
