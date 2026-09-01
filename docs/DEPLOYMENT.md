@@ -1,7 +1,7 @@
 # Vercel, Supabase, and stage-promotion runbook
 
-This repository is prepared for deployment but must not be published from an
-automated audit or delegated task.
+Preview deployment is permitted only after explicit owner approval. Release and
+Commercial promotions remain separate owner-approved changes.
 
 ## 1. Owner review
 
@@ -16,9 +16,9 @@ automated audit or delegated task.
 - Create a new project dedicated to the public launch; do not reuse a private
   product database.
 - Apply migrations through the Supabase CLI in staging.
-- Run RLS tests across anonymous, owner, non-owner, buyer, non-buyer, unverified
-  Pro, each verified class, moderator, and service roles. Verify paid manifests
-  never enter catalog responses or public caches.
+- Run RLS tests across anonymous, owner, non-owner, Community, Pro, Leader,
+  moderator, and service roles. Verify only approved free manifests enter
+  catalog responses and public caches.
 - Copy the project URL and service-role key into Vercel encrypted environment
   settings. Never put the service-role key in browser code.
 - Generate a new random waitlist HMAC secret and store it only in Vercel.
@@ -61,12 +61,12 @@ automated audit or delegated task.
 
 | Surface | Source status | External activation gate |
 | --- | --- | --- |
-| Cinematic launch/legal/waitlist | Implemented | New public Supabase + Vercel preview approval |
+| Cinematic launch/legal/support | Implemented and deployed in Preview | Custom-domain DNS validation |
 | Catalog metadata/free manifest delivery | Implemented | Migration/RLS matrix in disposable staging |
 | Pro signed-entitlement refresh | Implemented | Dedicated signing key + client integration tests |
 | Stripe webhook projection | Implemented, default disabled | Stripe test-mode replay/concurrency tests |
 | Profile submission API | Implemented, no public UI | Staging scanner/RLS/rate tests and moderation operations |
 | Profile moderation/publication UI | Database ready | Reviewer roles, audit workflow, owner approval |
-| Forum write UI/API | Schema/RLS ready | Spam/rate controls and moderation operations |
+| Forum write UI/API | Schema/RLS ready, no public UI | Spam/rate controls and moderation operations |
 | Pro checkout and billing portal | Implemented, stage/payment gated | Commercial stage plus explicit test/live authorization |
 | Paid marketplace and Connect | Excluded from first Commercial stage | A future separately approved product plan |
