@@ -7,6 +7,7 @@ import {
   validateSetupProfile,
 } from "@/lib/setup-profile";
 import { supabaseServiceRpc, supabaseUserRpc } from "@/lib/supabase-rest";
+import { currentLaunch } from "@/lib/launch-stage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -30,7 +31,7 @@ type ProfileSubmission = {
   slug: string;
   title: string;
   summary: string;
-  access: "free" | "paid";
+  access: "free";
   priceCents: number;
   currency: "usd";
   manifest: unknown;
@@ -56,16 +57,15 @@ function parseSubmission(value: unknown): ProfileSubmission | null {
     typeof input.summary !== "string" ||
     input.summary.length < 1 ||
     input.summary.length > 500 ||
-    !["free", "paid"].includes(String(input.access)) ||
+    input.access !== "free" ||
     !Number.isSafeInteger(input.priceCents) ||
     input.currency !== "usd" ||
     !("manifest" in input)
   ) return null;
-  const access = input.access as "free" | "paid";
+  const access = "free" as const;
   const priceCents = input.priceCents as number;
   if (
-    (access === "free" && priceCents !== 0) ||
-    (access === "paid" && (priceCents < 100 || priceCents > 100_000))
+    priceCents !== 0
   ) return null;
   return {
     slug: input.slug,
@@ -79,6 +79,9 @@ function parseSubmission(value: unknown): ProfileSubmission | null {
 }
 
 export async function POST(request: Request) {
+  if (!currentLaunch.profilePublishing) {
+    return NextResponse.json({ error: "profile publishing is not active" }, { status: 503, headers: NO_STORE });
+  }
   const accessToken = bearerToken(request);
   if (!accessToken) {
     return NextResponse.json({ error: "authentication required" }, { status: 401, headers: NO_STORE });

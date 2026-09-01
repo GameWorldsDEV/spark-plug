@@ -10,10 +10,11 @@ the reviewed public website, release contracts, security boundaries, hosted
 entitlement foundation, and documentation that the product source will join
 after clean-room extraction and qualification.
 
-- Website: <https://sparkplug-public-launch-site.vercel.app>
+- Canonical website: <https://sparkplug.gameworlds.ai>
 - Release state: pre-release; no public product download yet
 - First node target: NVIDIA DGX Spark, Ubuntu 24.04 ARM64
-- Public indexing, accounts, payments, and marketplace: disabled
+- Preview indexing, accounts, subscriptions, publishing, training, and product
+  downloads: disabled by the typed launch-stage configuration
 
 ## How the product works
 
@@ -43,7 +44,8 @@ The homepage reads the same versioned manifest served at
 `/releases/current.json`. It highlights the visitor's likely platform locally in
 the browser, but an installer button becomes active only when the manifest has a
 HTTPS artifact URL and a SHA-256 checksum. The GitHub repository remains available
-while Linux/DGX Spark, macOS, Windows, and Android packages are still preparing.
+while Linux/DGX Spark, macOS, Windows, iOS, and Android packages are marked
+coming soon.
 
 See [Product contract](docs/PRODUCT.md) for current capability truth and
 [Release plan](docs/RELEASE-PLAN.md) for the path from the private working build
@@ -76,8 +78,8 @@ npm ci
 npm run dev
 ```
 
-The source defaults to `PAYMENTS_MODE=disabled` and
-`NEXT_PUBLIC_SITE_INDEXABLE=false`. Never point local development at a private
+The source defaults to `NEXT_PUBLIC_SITE_STAGE=preview`,
+`PAYMENTS_MODE=disabled`, and `NEXT_PUBLIC_SITE_INDEXABLE=false`. Never point local development at a private
 product database or reuse private product credentials.
 
 ## Validation

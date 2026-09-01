@@ -7,6 +7,9 @@ export type ReleaseArtifact = {
   status: ReleaseArtifactStatus;
   url: string | null;
   sha256: string | null;
+  signatureUrl: string | null;
+  releaseNotesUrl: string | null;
+  compatibilityEvidenceUrl: string | null;
 };
 
 export type PublicReleaseManifest = {
@@ -31,6 +34,9 @@ export const currentRelease: PublicReleaseManifest = {
       status: "preparing",
       url: null,
       sha256: null,
+      signatureUrl: null,
+      releaseNotesUrl: null,
+      compatibilityEvidenceUrl: null,
     },
     macos: {
       label: "macOS",
@@ -38,6 +44,9 @@ export const currentRelease: PublicReleaseManifest = {
       status: "preparing",
       url: null,
       sha256: null,
+      signatureUrl: null,
+      releaseNotesUrl: null,
+      compatibilityEvidenceUrl: null,
     },
     windows: {
       label: "Windows",
@@ -45,6 +54,9 @@ export const currentRelease: PublicReleaseManifest = {
       status: "coming-soon",
       url: null,
       sha256: null,
+      signatureUrl: null,
+      releaseNotesUrl: null,
+      compatibilityEvidenceUrl: null,
     },
     android: {
       label: "Android",
@@ -52,16 +64,51 @@ export const currentRelease: PublicReleaseManifest = {
       status: "coming-soon",
       url: null,
       sha256: null,
+      signatureUrl: null,
+      releaseNotesUrl: null,
+      compatibilityEvidenceUrl: null,
     },
   },
 };
 
+export function releaseForStage(
+  manifest: PublicReleaseManifest,
+  downloadsEnabled: boolean,
+): PublicReleaseManifest {
+  if (downloadsEnabled) return structuredClone(manifest);
+  const masked = structuredClone(manifest);
+  masked.releaseStatus = "preparing";
+  masked.version = null;
+  masked.publishedAt = null;
+  for (const artifact of Object.values(masked.platforms)) {
+    artifact.status = "coming-soon";
+    artifact.url = null;
+    artifact.sha256 = null;
+    artifact.signatureUrl = null;
+    artifact.releaseNotesUrl = null;
+    artifact.compatibilityEvidenceUrl = null;
+  }
+  return masked;
+}
+
 export function validateReleaseManifest(manifest: PublicReleaseManifest) {
+  if (manifest.releaseStatus === "published" && (!manifest.version || !manifest.publishedAt)) {
+    return false;
+  }
   for (const artifact of Object.values(manifest.platforms)) {
-    if (artifact.status === "available" && (!artifact.url || !artifact.sha256)) {
+    if (artifact.status === "available" && (
+      !artifact.url ||
+      !artifact.sha256 ||
+      !artifact.signatureUrl ||
+      !artifact.releaseNotesUrl ||
+      !artifact.compatibilityEvidenceUrl ||
+      manifest.releaseStatus !== "published"
+    )) {
       return false;
     }
-    if (artifact.url && !artifact.url.startsWith("https://")) return false;
+    for (const url of [artifact.url, artifact.signatureUrl, artifact.releaseNotesUrl, artifact.compatibilityEvidenceUrl]) {
+      if (url && !url.startsWith("https://")) return false;
+    }
     if (artifact.sha256 && !/^[a-f0-9]{64}$/i.test(artifact.sha256)) return false;
   }
   return manifest.repositoryUrl.startsWith("https://github.com/");

@@ -21,9 +21,10 @@ export type ProCapability =
   | "premium_themes"
   | "premium_motion"
   | "private_profile_sync"
+  | "profile_version_history"
   | "profile_publish_free"
-  | "profile_publish_paid"
-  | "profile_analytics";
+  | "profile_analytics"
+  | "early_release_beta";
 
 export type EntitlementClaimsV1 = {
   ver: typeof ENTITLEMENT_VERSION;
@@ -67,9 +68,10 @@ const CAPABILITIES = new Set<ProCapability>([
   "premium_themes",
   "premium_motion",
   "private_profile_sync",
+  "profile_version_history",
   "profile_publish_free",
-  "profile_publish_paid",
   "profile_analytics",
+  "early_release_beta",
 ]);
 
 const COMMUNITY_ACCESS: LocalAccessState = Object.freeze({

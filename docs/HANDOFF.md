@@ -7,7 +7,7 @@ activating external services.
 ## Waiting public surfaces
 
 - GitHub: <https://github.com/GameWorldsDEV/spark-plug>
-- Website: <https://sparkplug-public-launch-site.vercel.app>
+- Canonical website: <https://sparkplug.gameworlds.ai>
 - Default branch: `main`
 - GitHub CI: lint, typecheck, unit tests, production build
 - Search indexing: disabled
@@ -76,12 +76,12 @@ remain a separate activation track:
 - final repository license;
 - monitored support, privacy, and security addresses;
 - legal entity/controller and approved legal terms;
-- final paid feature list and price(s);
-- cancellation, refund, tax, marketplace fee, and payout rules;
+- counsel-approved commercial terms and operator address;
+- cancellation, refund, tax, failed-payment, and grace-period rules;
 - dedicated Supabase project/region;
 - Stripe test account and approved products/prices;
 - entitlement signing-key custody and rotation operator;
-- final public domain and indexing approval.
+- explicit Stage 2 indexing approval.
 
 GitHub traffic, stars, and forks are useful public-interest signals only. They
 are not user identity, analytics consent, payment state, or entitlement inputs.

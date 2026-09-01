@@ -7,17 +7,16 @@ these answers. Hosting, indexing, accounts, and payments cannot.
    GameWorlds subdomain or temporary `vercel.app` review URL.
 2. **Contact addresses:** confirm that `hello@gameworlds.ai` is monitored for
    early access, privacy, terms, and security reports, or provide replacements.
-3. **Pro billing:** confirm `$5/month` and the proposed `$48/year` option (20%
-   annual discount). The annual option can be removed without changing the
-   entitlement model.
-4. **Marketplace economics:** approve the platform/application fee, minimum and
-   maximum listing price, refund/dispute policy, payout timing, tax handling,
-   reserves, and supported currencies. Pro permits up to ten free or paid
-   profiles; verification remains a separate trust class.
+3. **Pro billing:** `$5/month` and `$48/year` are selected. Counsel-approved
+   cancellation, refund, failed-payment, grace-period, and tax language remains
+   required before live activation.
+4. **Marketplace economics:** the first marketplace is free-only. Pro permits up
+   to ten published free profiles; paid listings, orders, fees, Connect, and
+   creator payouts are explicitly deferred.
 5. **Creator review:** define evidence, reviewer roles, expiry/re-review, appeal,
    and revocation for Verified Creator, Verified Business, and GameWorlds
    Official. Decide who approves each scrubbed manifest/checksum and risk label.
-6. **Legal identity:** provide the contracting legal entity, address/jurisdiction,
+6. **Legal identity:** GameWorlds LLC in Maryland is selected. Provide the exact registered address,
    final privacy controller details, and counsel-approved consumer/marketplace
    language before accounts or payments open.
 7. **Download targets:** provide the official free download, documentation, and
@@ -46,3 +45,7 @@ these answers. Hosting, indexing, accounts, and payments cannot.
     Vercel preview, Stripe test mode, Connect test mode, live payments, public
     indexing, and the first public remote/push. Approval of one does not imply
     another.
+
+16. **Community Leaders:** recognition is earned and manually reviewed, never
+    purchased. Approve reviewer staffing and the first contribution/expiry decisions
+    before any public badge is issued.

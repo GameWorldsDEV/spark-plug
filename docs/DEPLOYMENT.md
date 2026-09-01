@@ -1,4 +1,4 @@
-# Vercel and Supabase deployment runbook
+# Vercel, Supabase, and stage-promotion runbook
 
 This repository is prepared for deployment but must not be published from an
 automated audit or delegated task.
@@ -9,6 +9,7 @@ automated audit or delegated task.
 - Confirm the product name, contact addresses, $5 Pro price, annual discount,
   creator rules, and non-affiliation text.
 - Keep `NEXT_PUBLIC_SITE_INDEXABLE=false` through private previews.
+- Keep `NEXT_PUBLIC_SITE_STAGE=preview` until every Preview gate passes.
 
 ## 2. Supabase staging
 
@@ -31,24 +32,27 @@ automated audit or delegated task.
 - Validate headers, metadata, forms, legal routes, responsive layout, keyboard
   navigation, and reduced motion on the generated preview URL.
 
-## 4. Payments (later gate)
+## 4. Commercial payments (later gate)
 
-- Obtain owner-approved final prices, marketplace fee, refund, tax, and payout
-  terms.
-- Add Stripe products/prices and Connect only after those terms are published.
+- Confirm $5 monthly and $48 annual Pro, refund, cancellation, failed-payment,
+  grace-period, and tax terms.
+- Add only the approved Pro Stripe products/prices. Paid marketplace and Connect
+  remain out of scope for the first Commercial stage.
 - Keep `PAYMENTS_MODE=disabled` while configuring. In a disposable Stripe
   test-mode account, validate raw-body signatures, parallel duplicates, stale
   lease recovery, out-of-order subscription events, refunds, disputes, and
-  Connect readiness before setting `PAYMENTS_MODE=test`.
+  downgrade and portal readiness before setting `PAYMENTS_MODE=test`.
 - Populate `billing_price_catalog` only from owner-approved Stripe price IDs;
   source ships with no active price.
 
-## 5. Public launch
+## 5. Stage promotion
 
 - Attach an approved domain or subdomain when ready; a Vercel project URL is
   sufficient for prelaunch review.
-- Switch `NEXT_PUBLIC_SITE_INDEXABLE=true` only after legal, security, and content
-  approval.
+- Promote Preview → Release only after artifacts, software terms, legal, security,
+  accessibility, and content approval; then set indexing true.
+- Promote Release → Commercial only after auth, RLS, checkout, portal, webhook,
+  entitlement, cancellation, deletion, and moderation tests pass.
 - Rebuild, verify canonical/OG URLs on the production host, then publish.
 - DNS changes, production deployment, purchases, and payment activation require
   direct owner action or explicit authorization.
@@ -64,4 +68,5 @@ automated audit or delegated task.
 | Profile submission API | Implemented, no public UI | Staging scanner/RLS/rate tests and moderation operations |
 | Profile moderation/publication UI | Database ready | Reviewer roles, audit workflow, owner approval |
 | Forum write UI/API | Schema/RLS ready | Spam/rate controls and moderation operations |
-| Checkout and Connect creation | Intentionally absent | Decisions 3–6 and explicit test-mode authorization |
+| Pro checkout and billing portal | Implemented, stage/payment gated | Commercial stage plus explicit test/live authorization |
+| Paid marketplace and Connect | Excluded from first Commercial stage | A future separately approved product plan |

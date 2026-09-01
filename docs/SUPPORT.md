@@ -12,6 +12,12 @@ Support does not buy software, features, priority, access, governance rights, or
 service commitments. It is not represented as a tax-deductible charitable
 donation.
 
+Stripe hosts the payment page and receipt flow. GameWorlds LLC may receive the
+bounded transaction, contact, status, and payout records needed to reconcile the
+payment. Duplicate or mistaken payments go to support@gameworlds.ai with the
+Stripe receipt identifier; approved or legally required refunds return through
+the original provider and payment method.
+
 The GameWorldsDEV GitHub Sponsors application has been started but is not public
 yet. Do not advertise GitHub Sponsors as available until GitHub identity,
 two-factor authentication, payout onboarding, profile review, and publication

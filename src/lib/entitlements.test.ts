@@ -22,7 +22,7 @@ function claims(): EntitlementClaimsV1 {
     sub: randomUUID(),
     plan: "pro",
     creatorClass: "community",
-    capabilities: ["premium_themes", "profile_publish_free", "profile_publish_paid"],
+    capabilities: ["premium_themes", "profile_publish_free", "profile_version_history"],
     profileLimit: 10,
     iat: NOW,
     exp: NOW + 86_400,
@@ -52,7 +52,7 @@ describe("signed entitlement contract", () => {
     expect(verified.profileLimit).toBe(10);
     expect(localAccessFromEntitlement(verified)).toMatchObject({
       hostedProfileLimit: 10,
-      capabilities: expect.arrayContaining(["profile_publish_paid"]),
+      capabilities: expect.arrayContaining(["profile_publish_free", "profile_version_history"]),
     });
   });
 

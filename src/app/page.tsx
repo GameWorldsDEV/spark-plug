@@ -6,6 +6,7 @@ import { DevicesSection } from "./_components/devices-section";
 import { EnginesSection } from "./_components/engines-section";
 import { GitHubProof } from "./_components/github-proof";
 import { MarketplaceSection } from "./_components/marketplace-section";
+import { ProfileWorkflow } from "./_components/profile-workflow";
 import { ReleaseDownloads } from "./_components/release-downloads";
 import { RoadmapSection } from "./_components/roadmap-section";
 import { RoutingSection } from "./_components/routing-section";
@@ -14,7 +15,8 @@ import { Story } from "./_components/story";
 import { ToolsCarousel } from "./_components/tools-carousel";
 import { TrainingSection } from "./_components/training-section";
 import { WhyTeaser } from "./_components/why-teaser";
-import { currentRelease } from "../lib/release-manifest";
+import { currentRelease, releaseForStage } from "../lib/release-manifest";
+import { currentLaunch } from "../lib/launch-stage";
 import styles from "./page.module.css";
 
 const faqs = [
@@ -26,6 +28,7 @@ const faqs = [
 ] as const;
 
 export default function Home() {
+  const publicRelease = releaseForStage(currentRelease, currentLaunch.downloads);
   return (
     <main>
       <a className={styles.skipLink} href="#main-content">Skip to content</a>
@@ -34,14 +37,13 @@ export default function Home() {
           <BrandLogo className={styles.brandLogo} />
         </Link>
         <nav className={styles.nav} aria-label="Primary navigation">
-          <a href="#tools">Tools</a>
-          <a href="#routing">Routing</a>
-          <a href="#engines">Engines</a>
-          <a href="#devices">Remote</a>
-          <a href="#marketplace">Marketplace</a>
-          <a href="#release">Release</a>
+          <a href="#profile-workflow">Product</a>
+          <Link href="/marketplace">Marketplace</Link>
+          <Link href="/docs">Docs</Link>
+          <Link href="/why-spark-plug">Why Spark Plug</Link>
+          <Link href="/download">Download</Link>
         </nav>
-        <a className={styles.headerCta} href={currentRelease.repositoryUrl} rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a className={styles.headerCta} href={publicRelease.repositoryUrl} rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </header>
 
       <div id="main-content" className={styles.content}>
@@ -49,10 +51,11 @@ export default function Home() {
 
         <section className={styles.release} id="release" aria-labelledby="release-title">
           <h2 id="release-title" className={styles.srOnly}>Spark Plug releases</h2>
-          <ReleaseDownloads manifest={currentRelease} />
+          <ReleaseDownloads manifest={publicRelease} />
         </section>
 
         <GitHubProof />
+        <ProfileWorkflow />
         <ToolsCarousel />
         <RoutingSection />
         <EnginesSection />
@@ -76,7 +79,7 @@ export default function Home() {
         </section>
       </div>
 
-      <SiteFooter repositoryUrl={currentRelease.repositoryUrl} />
+      <SiteFooter repositoryUrl={publicRelease.repositoryUrl} />
     </main>
   );
 }

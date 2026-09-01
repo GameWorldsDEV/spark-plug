@@ -19,7 +19,7 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "enum": ["premium_themes", "premium_motion", "private_profile_sync", "profile_publish_free", "profile_publish_paid", "profile_analytics"]
+        "enum": ["premium_themes", "premium_motion", "private_profile_sync", "profile_version_history", "profile_publish_free", "profile_analytics", "early_release_beta"]
       }
     },
     "profileLimit": { "const": 10 },

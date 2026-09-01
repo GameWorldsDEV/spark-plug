@@ -12,7 +12,7 @@ export default function TermsPage() {
     <LegalShell
       eyebrow="PUBLIC PREVIEW / NOT PRODUCT TERMS"
       title="What this preview is—and is not."
-      summary="This website explains a product in development. It is not a software download, product account, subscription offer, marketplace, or promise of a release date."
+      summary="This website explains a product in development. It is not yet a software download, product account, subscription, marketplace transaction, or promise of a release date. It does offer a separate voluntary support link."
     >
       <h2>Current scope</h2>
       <p>
@@ -26,9 +26,20 @@ export default function TermsPage() {
       <p>
         Visiting this site does not grant a license to unreleased Spark Plug source,
         binaries, branding, or private product materials. No price, paid plan, hosted
-        account, marketplace listing, or payment checkout is currently offered here.
+        account, marketplace listing, or product checkout is currently offered here.
         Final software licenses and any service terms must be published with the
         corresponding release or service.
+      </p>
+
+      <h2>Voluntary support</h2>
+      <p>
+        The external Stripe support page accepts optional one-time payments to support
+        development. Support is not a software purchase, preorder, subscription,
+        charitable contribution, investment, license, feature promise, priority-support
+        commitment, endorsement, or governance right. Stripe&rsquo;s terms apply to its
+        payment service. Contact support@gameworlds.ai with the Stripe receipt identifier
+        for a duplicate or mistaken payment. Approved or legally required refunds use the
+        original payment provider and method.
       </p>
 
       <h2>Product responsibility</h2>
@@ -66,8 +77,8 @@ export default function TermsPage() {
       <h2>Contact</h2>
       <p>
         Questions about this notice can be sent to{" "}
-        <a href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20terms">
-          hello@gameworlds.ai
+        <a href="mailto:support@gameworlds.ai?subject=Spark%20Plug%20terms">
+          support@gameworlds.ai
         </a>.
       </p>
     </LegalShell>

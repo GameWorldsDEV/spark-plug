@@ -17,7 +17,8 @@ export default function SecurityPage() {
       <h2>This website today</h2>
       <ul>
         <li>Vercel serves this no-index preview and its server routes.</li>
-        <li>There is no active public product account, payment checkout, marketplace transaction, profile publishing interface, training job, or node connection on this site.</li>
+        <li>There is no active public product account, subscription checkout, marketplace transaction, profile publishing interface, training job, or node connection on this site.</li>
+        <li>The optional Support link leaves this site for Stripe&rsquo;s hosted payment page; it never receives node credentials or local runtime data.</li>
         <li>The download cards read a public release manifest and remain disabled until a verified artifact is published.</li>
         <li>Platform highlighting happens in the browser and is not stored or sent to a Spark Plug account.</li>
         <li>This site does not need node credentials, local prompts, model files, or private outputs.</li>
@@ -69,8 +70,8 @@ export default function SecurityPage() {
       <h2>Report a vulnerability</h2>
       <p>
         Send the affected surface, reproduction steps, and expected impact to{" "}
-        <a href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20security%20report">
-          hello@gameworlds.ai
+        <a href="mailto:security@gameworlds.ai?subject=Spark%20Plug%20security%20report">
+          security@gameworlds.ai
         </a>. Do not include live credentials, private user data, or destructive proof.
       </p>
 

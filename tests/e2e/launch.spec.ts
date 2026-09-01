@@ -9,6 +9,15 @@ const routes = [
   ["/terms", /what this preview is—and is not/i],
   ["/trademarks", /compatibility does not mean endorsement/i],
   ["/security", /separate what is live from what is planned/i],
+  ["/docs", /learn the control plane before the first download/i],
+  ["/download", /repository is open.*installers are coming soon/i],
+  ["/marketplace", /curated profiles.*reviewed before they reach your node/i],
+  ["/training", /train locally only after the data.*model.*capacity pass review/i],
+  ["/support", /help the project.*get help without guessing/i],
+  ["/changelog", /what changed.*what actually shipped/i],
+  ["/legal", /one place for every public boundary/i],
+  ["/accessibility", /product story should work without perfect vision/i],
+  ["/community-leaders", /contribution earns recognition.*payment never buys trust/i],
 ] as const;
 
 for (const [route, heading] of routes) {
@@ -46,7 +55,7 @@ test("the product story presents the real workflow and keeps non-affiliation cop
   await page.goto("/");
   await expect(page.getByRole("link", { name: /download for dgx spark/i })).toHaveAttribute("href", "#release");
   await expect(page.getByRole("link", { name: /see compatible tools/i })).toHaveAttribute("href", "#tools");
-  await expect(page.locator("#profile-workflow")).toHaveCount(0);
+  await expect(page.locator("#profile-workflow")).toHaveCount(1);
   await expect(page.getByText(/independent software and is not affiliated with NVIDIA/i)).toBeVisible();
   const huggingFaceMark = page.locator('img[src="/integrations/hugging-face.svg"]').first();
   await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
@@ -256,6 +265,33 @@ test("security and prelaunch indexing headers are present", async ({ request }) 
   expect(response.headers()["x-content-type-options"]).toBe("nosniff");
   expect(response.headers()["x-frame-options"]).toBe("DENY");
   expect(response.headers()["x-robots-tag"]).toBe("noindex, nofollow");
+});
+
+test("Preview publishes machine-readable stage and security boundaries", async ({ request }) => {
+  const [robots, sitemap, security, account, checkout, catalog] = await Promise.all([
+    request.get("/robots.txt"),
+    request.get("/sitemap.xml"),
+    request.get("/.well-known/security.txt"),
+    request.get("/account"),
+    request.post("/api/v1/billing/checkout", { data: { cadence: "monthly" } }),
+    request.get("/api/v1/catalog/profiles"),
+  ]);
+  expect(await robots.text()).toContain("Disallow: /");
+  expect(await sitemap.text()).not.toContain("<url>");
+  expect(await security.text()).toContain("Contact: mailto:security@gameworlds.ai");
+  expect(await account.text()).toMatch(/accounts are not active in preview/i);
+  expect(checkout.status()).toBe(503);
+  expect(catalog.status()).toBe(503);
+});
+
+test("support and legal notices describe the external Stripe boundary", async ({ page }) => {
+  await page.goto("/support");
+  await expect(page.getByRole("link", { name: /support spark plug through stripe/i })).toHaveAttribute("href", "https://buy.stripe.com/aFa5kC2AQ6Jg3aj4UKdMI00");
+  await expect(page.getByText(/not a software purchase.*charitable contribution/i)).toBeVisible();
+  await page.goto("/privacy");
+  await expect(page.getByRole("heading", { name: /optional stripe support/i })).toBeVisible();
+  await page.goto("/terms");
+  await expect(page.getByRole("heading", { name: /voluntary support/i })).toBeVisible();
 });
 
 test("root social card is explicit and detail pages do not inherit it", async ({ page }) => {

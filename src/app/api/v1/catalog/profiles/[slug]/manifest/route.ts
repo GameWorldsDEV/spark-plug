@@ -5,6 +5,7 @@ import {
   supabaseAnonRpc,
   supabaseUserRpc,
 } from "@/lib/supabase-rest";
+import { currentLaunch } from "@/lib/launch-stage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ const PRIVATE = { "cache-control": "private, no-store" };
 const PUBLIC = { "cache-control": "public, max-age=0, s-maxage=300, stale-while-revalidate=86400" };
 
 type ManifestProjection = {
-  access: "free" | "paid";
+  access: "free";
   schemaVersion: number;
   manifest: unknown;
   manifestSha256: string;
@@ -33,6 +34,9 @@ export async function GET(
   request: Request,
   context: { params: Promise<{ slug: string }> },
 ) {
+  if (!currentLaunch.accounts) {
+    return NextResponse.json({ error: "marketplace catalog is not active" }, { status: 503, headers: PRIVATE });
+  }
   const { slug } = await context.params;
   if (!SLUG.test(slug)) {
     return NextResponse.json({ error: "profile not found" }, { status: 404, headers: PRIVATE });
@@ -52,11 +56,9 @@ export async function GET(
       );
     const { access, ...manifestEnvelope } = projection;
 
-    return NextResponse.json(manifestEnvelope, {
-      headers: access === "free" ? PUBLIC : PRIVATE,
-    });
+    return NextResponse.json(manifestEnvelope, { headers: access === "free" ? PUBLIC : PRIVATE });
   } catch {
-    // Do not reveal whether a paid profile, purchase, or account exists.
+    // Do not reveal whether a profile or account exists.
     return NextResponse.json({ error: "profile unavailable" }, { status: 404, headers: PRIVATE });
   }
 }

@@ -30,15 +30,18 @@ export function SiteFooter({ repositoryUrl }: SiteFooterProps) {
       </div>
       <nav aria-label="Footer navigation">
         <a href={repositoryUrl} rel="noopener noreferrer">GitHub</a>
-        <a href={stripeSupportUrl} rel="noopener noreferrer">Support</a>
+        <Link href="/support">Support</Link>
+        <Link href="/docs">Docs</Link>
+        <Link href="/download">Download</Link>
+        <Link href="/marketplace">Marketplace</Link>
+        <Link href="/training">Training</Link>
+        <Link href="/changelog">Changelog</Link>
         <Link href="/why-spark-plug">Why Spark Plug</Link>
         <Link href="/benchmarks">Benchmarks</Link>
-        <Link href="/security">Security</Link>
-        <Link href="/privacy">Privacy</Link>
-        <Link href="/terms">Terms</Link>
-        <Link href="/trademarks">Trademarks</Link>
+        <Link href="/legal">Legal</Link>
+        <a href={stripeSupportUrl} rel="noopener noreferrer" aria-label="Optional Stripe support">Stripe support ↗</a>
       </nav>
-      <p className={styles.legal}>© 2026 GameWorlds. Independent software. Product names belong to their respective owners.</p>
+      <p className={styles.legal}>© 2026 GameWorlds LLC. Maryland, USA. Independent software. Product names belong to their respective owners.</p>
     </footer>
   );
 }

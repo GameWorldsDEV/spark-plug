@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { readRawBodyWithLimit } from "@/lib/read-raw-body";
 import { parseStripeEvent, verifyStripeSignature } from "@/lib/stripe-webhook";
 import { supabaseServiceRpc } from "@/lib/supabase-rest";
+import { currentLaunch } from "@/lib/launch-stage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,7 +19,7 @@ type WebhookClaim = {
 };
 
 function paymentsEnabled(): boolean {
-  return ["test", "live"].includes(process.env.PAYMENTS_MODE || "disabled");
+  return currentLaunch.billing && ["test", "live"].includes(process.env.PAYMENTS_MODE || "disabled");
 }
 
 export async function POST(request: Request) {

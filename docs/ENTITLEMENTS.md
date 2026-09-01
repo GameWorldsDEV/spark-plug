@@ -11,10 +11,11 @@ Neither a UI flag nor a client-supplied plan/class authorizes anything.
 | Browse public setup profiles | Yes | Yes |
 | Local authentication/entitlement heartbeat | **None** | Stale/on-demand refresh only |
 | Local profile limit | Unlimited | Unlimited |
-| Hosted marketplace publishing | — | 10 published slots, free or paid |
+| Hosted marketplace publishing | — | 10 published free-profile slots |
 | Premium visual themes and motion | — | Yes |
 | Private profile sync | — | Yes |
-| Creator analytics / payout tooling | — | Yes |
+| Creator download analytics | — | Yes |
+| Early-release and beta channel | Public betas | Opt-in early channel |
 
 ## Trust classes
 
@@ -51,9 +52,14 @@ subscription/trust projection, and returns either a signed Pro token or a null
 Community result. Tokens contain no email, payment, customer, or local machine
 data.
 
+Community Leader is a separately reviewed, expiring recognition. It may grant
+complimentary Pro while active, but payment never grants the badge and the role
+never bypasses validation or moderation.
+
 ## Price and cancellation rules
 
 The launch UI currently proposes Community at $0 and Pro at $5/month or $48/year.
-Those are not active charges. Price IDs live in a server-only allowlist and remain
-inactive until owner approval. Cancellation, grace periods, refunds, disputes,
-taxes, fees, and payout timing require published terms before payment routes open.
+Those are not active charges in Preview. Price IDs live in a server-only allowlist
+and remain inactive until Commercial promotion. Cancellation, grace periods,
+refunds, disputes, and taxes require published terms before payment routes open.
+The first marketplace is free-only; paid listings and payout tooling are excluded.

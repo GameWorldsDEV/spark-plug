@@ -19,6 +19,13 @@ const contentSecurityPolicy = [
     : []),
 ].join("; ");
 
+const stage = ["preview", "release", "commercial"].includes(
+  process.env.NEXT_PUBLIC_SITE_STAGE || "",
+)
+  ? process.env.NEXT_PUBLIC_SITE_STAGE
+  : "preview";
+const indexable = stage !== "preview" && process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
@@ -36,7 +43,7 @@ const nextConfig: NextConfig = {
             value:
               "camera=(), microphone=(), geolocation=(), payment=(self), usb=(), browsing-topics=()",
           },
-          ...(process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true"
+          ...(indexable
             ? []
             : [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]),
         ],

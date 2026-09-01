@@ -3,6 +3,7 @@ import "server-only";
 import { NextResponse } from "next/server";
 import { decodeCatalogCursor, encodeCatalogCursor } from "@/lib/catalog-cursor";
 import { supabaseServiceSelect } from "@/lib/supabase-rest";
+import { currentLaunch } from "@/lib/launch-stage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ type CatalogProfile = {
   slug: string;
   title: string;
   summary: string;
-  access: "free" | "paid";
+  access: "free";
   price_cents: number;
   currency: string;
   published_at: string;
@@ -32,6 +33,9 @@ function boundedLimit(url: URL): number {
 }
 
 export async function GET(request: Request) {
+  if (!currentLaunch.accounts) {
+    return NextResponse.json({ error: "marketplace catalog is not active" }, { status: 503, headers: { "cache-control": "no-store" } });
+  }
   const url = new URL(request.url);
   const limit = boundedLimit(url);
   const cursor = url.searchParams.get("before");

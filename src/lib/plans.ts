@@ -10,10 +10,10 @@ export type Entitlement =
   | "pro.motion_packs"
   | "pro.private_sync"
   | "pro.early_releases"
+  | "pro.profile_history"
   | "creator.verified_badge"
-  | "creator.paid_listings"
-  | "creator.analytics"
-  | "creator.payouts";
+  | "creator.free_listings"
+  | "creator.analytics";
 
 export type PlanDefinition = {
   id: PlanId;
@@ -43,9 +43,9 @@ const PRO_ENTITLEMENTS = [
   "pro.motion_packs",
   "pro.private_sync",
   "pro.early_releases",
-  "creator.paid_listings",
+  "pro.profile_history",
+  "creator.free_listings",
   "creator.analytics",
-  "creator.payouts",
 ] as const satisfies readonly Entitlement[];
 
 export const PLANS: readonly PlanDefinition[] = [
@@ -73,15 +73,16 @@ export const PLANS: readonly PlanDefinition[] = [
     monthlyPrice: 5,
     annualPrice: 48,
     priceLabel: "$5 monthly",
-    description: "Premium motion, themes, and private setup sync without locking the core.",
+    description: "Premium presentation, optional private sync, and free profile publishing without locking the core.",
     cta: "Choose Pro",
     featured: true,
     entitlements: PRO_ENTITLEMENTS,
     highlights: [
       "Everything in Community",
       "Premium themes and motion packs",
-      "Up to 10 hosted free or paid profiles",
-      "Private setup sync and analytics",
+      "Up to 10 hosted free profiles",
+      "Private sync, version history, and analytics",
+      "Opt-in early releases and beta testing",
     ],
   },
 ] as const;

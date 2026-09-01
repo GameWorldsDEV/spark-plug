@@ -19,6 +19,23 @@ select is(
   'every new public table enables and forces RLS'
 );
 
+select is(
+  (
+    select count(*)
+    from pg_class c
+    join pg_namespace n on n.oid = c.relnamespace
+    where n.nspname = 'public'
+      and c.relname in (
+        'community_leader_recognitions', 'private_profile_snapshots',
+        'marketplace_collections', 'profile_download_totals'
+      )
+      and c.relrowsecurity
+      and c.relforcerowsecurity
+  ),
+  4::bigint,
+  'every staged-launch table enables and forces RLS'
+);
+
 select ok(
   not has_column_privilege('anon', 'public.setup_listings', 'manifest', 'SELECT'),
   'anonymous catalog access cannot select an inline manifest'
@@ -34,6 +51,18 @@ select ok(
 select ok(
   not has_table_privilege('authenticated', 'public.billing_price_catalog', 'SELECT'),
   'the Stripe price allowlist is service only'
+);
+select ok(
+  not has_table_privilege('authenticated', 'public.community_leader_recognitions', 'SELECT'),
+  'leader review records are service only'
+);
+select ok(
+  not has_table_privilege('authenticated', 'public.orders', 'INSERT'),
+  'authenticated users cannot create marketplace orders'
+);
+select ok(
+  not has_table_privilege('authenticated', 'public.creator_payout_accounts', 'INSERT'),
+  'authenticated users cannot create payout state'
 );
 
 insert into auth.users(id, email) values
@@ -61,10 +90,12 @@ values
 insert into public.subscriptions(user_id, plan, status, current_period_end)
 values ('00000000-0000-4000-8000-000000000002', 'pro', 'active', now() + interval '30 days');
 
-insert into public.creator_payout_accounts(
-  user_id, stripe_connect_account_id, charges_enabled, payouts_enabled
+insert into public.community_leader_recognitions(
+  user_id, contribution_summary, reviewed_by, reviewed_at, expires_at
 ) values (
-  '00000000-0000-4000-8000-000000000002', 'acct_test_projection_0002', true, true
+  '00000000-0000-4000-8000-000000000003',
+  'Sustained reviewed community documentation and testing contributions.',
+  '00000000-0000-4000-8000-000000000005', now(), now() + interval '180 days'
 );
 
 select is(
@@ -81,6 +112,11 @@ select is(
   public.publisher_hosting_eligible('00000000-0000-4000-8000-000000000005'),
   true,
   'GameWorlds Official has the service-managed exception'
+);
+select is(
+  public.publisher_hosting_eligible('00000000-0000-4000-8000-000000000003'),
+  true,
+  'an active Community Leader receives complimentary Pro publishing capacity'
 );
 
 set local role authenticated;
@@ -108,17 +144,34 @@ select is(
   'pro',
   'the caller can read only their effective Pro projection'
 );
+select is(
+  (public.current_entitlement_claims() ->> 'community_leader')::boolean,
+  false,
+  'buying Pro does not grant the Community Leader role'
+);
 
 select lives_ok(
+  $$
+    insert into public.setup_listings(owner_id, slug, title, summary) values (
+      '00000000-0000-4000-8000-000000000002',
+      'pro-free-one', 'Pro free one', 'A free declarative profile.'
+    )
+  $$,
+  'active Pro can create a hosted free draft'
+);
+
+select throws_ok(
   $$
     insert into public.setup_listings(
       owner_id, slug, title, summary, access, price_cents
     ) values (
       '00000000-0000-4000-8000-000000000002',
-      'pro-paid-one', 'Pro paid one', 'A paid declarative profile.', 'paid', 500
+      'paid-is-disabled', 'Paid is disabled', 'Paid marketplace is deferred.', 'paid', 500
     )
   $$,
-  'active Pro can create a hosted paid draft'
+  'P0001',
+  'the first public marketplace accepts free profiles only',
+  'the first Commercial stage rejects paid marketplace listings'
 );
 
 select throws_ok(
@@ -151,7 +204,7 @@ set local "request.jwt.claims" = '{"role":"service_role"}';
 
 update public.setup_listings
 set id = '10000000-0000-4000-8000-000000000001'
-where slug = 'pro-paid-one';
+where slug = 'pro-free-one';
 update public.setup_listings
 set id = '50000000-0000-4000-8000-000000000001'
 where slug = 'official-free-one';
@@ -264,17 +317,15 @@ select is(
   (select count(*) from public.setup_profile_versions
    where listing_id = '10000000-0000-4000-8000-000000000001'),
   0::bigint,
-  'anonymous table reads cannot see a paid manifest'
+  'anonymous table reads cannot bypass the manifest delivery function'
 );
 select lives_ok(
   $$ select public.authorized_profile_manifest('50000000-0000-4000-8000-000000000001') $$,
   'anonymous users can download an approved free manifest'
 );
-select throws_ok(
+select lives_ok(
   $$ select public.authorized_profile_manifest('10000000-0000-4000-8000-000000000001') $$,
-  'P0001',
-  'profile unavailable',
-  'anonymous users cannot download a paid manifest'
+  'anonymous users can download an approved free Pro-published manifest'
 );
 select ok(
   coalesce((
@@ -286,28 +337,11 @@ select ok(
 );
 
 reset role;
-insert into public.orders(
-  buyer_id, listing_id, amount_cents, currency, status
-) values (
-  '00000000-0000-4000-8000-000000000003',
-  '10000000-0000-4000-8000-000000000001', 500, 'usd', 'paid'
-);
-
 set local role authenticated;
 set local "request.jwt.claims" = '{"sub":"00000000-0000-4000-8000-000000000004","role":"authenticated"}';
-select throws_ok(
-  $$ select public.authorized_profile_manifest('10000000-0000-4000-8000-000000000001') $$,
-  'P0001',
-  'profile unavailable',
-  'an authenticated non-buyer cannot download a paid manifest'
-);
-
-reset role;
-set local role authenticated;
-set local "request.jwt.claims" = '{"sub":"00000000-0000-4000-8000-000000000003","role":"authenticated"}';
 select lives_ok(
   $$ select public.authorized_profile_manifest('10000000-0000-4000-8000-000000000001') $$,
-  'a buyer can download the paid immutable manifest'
+  'an authenticated non-owner can download an approved free manifest'
 );
 
 reset role;
@@ -357,6 +391,16 @@ select is(
 reset role;
 set local role authenticated;
 set local "request.jwt.claims" = '{"sub":"00000000-0000-4000-8000-000000000003","role":"authenticated"}';
+select is(
+  public.current_entitlement_claims() ->> 'plan',
+  'pro',
+  'an active Community Leader receives complimentary Pro'
+);
+select is(
+  (public.current_entitlement_claims() ->> 'community_leader')::boolean,
+  true,
+  'Community Leader recognition remains separate from payment state'
+);
 select lives_ok(
   $$
     insert into public.forum_comments(post_id, author_id, body)

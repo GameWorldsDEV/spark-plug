@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": "Clean-room public catalog, locally verifiable entitlements, and payment webhook boundary. Local agents, routes, prompts, outputs, and host paths are out of scope."
   },
-  "servers": [{ "url": "https://sparkplug.example.com" }],
+  "servers": [{ "url": "https://sparkplug.gameworlds.ai" }],
   "paths": {
     "/api/v1/catalog/profiles": {
       "get": {
@@ -28,8 +28,8 @@
     "/api/v1/catalog/profiles/{slug}/manifest": {
       "get": {
         "summary": "Fetch one immutable manifest",
-        "description": "Free profiles require no account lookup. Paid profiles require a Supabase access token and ownership or a paid order.",
-        "security": [{}, { "supabaseAccessToken": [] }],
+        "description": "Approved profiles in the first marketplace are free and require no account lookup. Paid marketplace delivery is not implemented.",
+        "security": [],
         "parameters": [{ "in": "path", "name": "slug", "required": true, "schema": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$" } }],
         "responses": {
           "200": {
@@ -117,6 +117,21 @@
         "responses": { "202": { "description": "Pending moderation" }, "422": { "description": "Schema, HF pin, checksum, or risk validation failed" }, "429": { "description": "Validation budget exceeded" } }
       }
     },
+    "/api/v1/billing/checkout": {
+      "post": {
+        "summary": "Create an allowlisted Pro subscription checkout",
+        "description": "Commercial-stage only. The authenticated browser selects monthly or annual cadence; the server supplies the approved Stripe price ID.",
+        "security": [{ "supabaseAccessToken": [] }],
+        "responses": { "200": { "description": "Stripe-hosted checkout URL" }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "503": { "$ref": "#/components/responses/Unavailable" } }
+      }
+    },
+    "/api/v1/billing/portal": {
+      "post": {
+        "summary": "Create an authenticated Stripe billing portal session",
+        "security": [{ "supabaseAccessToken": [] }],
+        "responses": { "200": { "description": "Stripe-hosted billing portal URL" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "503": { "$ref": "#/components/responses/Unavailable" } }
+      }
+    },
     "/api/stripe/webhook": {
       "post": {
         "summary": "Receive a signed Stripe event",
@@ -152,8 +167,8 @@
           "slug": { "type": "string" },
           "title": { "type": "string" },
           "summary": { "type": "string" },
-          "access": { "enum": ["free", "paid"] },
-          "price_cents": { "type": "integer", "minimum": 0 },
+          "access": { "const": "free" },
+          "price_cents": { "const": 0 },
           "currency": { "type": "string", "pattern": "^[a-z]{3}$" },
           "published_at": { "type": "string", "format": "date-time" },
           "creator_handle": { "type": "string" },
@@ -194,8 +209,8 @@
           "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$" },
           "title": { "type": "string", "minLength": 1, "maxLength": 100 },
           "summary": { "type": "string", "minLength": 1, "maxLength": 500 },
-          "access": { "enum": ["free", "paid"] },
-          "priceCents": { "type": "integer", "minimum": 0, "maximum": 100000 },
+          "access": { "const": "free" },
+          "priceCents": { "const": 0 },
           "currency": { "const": "usd" },
           "manifest": { "$ref": "../schemas/setup-profile.v1.schema.json" }
         }

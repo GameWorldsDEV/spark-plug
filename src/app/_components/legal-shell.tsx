@@ -17,11 +17,11 @@ export function LegalShell({ eyebrow, title, summary, children }: LegalShellProp
         <Link className={styles.brand} href="/" aria-label="Spark Plug home">
           <BrandLogo className={styles.brandLogo} />
         </Link>
-        <nav aria-label="Legal and security pages">
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/terms">Terms</Link>
-          <Link href="/trademarks">Trademarks</Link>
-          <Link href="/security">Security</Link>
+        <nav aria-label="Information pages">
+          <Link href="/docs">Docs</Link>
+          <Link href="/download">Download</Link>
+          <Link href="/support">Support</Link>
+          <Link href="/legal">Legal</Link>
         </nav>
       </header>
       <section className={styles.hero}>
@@ -31,7 +31,7 @@ export function LegalShell({ eyebrow, title, summary, children }: LegalShellProp
       </section>
       <article className={styles.content}>{children}</article>
       <footer className={styles.footer}>
-        <p>© 2026 GameWorlds. Spark Plug is an independent product.</p>
+        <p>© 2026 GameWorlds LLC. Spark Plug is an independent product.</p>
         <Link href="/">Return to the public launch ↗</Link>
       </footer>
     </main>

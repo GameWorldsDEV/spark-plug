@@ -17,12 +17,13 @@ describe("plan entitlements", () => {
 
   it("does not leak premium or creator permissions into Community", () => {
     expect(planGrants("community", "pro.premium_themes")).toBe(false);
-    expect(planGrants("community", "creator.paid_listings")).toBe(false);
+    expect(planGrants("community", "creator.free_listings")).toBe(false);
   });
 
-  it("grants paid listings to Pro without conflating plan and verification", () => {
-    expect(planGrants("pro", "creator.paid_listings")).toBe(true);
+  it("grants only free hosted publishing to Pro without conflating plan and verification", () => {
+    expect(planGrants("pro", "creator.free_listings")).toBe(true);
     expect(planGrants("pro", "creator.verified_badge")).toBe(false);
+    expect([...entitlementsForPlan("pro")]).not.toContain("creator.paid_listings");
   });
 
   it("displays the approved Pro billing math", () => {

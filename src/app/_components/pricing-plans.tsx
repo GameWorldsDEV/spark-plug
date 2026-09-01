@@ -4,7 +4,7 @@ import { useState } from "react";
 import { displayPrice, PLANS } from "@/lib/plans";
 import styles from "../page.module.css";
 
-export function PricingPlans() {
+export function PricingPlans({ active = false }: { active?: boolean }) {
   const [annual, setAnnual] = useState(false);
 
   return (
@@ -46,8 +46,8 @@ export function PricingPlans() {
               <p className={styles.annualNote}>{plan.priceLabel}</p>
             )}
             <p className={styles.planDescription}>{plan.description}</p>
-            <a href="#join" className={styles.planCta}>
-              {plan.cta} <span aria-hidden="true">↗</span>
+            <a href={active ? "/account" : "/support"} className={styles.planCta} aria-disabled={!active}>
+              {active ? plan.cta : "Coming with Commercial"} <span aria-hidden="true">↗</span>
             </a>
             <ul>
               {plan.highlights.map((highlight) => (

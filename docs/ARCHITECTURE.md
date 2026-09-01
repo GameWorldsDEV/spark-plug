@@ -10,7 +10,7 @@ flowchart LR
   Browser["Browser / public website"] --> Edge["Vercel / Next.js routes"]
   Local["Local Spark Plug"] -->|"stale Pro snapshot only"| Edge
   Edge --> PublicDB["Dedicated public Supabase\nAuth + Postgres + strict RLS"]
-  Stripe["Stripe Checkout + Connect"] -->|"signed raw webhook"| Edge
+  Stripe["Stripe subscriptions"] -->|"signed raw webhook"| Edge
   Edge -->|"safe projection + event hash"| PublicDB
   Edge -->|"Ed25519 signed, 7 day snapshot"| Local
   Local --> Broker["Owner-controlled broker"]
@@ -34,9 +34,9 @@ flowchart LR
   `unverified-creator` warning. Creator/business verification expires and must
   be manually revalidated; an expired class is projected as Community.
 - **Catalog and manifest delivery are split.** The cacheable catalog contains
-  metadata, digest, creator class, and risk labels only. Free manifests have a
-  cacheable route; paid manifests require ownership or a paid order and are
-  `private, no-store`.
+  metadata, digest, creator class, and risk labels only. Approved free manifests
+  have a cacheable route. Paid manifests, orders, and payouts are excluded from
+  the first Commercial stage.
 
 ## Vercel / Next.js
 
@@ -48,8 +48,8 @@ flowchart LR
 - `PAYMENTS_MODE=disabled` is the source default. Merely configuring a secret
   does not enable payments.
 - Responses avoid tokens, event bodies, email addresses, manifests, and local
-  paths in logs or errors. Authorization failures for paid profiles collapse to
-  a generic not-found response.
+  paths in logs or errors. Unavailable or unapproved profiles collapse to a
+  generic not-found response.
 
 ## Dedicated public Supabase
 
@@ -89,7 +89,7 @@ Profile manifests are declarative data, never plug-ins:
 6. The local installer revalidates the schema, digest, exact HF revision and
    file checksums, then asks the owner before any download or local mutation.
 
-## Stripe and Connect
+## Stripe subscriptions
 
 The webhook route verifies the exact raw bytes, enforces a five-minute timestamp
 window, reduces known event types to a small safe projection, and claims an event
@@ -97,10 +97,12 @@ ID before applying it. A ten-minute lease permits recovery after a process crash
 fresh concurrent delivery receives a retry response, while processed duplicates
 return success without repeating writes.
 
-Checkout creation and Connect onboarding remain intentionally gated until the
-owner supplies approved prices, fees, refund/tax terms, and redirect origins.
-Server routes must create provider objects from database-owned amounts and IDs;
+Checkout and the customer portal remain intentionally gated until the owner
+supplies approved fixed price IDs, refund/tax terms, and redirect origins.
+Server routes create provider objects from an environment-owned price allowlist;
 browser-supplied prices, plans, owners, or entitlement claims are never trusted.
+Connect onboarding, paid listings, marketplace orders, and payouts remain
+disabled.
 
 ## Local product boundary
 

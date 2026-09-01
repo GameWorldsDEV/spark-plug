@@ -7,6 +7,10 @@ const migration = readFileSync(
   resolve(ROOT, "supabase/migrations/202608180002_public_marketplace_forum.sql"),
   "utf8",
 );
+const stagedMigration = readFileSync(
+  resolve(ROOT, "supabase/migrations/202609010001_three_stage_contract.sql"),
+  "utf8",
+);
 
 function source(path: string): string {
   return readFileSync(resolve(ROOT, path), "utf8");
@@ -74,8 +78,16 @@ describe("public service architecture", () => {
   });
 
   it("documents gated external activation and owner decisions", () => {
-    expect(source("docs/DEPLOYMENT.md")).toContain("Intentionally absent");
+    expect(source("docs/DEPLOYMENT.md")).toContain("Stage promotion");
     expect(source("docs/OWNER_DECISIONS.md")).toContain("Activation sequence");
     expect(source(".env.example")).toContain("PAYMENTS_MODE=disabled");
+  });
+
+  it("keeps the first commercial marketplace free and separates leaders from payment", () => {
+    expect(stagedMigration).toContain("the first public marketplace accepts free profiles only");
+    expect(stagedMigration).toContain("community_leader_recognitions");
+    expect(stagedMigration).toContain("is_active_community_leader");
+    expect(source("src/lib/entitlements.ts")).not.toContain("profile_publish_paid");
+    expect(source("src/lib/plans.ts")).not.toContain("creator.payouts");
   });
 });

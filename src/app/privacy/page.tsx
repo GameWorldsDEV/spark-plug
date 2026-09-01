@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <LegalShell
       eyebrow="PREVIEW-SITE NOTICE / UPDATED AUGUST 31, 2026"
       title="What this site collects today."
-      summary="This notice covers the current public preview. There are no public Spark Plug product accounts, payments, marketplace listings, software downloads, or node connections on this site."
+      summary="This notice covers the current public preview. There are no public Spark Plug product accounts, subscriptions, marketplace listings, software downloads, or node connections. The site does link to a separate Stripe-hosted page for optional one-time support."
     >
       <h2>Information you send</h2>
       <p>
@@ -38,6 +38,16 @@ export default function PrivacyPage() {
         or analytics cookie.
       </p>
 
+      <h2>Optional Stripe support</h2>
+      <p>
+        If you choose the Support link, your browser leaves this site for a Stripe-hosted
+        payment page. Stripe processes payment, contact, device, fraud-prevention, and
+        receipt information under its own notices. GameWorlds LLC may receive transaction,
+        contact, payment-status, receipt, and payout records needed to reconcile the
+        voluntary payment. A support payment does not create a Spark Plug product account
+        or Pro entitlement during Preview.
+      </p>
+
       <h2>Marketplace and model-source preview</h2>
       <p>
         The marketplace cards and model-source marks on this preview are static,
@@ -57,7 +67,7 @@ export default function PrivacyPage() {
 
       <h2>Future services are not presented as active</h2>
       <p>
-        If accounts, hosted profiles, payments, training services, or a marketplace open later, this
+        If accounts, subscriptions, hosted profiles, training services, or a marketplace open later, this
         notice will be replaced or updated before those features collect data. Their
         required fields, purposes, processors, retention, and user controls are not
         presented here as current behavior.
@@ -67,8 +77,8 @@ export default function PrivacyPage() {
       <p>
         To ask about information sent by email, or request access, correction, or
         deletion where applicable, contact{" "}
-        <a href="mailto:hello@gameworlds.ai?subject=Spark%20Plug%20privacy%20request">
-          hello@gameworlds.ai
+        <a href="mailto:privacy@gameworlds.ai?subject=Spark%20Plug%20privacy%20request">
+          privacy@gameworlds.ai
         </a>.
       </p>
     </LegalShell>

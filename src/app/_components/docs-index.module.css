@@ -1,0 +1,11 @@
+.search label { display: grid; gap: 10px; margin: 24px 0 8px; color: #eef3ea; font-weight: 800; }
+.search input { width: 100%; padding: 16px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 0; background: #0b1110; color: #eef3ea; font: inherit; }
+.search input:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 30px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.14); }
+.grid article { min-width: 0; padding: 24px; background: #07100b; }
+.grid article > p { color: var(--lime); font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+.grid h3 { margin: 12px 0; font-size: 1.15rem; }
+.grid h3 a { color: #eef3ea; }
+.grid article > div { color: #9ba59e; line-height: 1.6; }
+@media (max-width: 650px) { .grid { grid-template-columns: 1fr; } }
+

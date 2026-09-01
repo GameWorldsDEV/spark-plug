@@ -1,7 +1,7 @@
 # Security policy
 
 Spark Plug is pre-release. Please report suspected vulnerabilities privately by
-emailing `hello@gameworlds.ai` with the affected surface, reproduction steps,
+emailing `security@gameworlds.ai` with the affected surface, reproduction steps,
 and expected impact.
 
 Do not include live credentials, private user data, prompts, outputs, model
@@ -14,3 +14,7 @@ response-time policy will be published with the first public software release.
 
 The detailed design and release checklist are in `docs/SECURITY.md` and
 `docs/THREAT_MODEL.md`.
+
+If the dedicated address is unavailable, use `hello@gameworlds.ai` as the
+fallback. The machine-readable disclosure contact is published at
+`/.well-known/security.txt`.

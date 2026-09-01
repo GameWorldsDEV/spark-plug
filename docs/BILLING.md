@@ -6,9 +6,9 @@ provides the required production decisions and explicitly authorizes each gate.
 
 ## Paid value boundary
 
-Potential paid capabilities are limited to optional presentation and hosted
-convenience, including premium themes, motion packs, custom artwork, private
-profile sync, hosted publishing, and creator analytics.
+Paid capabilities are limited to optional presentation and hosted convenience:
+premium themes, motion packs, private profile sync, version history, up to ten
+hosted free profiles, creator download analytics, and opt-in early releases.
 
 The following are always local Community capabilities and must never be gated:
 
@@ -63,7 +63,10 @@ capabilities but never disables the local core.
 - signed entitlement schema, key-set route, local verification library, and
   refresh route;
 - `PAYMENTS_MODE=disabled` as the source default;
-- no checkout or Connect creation route, by design.
+- Commercial-stage checkout and billing-portal routes that fail closed unless
+  the site stage, payment mode, authenticated user, and fixed server price
+  allowlist all agree;
+- no Connect, paid-listing, order, or creator-payout activation.
 
 ## Code handoff contract for the product task
 
@@ -93,8 +96,9 @@ The public local client needs a small entitlement adapter with these behaviors:
    out-of-order event, and entitlement-expiry tests.
 7. Integrate the local adapter and prove free offline use plus graceful Pro
    expiry.
-8. Set `PAYMENTS_MODE=test` only for the approved test environment.
-9. Complete owner and legal review before any live-mode authorization.
+8. Set `NEXT_PUBLIC_SITE_STAGE=commercial` and `PAYMENTS_MODE=test` only in the
+   approved disposable test environment.
+9. Complete owner and legal review before any live-mode authorization or stage promotion.
 
 GitHub traffic and stars are public project signals, not billing identity or
 entitlement inputs. They must never unlock paid capability.

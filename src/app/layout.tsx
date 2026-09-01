@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { currentLaunch } from "@/lib/launch-stage";
 import "./globals.css";
 
-const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const isIndexable = process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
+export const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sparkplug.gameworlds.ai";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
@@ -45,17 +45,34 @@ export const metadata: Metadata = {
       "Pair clients, define workload profiles, apply them to the node, and observe real engine, model, queue, and memory state.",
     images: ["/og-v2.png"],
   },
-  robots: { index: isIndexable, follow: isIndexable },
+  robots: { index: currentLaunch.indexable, follow: currentLaunch.indexable },
   referrer: "strict-origin-when-cross-origin",
 };
 
 const motionBootstrap = `document.documentElement.dataset.motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduced" : "ready";`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const structuredData = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Spark Plug",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Linux, macOS, iOS, iPadOS, Windows, Android",
+    url: siteOrigin,
+    publisher: {
+      "@type": "Organization",
+      name: "GameWorlds LLC",
+      url: "https://gameworlds.ai",
+    },
+    ...(currentLaunch.downloads
+      ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" } }
+      : {}),
+  }).replace(/</g, "\\u003c");
   return (
     <html lang="en">
       <body>
         <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
         {children}
       </body>
     </html>

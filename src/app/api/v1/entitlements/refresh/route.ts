@@ -12,6 +12,7 @@ import {
   type ProCapability,
 } from "@/lib/entitlements";
 import { supabaseUserRpc } from "@/lib/supabase-rest";
+import { currentLaunch } from "@/lib/launch-stage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,9 +23,10 @@ const PRO_CAPABILITIES: ProCapability[] = [
   "premium_themes",
   "premium_motion",
   "private_profile_sync",
+  "profile_version_history",
   "profile_publish_free",
-  "profile_publish_paid",
   "profile_analytics",
+  "early_release_beta",
 ];
 const CREATOR_CLASSES = new Set<CreatorClass>([
   "community",
@@ -80,6 +82,9 @@ function signingConfig() {
 }
 
 export async function POST(request: Request) {
+  if (!currentLaunch.accounts) {
+    return NextResponse.json({ error: "accounts are not active" }, { status: 503, headers: NO_STORE });
+  }
   const accessToken = bearerToken(request);
   if (!accessToken) {
     return NextResponse.json({ error: "authentication required" }, { status: 401, headers: NO_STORE });
