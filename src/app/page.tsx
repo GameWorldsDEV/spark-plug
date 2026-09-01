@@ -44,8 +44,14 @@ export default function Home() {
         <a className={styles.headerCta} href={currentRelease.repositoryUrl} rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </header>
 
-      <div id="main-content">
+      <div id="main-content" className={styles.content}>
         <Story />
+
+        <section className={styles.release} id="release" aria-labelledby="release-title">
+          <h2 id="release-title" className={styles.srOnly}>Spark Plug releases</h2>
+          <ReleaseDownloads manifest={currentRelease} />
+        </section>
+
         <GitHubProof />
         <ToolsCarousel />
         <RoutingSection />
@@ -56,11 +62,6 @@ export default function Home() {
         <TrainingSection />
         <WhyTeaser />
         <RoadmapSection />
-
-        <section className={styles.release} id="release" aria-labelledby="release-title">
-          <h2 id="release-title" className={styles.srOnly}>Spark Plug releases</h2>
-          <ReleaseDownloads manifest={currentRelease} />
-        </section>
 
         <section className={styles.faq} aria-labelledby="faq-title">
           <div><p className={styles.eyebrow}>STRAIGHT ANSWERS</p><h2 id="faq-title">Before you plug in.</h2></div>

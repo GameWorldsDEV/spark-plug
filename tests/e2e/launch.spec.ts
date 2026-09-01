@@ -175,15 +175,30 @@ test("the public release manifest never exposes an unfinished download", async (
   }
 });
 
-test("node downloads stay near the bottom and the complete desktop page stays within its reviewed budget", async ({ page }) => {
+test("downloads follow the hero on desktop while remaining near the bottom on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
-  const order = await page.evaluate(() => {
+  const desktopOrder = await page.evaluate(() => {
+    const story = document.querySelector('section[class*="story"]');
+    const release = document.querySelector("#release");
+    const proof = document.querySelector("#github-proof-title")?.closest("section");
+    return story?.nextElementSibling === release && release?.nextElementSibling === proof;
+  });
+  expect(desktopOrder).toBe(true);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileOrder = await page.evaluate(() => {
     const roadmap = document.querySelector("#roadmap");
     const release = document.querySelector("#release");
-    return roadmap?.nextElementSibling === release;
+    const faq = document.querySelector('section[class*="faq"]');
+    if (!roadmap || !release || !faq) return false;
+    const elements = [roadmap, release, faq];
+    const positions = elements.map((element) => element.getBoundingClientRect().top + scrollY);
+    return positions[0] < positions[1] && positions[1] < positions[2];
   });
-  expect(order).toBe(true);
+  expect(mobileOrder).toBe(true);
+
+  await page.setViewportSize({ width: 1440, height: 900 });
   const screenCount = await page.evaluate(
     () => document.documentElement.scrollHeight / window.innerHeight,
   );
