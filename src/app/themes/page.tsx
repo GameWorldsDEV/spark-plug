@@ -26,6 +26,24 @@ const themeConcepts = [
   },
 ] as const;
 
+const colorThemes = [
+  ["Neon Grid", "green", "Electric green structure on a deep control-room canvas."],
+  ["Cyberdeck Amber", "amber", "Warm terminal amber built for dense operational views."],
+  ["Matrix Rain", "matrix", "A playful falling-glyph backdrop with a calmer readable panel layer."],
+  ["Synthwave Sunset", "sunset", "Violet, magenta, and sunset-orange accents for creative sessions."],
+  ["Tokyo Night", "tokyo", "A balanced blue-violet palette designed for everyday work."],
+  ["Ice / Holo", "ice", "A bright holographic option for daylight and high-ambient-light rooms."],
+] as const;
+
+const expansionSlots = [
+  "COMMUNITY SLOT 01",
+  "COMMUNITY SLOT 02",
+  "COMMUNITY SLOT 03",
+  "COMMUNITY SLOT 04",
+  "COMMUNITY SLOT 05",
+  "COMMUNITY SLOT 06",
+] as const;
+
 export default function ThemesPage() {
   return (
     <LegalShell
@@ -34,17 +52,17 @@ export default function ThemesPage() {
       summary="Spark Plug themes change presentation—not node authority. Downloadable theme packages will live in the public repository, use the same open format, and never unlock product capabilities."
     >
       <div className={styles.notice}>
-        <strong>THEME DOWNLOADS / COMING SOON</strong>
+        <strong>INCLUDED WITH OPEN SOURCE / FREE</strong>
         <p>
-          The page is ready, but no package is pretending to be downloadable.
-          Buttons activate only after a theme has a version, license, preview,
-          checksum, and tested Spark Plug compatibility range.
+          Cartridge, Compact Disc, and the color collection come with the
+          open-source Spark Plug release at no charge. Downloads activate when
+          the first verified app package and matching theme files are published.
         </p>
       </div>
 
       <h2>Animated concepts</h2>
       <p>
-        Cartridge and Compact Disc establish the first physical-media theme
+        Cartridge and Compact Disc are included open-source themes that establish the first physical-media
         language. Both preserve labels, status, contrast, keyboard operation,
         and reduced-motion behavior.
       </p>
@@ -56,34 +74,46 @@ export default function ThemesPage() {
               <small>{theme.label}</small>
               <h3>{theme.name}</h3>
               <p>{theme.copy}</p>
-              <button type="button" disabled aria-label={`${theme.name} theme coming soon`}>
-                DOWNLOAD COMING SOON
+              <button type="button" disabled aria-label={`${theme.name} included free with the open-source release`}>
+                INCLUDED FREE / RELEASE PENDING
               </button>
             </div>
           </article>
         ))}
       </div>
 
-      <h2>DGX Spark theme collection</h2>
+      <h2>Included color themes</h2>
       <p>
-        The existing app themes will be listed here with their real names and
-        sanitized screenshots after the live app review. We will not invent
-        names, previews, or download packages before matching them to the
-        actual DGX Spark build.
+        Six color systems round out the DGX Spark collection. Every palette
+        ships free, remains editable, and preserves the same runtime information
+        and controls.
       </p>
-      <div className={styles.catalog}>
-        <article>
-          <span>BUILT-IN</span>
-          <h3>Spark Plug Default</h3>
-          <p>The current high-contrast control-room foundation.</p>
-          <button type="button" disabled>INCLUDED WITH APP</button>
-        </article>
-        <article className={styles.pending}>
-          <span>DGX SPARK COLLECTION</span>
-          <h3>More app themes</h3>
-          <p>Names and previews pending a sanitized capture of the actual app.</p>
-          <button type="button" disabled>CATALOGING</button>
-        </article>
+      <div className={styles.colorGrid} aria-label="Included Spark Plug color themes">
+        {colorThemes.map(([name, tone, copy]) => (
+          <article key={name} data-tone={tone}>
+            <div className={styles.swatch} aria-hidden="true"><i /><i /><i /><i /></div>
+            <span>COLOR THEME / INCLUDED FREE</span>
+            <h3>{name}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+
+      <h2>More themes coming soon</h2>
+      <p>
+        The library has room to grow without turning unfinished ideas into fake
+        products. These slots are reserved for original GameWorlds and community
+        themes that pass packaging, licensing, accessibility, and compatibility review.
+      </p>
+      <div className={styles.expansion} aria-label="Future Spark Plug theme slots">
+        {expansionSlots.map((slot) => (
+          <article key={slot}>
+            <div aria-hidden="true"><span>+</span></div>
+            <small>{slot}</small>
+            <h3>Theme coming soon</h3>
+            <p>Preview, creator, license, and compatibility will appear here.</p>
+          </article>
+        ))}
       </div>
 
       <h2>Open theme format</h2>
