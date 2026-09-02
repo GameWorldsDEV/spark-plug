@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sparkplug.gameworlds.ai/schemas/entitlement-claims.v1.schema.json",
+  "title": "Spark Plug Pro entitlement claims v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ver", "iss", "aud", "sub", "plan", "creatorClass", "capabilities", "profileLimit", "iat", "exp", "jti"],
+  "properties": {
+    "ver": { "const": 1 },
+    "iss": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "aud": { "const": "sparkplug-local" },
+    "sub": { "type": "string", "format": "uuid" },
+    "plan": { "const": "pro" },
+    "creatorClass": {
+      "enum": ["community", "verified_creator", "verified_business", "gameworlds_official"]
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["premium_themes", "premium_motion", "private_profile_sync", "profile_version_history", "profile_publish_free", "profile_publish_paid", "profile_analytics", "early_release_beta"]
+      }
+    },
+    "profileLimit": { "const": 10 },
+    "iat": { "type": "integer", "minimum": 1 },
+    "exp": { "type": "integer", "minimum": 1 },
+    "jti": { "type": "string", "pattern": "^[A-Za-z0-9_-]{16,96}$" }
+  }
+}

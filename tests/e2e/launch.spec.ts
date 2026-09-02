@@ -290,13 +290,16 @@ test("Pro and creator commerce are explained but fail closed during Preview", as
   await page.goto("/marketplace");
   await expect(page.getByRole("heading", { name: "Open in Spark Plug", exact: true })).toBeVisible();
   await expect(page.getByText(/local app does not continuously phone home/i)).toBeVisible();
+  await expect(page.getByText(/platform fee is 5%/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /creator support first/i })).toBeVisible();
 
   const [account, checkout] = await Promise.all([
     request.get("/account"),
     request.post("/api/v1/billing/checkout", { data: { cadence: "monthly" } }),
   ]);
-  expect(account.status()).toBe(404);
-  expect(checkout.status()).toBe(404);
+  expect(account.status()).toBe(200);
+  expect(await account.text()).toContain("Accounts are not active in Preview");
+  expect(checkout.status()).toBe(503);
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {
@@ -321,9 +324,9 @@ test("Preview publishes machine-readable stage and security boundaries", async (
   expect(await robots.text()).toContain("Disallow: /");
   expect(await sitemap.text()).not.toContain("<url>");
   expect(await security.text()).toContain("Contact: mailto:security@gameworlds.ai");
-  expect(account.status()).toBe(404);
-  expect(checkout.status()).toBe(404);
-  expect(catalog.status()).toBe(404);
+  expect(account.status()).toBe(200);
+  expect(checkout.status()).toBe(503);
+  expect(catalog.status()).toBe(503);
 });
 
 test("support and legal notices describe the external Stripe boundary", async ({ page }) => {

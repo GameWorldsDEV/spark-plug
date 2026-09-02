@@ -1,0 +1,7 @@
+.panel { display: grid; gap: 16px; margin-top: 30px; }
+.panel form { display: grid; gap: 12px; }
+.panel label { color: #eef3ea; font-weight: 800; }
+.panel input { padding: 14px 16px; border: 1px solid #455249; background: #07100b; color: #eef3ea; font: inherit; }
+.panel button, .panel > a { padding: 14px 16px; border: 1px solid var(--lime); background: transparent; color: var(--lime); font-family: var(--mono); font-size: .68rem; font-weight: 800; text-align: center; text-transform: uppercase; }
+.panel button:disabled { opacity: .6; }
+

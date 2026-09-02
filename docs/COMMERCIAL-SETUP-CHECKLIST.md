@@ -5,11 +5,13 @@ Store them directly in the Vercel project and local ignored environment files.
 
 ## Owner decisions
 
-- [ ] Confirm Pro at $5 monthly and $48 annually.
-- [ ] Choose marketplace commission percentage.
+- [x] Confirm Pro at $5 monthly and $48 annually.
+- [x] Set the server-owned marketplace commission to 5% (500 basis points).
 - [ ] Choose initial seller/buyer countries and USD-only or multi-currency.
 - [ ] Choose minimum and maximum asset prices.
-- [ ] Approve digital-download refund window and exceptions.
+- [x] Approve the draft refund reasons: mandatory law, an admin-verified defect
+      on a declared-compatible setup that survives creator cure, or creator
+      abandonment. Counsel must approve the effective language and time limits.
 - [ ] Choose package/storage/bandwidth limits by asset type.
 - [ ] Decide whether private profile sync ships in the first Pro release.
 - [ ] Obtain counsel-approved buyer, seller, billing, privacy, IP/takedown,
@@ -47,10 +49,16 @@ Store them directly in the Vercel project and local ignored environment files.
 - [ ] Add Vercel WAF rules and route-specific rate limits.
 - [ ] Add CAPTCHA/bot challenges to abusive auth and mutation paths.
 - [ ] Configure package quarantine, scanning, decompression limits, and review.
+- [ ] Seed and maintain the exact-revision model license registry; paid profiles
+      fail closed unless every model permits a paid configuration reference.
+- [ ] Verify browser, CDN, and app ETag caching holds the catalog for one hour
+      and does not refresh on local app navigation or AI work.
 - [ ] Configure database, auth, email, storage, egress, function, and Stripe cost
       alerts plus emergency commerce kill switches.
 - [ ] Create moderation, takedown, appeal, refund, incident, backup, restore, key
       rotation, and support runbooks.
+- [ ] Require creators to own first-line support and revisions; preserve the
+      complete case history before escalation to GameWorlds administrators.
 - [ ] Complete accessibility, privacy, security, dependency, secret, RLS, and
       authorization testing.
 

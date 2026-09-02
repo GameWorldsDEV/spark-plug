@@ -35,6 +35,7 @@ export function SiteFooter({ repositoryUrl }: SiteFooterProps) {
         <Link href="/download">Download</Link>
         <Link href="/marketplace">Marketplace</Link>
         <Link href="/pricing">Community + Pro</Link>
+        <Link href="/account">Account</Link>
         <Link href="/themes">Themes</Link>
         <Link href="/training">Training</Link>
         <Link href="/changelog">Changelog</Link>

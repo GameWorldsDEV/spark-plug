@@ -14,6 +14,7 @@ const pages = [
   ["/community-leaders", "Community Leaders", "Earned recognition, review, expiry, removal, and appeals."],
   ["/legal/software", "Open-source license", "Apache-2.0, third-party notices, and verified release requirements."],
   ["/legal/marketplace", "Marketplace rules", "Creator licensing, review, reporting, sales, and conduct."],
+  ["/legal/refunds", "Marketplace support & refunds", "Compatibility evidence, creator cure, escalation, abandonment, and refund review."],
   ["/legal/commercial", "Commercial activation gate", "Pro, billing, creator sales, payouts, and buyer protections."],
   ["/docs", "Third-party notices", "Engine, model, tool, and profile license responsibilities."],
 ] as const;

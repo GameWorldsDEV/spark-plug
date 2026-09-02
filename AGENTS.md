@@ -17,8 +17,13 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   weights, or deployment topology.
 - Public setup manifests must be scrubbed and declarative. Never publish secrets,
   absolute host paths, private output references, or session history.
-- Spark Plug remains free and accountless. Do not add subscriptions, feature
-  paywalls, hosted entitlements, paid profile listings, or payment-gated source.
+- Spark Plug's local core remains free, open source, accountless, and fully
+  usable offline. Optional hosted Pro services and the separately operated
+  marketplace may use subscriptions and paid listings, but must never gate
+  local inference, local profiles, local engines, accessibility, or source.
+- Commerce must fail closed behind the launch-stage and private readiness gates.
+  Test mode, seller terms, moderation, refund operations, RLS, webhooks, and
+  abuse controls must pass before any live payment or payout is enabled.
 - GitHub is the source and release authority. Website executables and installers
   must match a tagged commit and publish verification evidence before activation.
 - Do not deploy, publish, change DNS, activate payments, or mutate production

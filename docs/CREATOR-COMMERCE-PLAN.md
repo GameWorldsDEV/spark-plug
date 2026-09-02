@@ -37,8 +37,8 @@ packs, and rights-cleared LoRA adapters. A listing may be $0.00 or use an
 approved one-time price. Pro is required to publish, not to browse or install
 approved free listings.
 
-The platform percentage is deliberately unset. Before seller onboarding, the
-owner must approve the commission basis points, minimum/maximum price, Stripe
+The GameWorlds platform fee is fixed at **5% (500 basis points)** of each paid
+sale. Before seller onboarding, the owner must still approve minimum/maximum price, Stripe
 fee allocation, refund/chargeback allocation, payout schedule, reserve policy,
 currency, and tax approach. Each value is server-owned; a browser never submits
 a trusted fee, price, seller, entitlement, or payout destination.
@@ -47,6 +47,19 @@ Profiles are configuration rather than executable plug-ins. They cannot contain
 scripts, commands, credentials, secrets, environment values, private paths,
 embedded model weights, prompts, outputs, or node telemetry. Model references
 must be revision pinned and checksummed.
+
+Every paid technical listing must include the creator's tested compatibility
+matrix: computer maker/model, operating system, architecture, memory, applicable
+GPU/VRAM, engine and version, model revision, and test date. Creators own
+first-line questions, troubleshooting, and revisions. Unresolved cases retain
+their version and support history before escalation to GameWorlds administrators.
+
+A refund may be approved when mandatory law requires it; when GameWorlds
+reproduces a material defect on a declared-supported configuration and the
+creator cannot correct it after a reasonable cure opportunity; or when the
+creator abandons the listing or support case. Failure on unlisted hardware is
+not by itself proof of a defect. Effective time limits and legal language require
+counsel approval before live sales.
 
 LoRA sellers must document rights to training data, permitted base-model use,
 adapter output, artwork, and commercial distribution. The listing must separate
@@ -69,6 +82,12 @@ accounts, listings, immutable versions, purchases, moderation, and the narrow
 billing projection. The marketplace service and its database can remain a
 privately operated GameWorlds service even while the local Spark Plug client and
 its public import contract remain open source.
+
+The website remains the marketplace authority. The app may present the same
+catalog from a CDN/browser-cached read-only snapshot with a one-hour refresh
+period and ETag. Local navigation, profiles, engines, models, queues, prompts,
+and jobs never trigger marketplace calls. Sign-in is needed only for explicit
+hosted actions such as purchasing a paid package or publishing as a creator.
 
 ## Profile builder, export, and one-click import
 
@@ -120,6 +139,8 @@ downloads an asset, publishes, opens creator analytics, manually refreshes Pro,
 or reaches the final entitlement stale window.
 
 - catalog pages use CDN caching, ETags, pagination, and `updated_since` deltas;
+- app catalog snapshots refresh no more than once per hour unless the user
+  explicitly asks; the last valid snapshot remains usable offline;
 - public $0 listings use cacheable metadata and packages;
 - paid downloads use one short entitlement check followed by a short-lived
   signed object URL;
@@ -226,11 +247,11 @@ idempotency, content validation, or spending alerts.
 
 ## Owner decisions still required
 
-- marketplace commission percentage;
+- marketplace commission percentage — decided: 5% / 500 basis points;
 - seller and buyer countries/currencies at launch;
 - minimum and maximum listing price;
 - who absorbs Stripe processing, refunds, disputes, and negative balances;
-- refund window and exceptions for digital downloads;
+- exact creator response/cure deadlines for the approved refund reasons;
 - storage and bandwidth quotas for profiles, themes, motion, and LoRA adapters;
 - whether private sync ships with the first Pro release;
 - final GameWorlds LLC address and counsel-approved commercial terms.

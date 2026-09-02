@@ -1,5 +1,14 @@
 export const PRO_MONTHLY_USD = 5;
 export const PRO_ANNUAL_USD = 48;
+export const MARKETPLACE_PLATFORM_FEE_BPS = 500;
+export const MARKETPLACE_PLATFORM_FEE_PERCENT = MARKETPLACE_PLATFORM_FEE_BPS / 100;
+
+export function marketplacePlatformFeeCents(grossCents: number): number {
+  if (!Number.isSafeInteger(grossCents) || grossCents < 0) {
+    throw new RangeError("grossCents must be a non-negative safe integer");
+  }
+  return Math.round((grossCents * MARKETPLACE_PLATFORM_FEE_BPS) / 10_000);
+}
 
 export const communityFeatures = [
   "Complete local control application and updates",

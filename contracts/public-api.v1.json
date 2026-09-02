@@ -18,6 +18,61 @@
         }
       }
     },
+    "/api/v1/auth/google": {
+      "get": {
+        "summary": "Begin Google OAuth through Supabase PKCE",
+        "responses": { "302": { "description": "Redirect to the configured provider." }, "503": { "description": "Accounts are not active." } }
+      }
+    },
+    "/api/v1/catalog/profiles": {
+      "get": {
+        "summary": "Read cached, moderated marketplace metadata",
+        "responses": { "200": { "description": "Profile metadata without manifest bodies." } }
+      }
+    },
+    "/api/v1/catalog/snapshot": {
+      "get": {
+        "summary": "Read the canonical app catalog snapshot cached for one hour with an ETag",
+        "responses": { "200": { "description": "Up to 200 reviewed catalog entries." }, "304": { "description": "The cached snapshot is current." } }
+      }
+    },
+    "/api/v1/catalog/profiles/{slug}/manifest": {
+      "get": {
+        "summary": "Read an authorized, checksummed profile manifest",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Free, owned, or purchased manifest." }, "404": { "description": "Unavailable without existence disclosure." } }
+      }
+    },
+    "/api/v1/profiles": {
+      "post": {
+        "summary": "Submit a Pro creator profile with compatibility evidence for moderation",
+        "responses": { "202": { "description": "Draft accepted for review." }, "503": { "description": "Publishing is not active." } }
+      }
+    },
+    "/api/v1/billing/checkout": {
+      "post": {
+        "summary": "Create a server-allowlisted Pro subscription checkout",
+        "responses": { "200": { "description": "Stripe-hosted checkout URL." }, "503": { "description": "Billing is not active." } }
+      }
+    },
+    "/api/v1/marketplace/checkout": {
+      "post": {
+        "summary": "Create a server-owned one-seller checkout with a fixed 5% platform fee",
+        "responses": { "200": { "description": "Stripe-hosted checkout URL." }, "503": { "description": "Marketplace checkout is not active." } }
+      }
+    },
+    "/api/v1/marketplace/support-cases": {
+      "post": {
+        "summary": "Open creator-first support against an exact paid order and tested configuration",
+        "responses": { "201": { "description": "Support case opened." }, "503": { "description": "Marketplace support is not active." } }
+      }
+    },
+    "/api/v1/marketplace/seller-onboarding": {
+      "post": {
+        "summary": "Create or resume Stripe Connect Express onboarding after Pro and seller-term checks",
+        "responses": { "200": { "description": "Short-lived Stripe onboarding URL." }, "503": { "description": "Seller onboarding is not active." } }
+      }
+    },
     "/.well-known/security.txt": {
       "get": {
         "summary": "Read the vulnerability disclosure contact",

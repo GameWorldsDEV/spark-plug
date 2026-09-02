@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { LegalShell } from "../_components/legal-shell";
 import { detailMetadata } from "@/lib/metadata";
-import { communityFeatures, creatorAssetTypes, PRO_ANNUAL_USD, PRO_MONTHLY_USD, proFeatures } from "@/lib/plans";
+import { communityFeatures, creatorAssetTypes, MARKETPLACE_PLATFORM_FEE_PERCENT, PRO_ANNUAL_USD, PRO_MONTHLY_USD, proFeatures } from "@/lib/plans";
 import styles from "./pricing.module.css";
+import { ProCheckoutButtons } from "../_components/pro-checkout-buttons";
+import { currentLaunch } from "@/lib/launch-stage";
 
 export const metadata = detailMetadata(
   "Community and Pro",
@@ -36,7 +38,7 @@ export default function PricingPage() {
           <div className={styles.price}><strong>${PRO_MONTHLY_USD}</strong><span>/ month</span></div>
           <small>or ${PRO_ANNUAL_USD} billed yearly</small>
           <ul>{proFeatures.map((feature) => <li key={feature}>{feature}</li>)}</ul>
-          <button type="button" disabled aria-label="Google sign-in and Pro subscriptions coming soon">GOOGLE SIGN-IN / COMING SOON</button>
+          {currentLaunch.billing ? <ProCheckoutButtons /> : <button type="button" disabled aria-label="Google sign-in and Pro subscriptions coming soon">GOOGLE SIGN-IN / COMING SOON</button>}
         </article>
       </div>
 
@@ -44,7 +46,7 @@ export default function PricingPage() {
       <div className={styles.assets} aria-label="Planned creator asset types">
         {creatorAssetTypes.map((asset) => <article key={asset}><span>SELL OR SHARE</span><h3>{asset}</h3></article>)}
       </div>
-      <p>Each approved listing may be free or paid. Paid sales use Stripe Connect seller onboarding and a clearly disclosed platform fee. The percentage, minimum price, refund rules, payout schedule, and tax responsibilities are not final and will be shown before any creator agrees to sell.</p>
+      <p>Each approved listing may be free or paid. GameWorlds takes {MARKETPLACE_PLATFORM_FEE_PERCENT}% of each paid sale. Stripe processing, Connect, tax, refund, dispute, and currency costs are separate; the creator sees the full payout breakdown before publishing. Creators provide compatibility evidence and first-line support. <Link href="/legal/refunds">Read the planned support and refund workflow</Link>.</p>
 
       <h2>What Pro never owns</h2>
       <p>Pro never gates local inference, security, accessibility, diagnostics, profiles stored on your machine, engine support, routing, queues, ComfyUI, remote clients, or local Unsloth/LoRA tools. Losing Pro removes hosted and premium services—not the user&rsquo;s local work.</p>
