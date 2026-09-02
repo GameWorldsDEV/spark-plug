@@ -21,13 +21,13 @@ Release-candidate checkpoint for the noindex Vercel preview.
 - Public product language checked against the current private product task and
   its node, client, profile, engine, queue, memory, and pairing contracts.
 - Security/noindex headers and route-specific social metadata: passed.
-- Waitlist body cap: both declared-length and chunked payloads above 16 KiB
-  return HTTP 413 in the production server; unit tests also assert early stream
-  cancellation.
+- Removed account, subscription, entitlement, hosted marketplace, waitlist, and
+  product-payment routes return 404.
 - TypeScript, ESLint, and production Next.js build: passed.
 - Dependency audit: zero known vulnerabilities at the configured audit level.
 - Public-boundary scan: no private host, node path, private-key marker, live
-  payment key, or Supabase service-role assignment found in the public source.
+  payment secret, hosted entitlement signer, or service-role assignment found
+  in the public source.
 
 ## Historical Lighthouse local production run
 

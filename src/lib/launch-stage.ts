@@ -1,14 +1,10 @@
-export const LAUNCH_STAGES = ["preview", "release", "commercial"] as const;
+export const LAUNCH_STAGES = ["preview", "release"] as const;
 
 export type LaunchStage = (typeof LAUNCH_STAGES)[number];
 
 export type LaunchCapabilities = {
   stage: LaunchStage;
   downloads: boolean;
-  accounts: boolean;
-  billing: boolean;
-  profilePublishing: boolean;
-  hostedTraining: false;
   indexable: boolean;
 };
 
@@ -25,13 +21,8 @@ export function launchCapabilities(
   return Object.freeze({
     stage,
     downloads: stage !== "preview",
-    accounts: stage === "commercial",
-    billing: stage === "commercial",
-    profilePublishing: stage === "commercial",
-    hostedTraining: false,
     indexable: stage !== "preview" && indexRequested,
   });
 }
 
 export const currentLaunch = launchCapabilities();
-

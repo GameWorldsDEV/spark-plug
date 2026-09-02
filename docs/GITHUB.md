@@ -3,9 +3,9 @@
 Repository: <https://github.com/GameWorldsDEV/spark-plug>
 
 The repository is public so people can follow release preparation, star the
-project, open scoped issues, and review documentation before product source
-arrives. The README and website must continue to distinguish repository
-availability from product-download availability.
+project, open issues, review source, and contribute. The README and website
+must continue to distinguish source availability from verified-installer
+availability.
 
 ## Current automation
 
@@ -21,7 +21,7 @@ availability from product-download availability.
 GitHub provides repository traffic, clone, referrer, and popular-content data to
 maintainers under **Insights → Traffic**. Stars and forks are public signals.
 No third-party tracking script, GitHub user identity, or star event is copied
-into Spark Plug accounts, billing, or local telemetry.
+into Spark Plug services or local telemetry.
 
 The website may display two narrowly defined public aggregates:
 
@@ -38,7 +38,7 @@ A missing latest release is displayed as **Coming soon**, not zero. GitHub error
 rate limits, timeouts, or malformed responses are displayed as **Unavailable**.
 A numeric zero is shown only when GitHub actually returns a valid zero. The
 download label always says **Latest release downloads**; it is not an all-time
-download, repository-clone, traffic, user, billing, or entitlement metric.
+download, repository-clone, traffic, user, or payment metric.
 
 Review clone, referrer, and popular-content traffic in GitHub itself. Do not add
 a browser analytics SDK merely to display repository interest.

@@ -17,7 +17,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   weights, or deployment topology.
 - Public setup manifests must be scrubbed and declarative. Never publish secrets,
   absolute host paths, private output references, or session history.
-- Premium source packages remain private. This repository may define and test
-  entitlement contracts but must not contain Pro theme/motion implementation.
+- Spark Plug remains free and accountless. Do not add subscriptions, feature
+  paywalls, hosted entitlements, paid profile listings, or payment-gated source.
+- GitHub is the source and release authority. Website executables and installers
+  must match a tagged commit and publish verification evidence before activation.
 - Do not deploy, publish, change DNS, activate payments, or mutate production
-  Supabase/Vercel resources without explicit owner authorization.
+  hosted databases or Vercel resources without explicit owner authorization.

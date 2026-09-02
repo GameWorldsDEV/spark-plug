@@ -1,74 +1,63 @@
 # Spark Plug
 
-Spark Plug is a local control app and node broker for a dedicated AI machine. It
-pairs authorized clients to one node, saves models and engine settings as
-profiles, admits those profiles against available memory, supervises separate
-runtime queues, and reports real loading and readiness state.
+Spark Plug is a free, open-source local AI control app and node broker. It pairs
+authorized clients to a machine, saves engines and models as editable profiles,
+checks those profiles against available memory, supervises runtime queues, and
+reports real loading and readiness state.
 
-The public software release is being prepared. This repository currently holds
-the reviewed public website, release contracts, security boundaries, hosted
-entitlement foundation, and documentation that the product source will join
-after clean-room extraction and qualification.
-
-- Canonical website: <https://sparkplug.gameworlds.ai>
-- Release state: pre-release; no public product download yet
+- Website: <https://sparkplug.gameworlds.ai>
+- Source and releases: <https://github.com/GameWorldsDEV/spark-plug>
+- License: [Apache License 2.0](LICENSE)
+- Current status: source preview; verified installers coming soon
 - First node target: NVIDIA DGX Spark, Ubuntu 24.04 ARM64
-- Preview indexing, accounts, subscriptions, publishing, training, and product
-  downloads: disabled by the typed launch-stage configuration
 
-## How the product works
+Spark Plug has no product account, subscription, feature paywall, paid
+marketplace, hosted entitlement check, or paid publishing tier. Local
+functionality, community profiles, source packages, executables, and installers
+are free. Optional Stripe tips and GitHub Sponsors do not unlock anything.
 
-1. **Install and pair** — install Spark Plug, then enroll an authorized browser,
-   Mac, iPhone, or iPad control surface to one node over its HTTPS path.
-2. **Download models** — choose the models each qualified or working-build
-   engine needs for the work you intend to run.
-3. **Create profiles** — save vLLM, Colibri, ComfyUI, memory, context,
-   streaming, concurrency, residency, media, and allowed routing settings as a
-   profile.
-4. **Switch profiles** — validate a complete reusable workflow against the
-   selected compute target, then
-   start or stop the required services without confusing accepted, loading, and
-   ready states.
-5. **Run work** — authorized apps and agents submit work through stable broker
-   routes while engine-specific queues, memory, failures, and results remain
-   observable.
+## How it works
 
-Compatible clients can include OpenClaw, Hermes, Paperclip, Codex through an
-OpenAI-compatible endpoint, Claude Code through its supported gateway, and other
-tools that implement the published endpoint contracts. Compatibility does not
-imply partnership or endorsement.
+1. Install Spark Plug on a supported node and pair an authorized client.
+2. Add compatible engines and model revisions for the work you intend to run.
+3. Save memory, context, queues, routes, and engine settings as editable profiles.
+4. Validate and load a complete profile without confusing accepted, loading, and ready states.
+5. Submit work through stable broker routes while local state remains observable.
 
-## Release buttons
+Compatibility with OpenClaw, Hermes, Paperclip, Codex, Claude Code, Hugging
+Face, and other named tools does not imply partnership or endorsement.
 
-The homepage reads the same versioned manifest served at
-`/releases/current.json`. It highlights the visitor's likely platform locally in
-the browser, but an installer button becomes active only when the manifest has a
-HTTPS artifact URL and a SHA-256 checksum. The GitHub repository remains available
-while Linux/DGX Spark, macOS, Windows, iOS, and Android packages are marked
-coming soon.
+## Free downloads
 
-See [Product contract](docs/PRODUCT.md) for current capability truth and
-[Release plan](docs/RELEASE-PLAN.md) for the path from the private working build
-to the first public package.
+GitHub tags and Releases are the source of truth. The website reads the same
+versioned manifest at `/releases/current.json` and may offer convenient
+platform-specific installers or executables. A button activates only when its
+GitHub HTTPS artifact URL, SHA-256 checksum, detached signature, release notes,
+compatibility evidence, and publication timestamp all describe the same tagged
+commit.
+
+Until then, installer buttons stay labeled **Coming soon**. Browser detection
+only highlights a likely platform and never overrides the release gate.
+
+## Community profiles
+
+The [profiles](profiles/README.md) directory will hold schema-validated,
+declarative profiles contributed through pull requests. Every approved profile
+is free and editable. Profiles cannot contain executable scripts, commands,
+credentials, secrets, private paths, prompts, outputs, or personal data.
 
 ## Repository map
 
 | Area | Purpose |
 | --- | --- |
-| `src/app` | Public website and inactive hosted-service routes |
-| `src/app/why-spark-plug` | Local-ownership, safety, infrastructure, and authorization explainer |
-| `contracts` | Versioned public API contracts |
-| `schemas` | Deny-by-default setup and entitlement schemas |
-| `supabase` | Dedicated public-service migrations and RLS tests; not activated |
-| `docs/PRODUCT.md` | Actual product workflow, support target, and current limits |
-| `docs/CONNECTIONS.md` | Broker, Switchyard, harness, remote-device, and Rabbit R1 boundaries |
-| `docs/BRAND-ASSETS.md` | Third-party compatibility-mark provenance and usage boundary |
-| `docs/HOMEPAGE-REDESIGN-PLAN.md` | Implemented homepage structure, truth boundaries, and visual gates |
-| `docs/RELEASE-PLAN.md` | Clean-room code handoff and release gates |
-| `docs/BILLING.md` | Supabase/Stripe/entitlement separation and activation checklist |
-| `docs/GITHUB.md` | Repository automation, traffic/stars policy, and release use |
-| `docs/HANDOFF.md` | Exact product-code and hosted-service delivery sequence |
-| `docs/PUBLIC_BOUNDARY.md` | Material that may and may not enter the public repository |
+| `src/app` | Public website and release pages |
+| `contracts` | Small public release metadata contract |
+| `schemas` | Deny-by-default setup profile schema |
+| `profiles` | Free community profile contribution boundary |
+| `docs/PRODUCT.md` | Product workflow and current limits |
+| `docs/CONNECTIONS.md` | Broker, routing, harness, and remote-device boundaries |
+| `docs/PUBLIC_BOUNDARY.md` | Material that may and may not enter this repository |
+| `docs/RELEASE-PLAN.md` | Source and verified-installer release gates |
 | `docs/SECURITY.md` | Security design and release checklist |
 
 ## Local development
@@ -78,9 +67,9 @@ npm ci
 npm run dev
 ```
 
-The source defaults to `NEXT_PUBLIC_SITE_STAGE=preview`,
-`PAYMENTS_MODE=disabled`, and `NEXT_PUBLIC_SITE_INDEXABLE=false`. Never point local development at a private
-product database or reuse private product credentials.
+The site fails closed to `NEXT_PUBLIC_SITE_STAGE=preview` and
+`NEXT_PUBLIC_SITE_INDEXABLE=false`. Use `release` only after verified
+artifacts and public metadata pass review.
 
 ## Validation
 
@@ -92,16 +81,5 @@ npm run build
 npm run test:e2e
 ```
 
-Before any public product-source push, also run the clean-room history, binary,
-license, dependency, and secret checks in [Release plan](docs/RELEASE-PLAN.md).
-
-## Community and licensing status
-
-Issues and pull requests may be used for public website and documentation work.
-The product source and its final license are not published yet. Until a license
-file is added, no license to copy, modify, or redistribute repository source is
-granted beyond rights provided by law. This avoids silently choosing a license
-before the owner completes the release review.
-
-See [Contributing](CONTRIBUTING.md) and [Security](SECURITY.md) before opening a
-report.
+Read [Contributing](CONTRIBUTING.md), the [community code](CODE_OF_CONDUCT.md),
+and [Security](SECURITY.md) before opening a report or pull request.

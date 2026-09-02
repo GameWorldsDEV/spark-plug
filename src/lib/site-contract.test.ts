@@ -5,11 +5,10 @@ import { describe, expect, it } from "vitest";
 const root = resolve(import.meta.dirname, "../..");
 const source = (path: string) => readFileSync(resolve(root, path), "utf8");
 
-describe("three-stage public contract", () => {
-  it("uses one stage authority across indexing and protected routes", () => {
+describe("free open-source public contract", () => {
+  it("uses one stage authority across indexing and downloads", () => {
     expect(source("src/app/layout.tsx")).toContain("currentLaunch.indexable");
-    expect(source("src/app/api/v1/profiles/route.ts")).toContain("currentLaunch.profilePublishing");
-    expect(source("src/app/api/stripe/webhook/route.ts")).toContain("currentLaunch.billing");
+    expect(source("src/app/download/page.tsx")).toContain("currentLaunch.downloads");
   });
 
   it("documents external support consistently", () => {
@@ -20,10 +19,10 @@ describe("three-stage public contract", () => {
     expect(source("src/app/support/page.tsx")).toMatch(/not a tax-deductible charitable donation|charitable contribution/);
   });
 
-  it("keeps paid marketplace and hosted training out of the first Commercial stage", () => {
-    expect(source("src/app/api/v1/profiles/route.ts")).not.toContain('"free" | "paid"');
-    expect(source("src/lib/entitlements.ts")).not.toContain("profile_publish_paid");
-    expect(source("src/lib/launch-stage.ts")).toContain("hostedTraining: false");
+  it("documents the accountless, free distribution model", () => {
+    expect(source("README.md")).toMatch(/no product account, subscription, feature paywall/i);
+    expect(source("src/app/marketplace/page.tsx")).toMatch(/No account, subscription, purchase/i);
+    expect(source("src/app/download/page.tsx")).toMatch(/Every installer and executable is free/i);
   });
 
   it("keeps the Vercel-host redirect gated until the custom domain resolves", () => {

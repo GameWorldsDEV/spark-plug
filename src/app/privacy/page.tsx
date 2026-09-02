@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <LegalShell
       eyebrow="PREVIEW-SITE NOTICE / UPDATED AUGUST 31, 2026"
       title="What this site collects today."
-      summary="This notice covers the current public preview. There are no public Spark Plug product accounts, subscriptions, marketplace listings, software downloads, or node connections. The site does link to a separate Stripe-hosted page for optional one-time support."
+      summary="Spark Plug is free, open source, and accountless. This site does not create product accounts, subscriptions, paid listings, or node connections. It links to a separate Stripe-hosted page for optional one-time support."
     >
       <h2>Information you send</h2>
       <p>
@@ -44,15 +44,15 @@ export default function PrivacyPage() {
         payment page. Stripe processes payment, contact, device, fraud-prevention, and
         receipt information under its own notices. GameWorlds LLC may receive transaction,
         contact, payment-status, receipt, and payout records needed to reconcile the
-        voluntary payment. A support payment does not create a Spark Plug product account
-        or Pro entitlement during Preview.
+        voluntary payment. A support payment does not unlock software, features, status,
+        service, or governance.
       </p>
 
       <h2>Marketplace and model-source preview</h2>
       <p>
         The marketplace cards and model-source marks on this preview are static,
         locally hosted explanations. They do not contact Hugging Face, open a public
-        marketplace account, or download a profile or model. A future user-initiated
+        hosted marketplace account, or download a profile or model. A future user-initiated
         profile or model download will have its own source, license, account, network,
         and privacy boundary.
       </p>
@@ -65,12 +65,11 @@ export default function PrivacyPage() {
         <li>Private Spark Plug profiles, routes, node identities, or configuration.</li>
       </ul>
 
-      <h2>Future services are not presented as active</h2>
+      <h2>No hosted product account</h2>
       <p>
-        If accounts, subscriptions, hosted profiles, training services, or a marketplace open later, this
-        notice will be replaced or updated before those features collect data. Their
-        required fields, purposes, processors, retention, and user controls are not
-        presented here as current behavior.
+        The community project does not require an account, subscription, entitlement
+        check, or cloud profile store. If a distinct hosted service is ever proposed,
+        it must have separate, explicit privacy terms before collecting information.
       </p>
 
       <h2>Questions and requests</h2>

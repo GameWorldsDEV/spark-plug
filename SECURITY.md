@@ -12,8 +12,7 @@ The team will acknowledge receipt when the address is actively monitored and
 will coordinate validation and disclosure. A formal supported-version and
 response-time policy will be published with the first public software release.
 
-The detailed design and release checklist are in `docs/SECURITY.md` and
-`docs/THREAT_MODEL.md`.
+The detailed design and release checklist are in `docs/SECURITY.md`.
 
 If the dedicated address is unavailable, use `hello@gameworlds.ai` as the
 fallback. The machine-readable disclosure contact is published at

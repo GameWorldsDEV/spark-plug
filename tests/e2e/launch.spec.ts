@@ -10,8 +10,8 @@ const routes = [
   ["/trademarks", /compatibility does not mean endorsement/i],
   ["/security", /separate what is live from what is planned/i],
   ["/docs", /learn the control plane before the first download/i],
-  ["/download", /repository is open.*installers are coming soon/i],
-  ["/marketplace", /curated profiles.*reviewed before they reach your node/i],
+  ["/download", /source is open.*free installers are coming soon/i],
+  ["/marketplace", /free profiles.*reviewed before they reach your node/i],
   ["/training", /train locally only after the data.*model.*capacity pass review/i],
   ["/support", /help the project.*get help without guessing/i],
   ["/changelog", /what changed.*what actually shipped/i],
@@ -155,7 +155,6 @@ test("release status is explicit, platform-aware, and reduced motion is honored"
   const release = page.getByRole("region", { name: "Spark Plug releases" });
   await expect(release.getByRole("link", { name: /open the github repository/i })).toHaveAttribute("href", "https://github.com/GameWorldsDEV/spark-plug");
   await expect(page.getByRole("button", { name: /public artifact preparing/i })).toHaveCount(0);
-  await expect(page.getByRole("button", { name: /coming soon/i })).toHaveCount(5);
   await expect(page.getByLabel("Spark Plug platform releases").locator("article")).toHaveCount(3);
   const mobileReleases = page.getByLabel("Spark Plug mobile control releases");
   await expect(mobileReleases.locator("article")).toHaveCount(2);
@@ -237,8 +236,8 @@ test("marketplace and training previews stay truthful and engine-aware", async (
   await expect(page.locator("#rabbit-r1")).toHaveCount(0);
   const marketplace = page.locator("#marketplace");
   await expect(marketplace.getByRole("heading", { name: /start with a profile.*make it yours/i })).toBeVisible();
-  await expect(marketplace.getByRole("button", { name: /catalog preparing/i })).toHaveCount(3);
-  await expect(marketplace.getByText(/no profile download is advertised as live yet/i)).toBeVisible();
+  await expect(marketplace.getByRole("button", { name: /community profile coming soon/i })).toHaveCount(3);
+  await expect(marketplace.getByText(/downloaded from GitHub after public review/i)).toBeVisible();
   const huggingFaceMark = marketplace.locator('img[src="/integrations/hugging-face.svg"]');
   await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
   for (const engine of ["vLLM", "Colibri", "ComfyUI", "MLX", "Ollama"]) {
@@ -279,15 +278,15 @@ test("Preview publishes machine-readable stage and security boundaries", async (
   expect(await robots.text()).toContain("Disallow: /");
   expect(await sitemap.text()).not.toContain("<url>");
   expect(await security.text()).toContain("Contact: mailto:security@gameworlds.ai");
-  expect(await account.text()).toMatch(/accounts are not active in preview/i);
-  expect(checkout.status()).toBe(503);
-  expect(catalog.status()).toBe(503);
+  expect(account.status()).toBe(404);
+  expect(checkout.status()).toBe(404);
+  expect(catalog.status()).toBe(404);
 });
 
 test("support and legal notices describe the external Stripe boundary", async ({ page }) => {
   await page.goto("/support");
   await expect(page.getByRole("link", { name: /support spark plug through stripe/i })).toHaveAttribute("href", "https://buy.stripe.com/aFa5kC2AQ6Jg3aj4UKdMI00");
-  await expect(page.getByText(/not a software purchase.*charitable contribution/i)).toBeVisible();
+  await expect(page.getByText(/not a software purchase, charitable contribution/i)).toBeVisible();
   await page.goto("/privacy");
   await expect(page.getByRole("heading", { name: /optional stripe support/i })).toBeVisible();
   await page.goto("/terms");

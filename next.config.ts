@@ -19,7 +19,7 @@ const contentSecurityPolicy = [
     : []),
 ].join("; ");
 
-const stage = ["preview", "release", "commercial"].includes(
+const stage = ["preview", "release"].includes(
   process.env.NEXT_PUBLIC_SITE_STAGE || "",
 )
   ? process.env.NEXT_PUBLIC_SITE_STAGE

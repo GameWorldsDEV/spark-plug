@@ -100,12 +100,13 @@ Tailscale, or through a compatible user-managed VPN that provides the reviewed
 HTTPS path. Network reachability never replaces Spark Plug pairing or node
 authentication.
 
-## Community and optional hosted services
+## Free and accountless
 
-The local core must work without a cloud account or entitlement heartbeat.
-Optional hosted services may later provide paid themes, motion packs, private
-profile sync, hosted publishing, and creator tools. Those services must unlock
-through a locally verifiable signed entitlement and may never gate local
-accounts, core engines, routing, queues, security, or accessibility.
+The local core works without a cloud account, subscription, entitlement
+heartbeat, or mandatory telemetry. Source, official installers, core engines,
+routing, queues, profiles, remote clients, diagnostics, accessibility, and
+community-contributed profiles remain free.
 
-See `BILLING.md` for the hosted-service boundary.
+Profiles are shared through reviewed GitHub pull requests. Optional Stripe tips
+and GitHub Sponsors support project work but never unlock features, priority,
+status, publishing rights, or governance.

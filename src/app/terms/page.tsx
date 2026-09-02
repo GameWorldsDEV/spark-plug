@@ -12,7 +12,7 @@ export default function TermsPage() {
     <LegalShell
       eyebrow="PUBLIC PREVIEW / NOT PRODUCT TERMS"
       title="What this preview is—and is not."
-      summary="This website explains a product in development. It is not yet a software download, product account, subscription, marketplace transaction, or promise of a release date. It does offer a separate voluntary support link."
+      summary="Spark Plug is a free and open-source community project. The repository is public; verified installers will also be free when released. The site offers a separate voluntary support link."
     >
       <h2>Current scope</h2>
       <p>
@@ -22,13 +22,12 @@ export default function TermsPage() {
         release still being prepared.
       </p>
 
-      <h2>No public software license or purchase yet</h2>
+      <h2>Open-source software, not a purchase</h2>
       <p>
-        Visiting this site does not grant a license to unreleased Spark Plug source,
-        binaries, branding, or private product materials. No price, paid plan, hosted
-        account, marketplace listing, or product checkout is currently offered here.
-        Final software licenses and any service terms must be published with the
-        corresponding release or service.
+        Repository source is offered under Apache License 2.0 as stated in its LICENSE
+        file. Spark Plug has no paid plan, feature paywall, product account, paid
+        marketplace listing, or product checkout. Branding and third-party materials
+        remain subject to their stated trademark and license terms.
       </p>
 
       <h2>Voluntary support</h2>
@@ -59,19 +58,17 @@ export default function TermsPage() {
         training inputs, generated adapters, and third-party service terms.
       </p>
       <p>
-        The public marketplace, public profile downloads, Unsloth integration, and
-        LoRA training workspace are not active offers on this preview. Their final
-        review, moderation, license, billing, privacy, and security terms must be
-        published before those services open.
+        Community profiles will be shared free through GitHub after review. Unsloth
+        integration and the LoRA training workspace remain local roadmap work, not a
+        hosted service promise.
       </p>
 
       <h2>Availability and changes</h2>
       <p>
         This preview and the product under development may change, pause, or contain
-        errors. A working feature in the private build is not automatically a promise
-        that it will appear in the first public release. Public support, pricing,
-        subscription, marketplace, refund, and consumer terms will be stated before
-        the relevant offer opens.
+        errors. A working feature in development is not automatically a promise that
+        it will appear in the first public release. Releases and compatibility claims
+        are governed by the evidence published with each GitHub tag.
       </p>
 
       <h2>Contact</h2>

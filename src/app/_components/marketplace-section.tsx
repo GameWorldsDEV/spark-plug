@@ -36,18 +36,18 @@ export function MarketplaceSection() {
     <section className={styles.section} id="marketplace" aria-labelledby="marketplace-title">
       <div className={styles.heading}>
         <div>
-          <p className={styles.eyebrow}>SPARK PLUG MARKETPLACE / PREPARING</p>
+          <p className={styles.eyebrow}>COMMUNITY PROFILE LIBRARY / GITHUB</p>
           <h2 id="marketplace-title">Start with a profile. Make it yours.</h2>
         </div>
         <div className={styles.intro}>
           <strong>CURATED FOR SPARK PLUG</strong>
           <p>
-            A tailored catalog of reusable LLM profiles with engine requirements,
+            A free, open catalog of reusable LLM profiles with engine requirements,
             model choices, memory budgets, queues, and routes already organized.
             Review the configuration, edit every setting, then let GW Broker check
             capacity before anything loads.
           </p>
-          <small>The public catalog interface is preparing; no profile download is advertised as live yet.</small>
+          <small>Profiles will be downloaded from GitHub after public review. No account, paywall, or paid listing.</small>
         </div>
       </div>
 
@@ -61,7 +61,7 @@ export function MarketplaceSection() {
               <div><dt>ENGINES</dt><dd>{profile.engines}</dd></div>
               <div><dt>CONFIGURATION</dt><dd>{profile.config}</dd></div>
             </dl>
-            <button type="button" disabled>CATALOG PREPARING</button>
+            <button type="button" disabled>COMMUNITY PROFILE COMING SOON</button>
           </article>
         ))}
       </div>

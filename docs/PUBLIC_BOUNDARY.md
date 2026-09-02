@@ -8,7 +8,7 @@ private Spark Plug product and it must not become a mirror of that repository.
 - Original public marketing copy, CSS, motion, and illustrative demo UI.
 - Public capability descriptions verified against the open-core contract.
 - A scrubbed setup-manifest format that contains no runtime values.
-- Public account, subscription, creator-profile, and marketplace schemas.
+- Public, declarative community-profile schemas and examples.
 - Deployment templates containing placeholders only.
 
 ## Prohibited
@@ -19,8 +19,8 @@ private Spark Plug product and it must not become a mirror of that repository.
 - User/session data, chats, prompts, outputs, logs, credentials, keys,
   certificates, production hostnames, container paths, model weights, caches,
   databases, or deployment topology.
-- Premium theme or animation implementation. This site may describe the
-  entitlement, but the private package remains the delivery authority.
+- Hosted account, subscription, billing, entitlement, private-profile, payout,
+  or mandatory telemetry code.
 
 ## Release gate
 

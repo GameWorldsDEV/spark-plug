@@ -7,10 +7,9 @@ defines the slot the product task will fill when its source is ready.
 
 - clean-room Git history with no private repository ancestry;
 - public website deployed as a no-index preview;
-- product, API, setup-manifest, entitlement, security, and billing contracts;
-- inactive Supabase schema and Stripe webhook boundary;
+- product, release-metadata, setup-manifest, and security contracts;
 - no public product binaries or download claim;
-- no active account, checkout, marketplace, or paid entitlement issuance.
+- no account, paywall, paid marketplace, hosted entitlement, or product checkout.
 
 ## Product-source handoff package
 
@@ -38,7 +37,7 @@ arrive through explicit top-level boundaries:
 apps/          public browser and approved native client source
 broker/        node authority and public API implementation
 installer/     supported-target preflight, install, rollback, uninstall
-contracts/     versioned broker, setup, and entitlement contracts
+contracts/     versioned broker, setup, and release-metadata contracts
 docs/          user, operator, contributor, security, and release documentation
 tests/         clean-room unit, integration, installation, and canary tests
 ```
@@ -55,7 +54,7 @@ boundaries.
 - review the complete file allowlist and every binary;
 - run `gitleaks git --redact .` and a second secret scanner;
 - scan committed history, generated artifacts, and dependency lockfiles;
-- confirm the third-party license inventory and choose the repository license.
+- confirm the third-party license inventory and Apache-2.0 notices.
 
 ### Gate 2 — supported installation
 
@@ -83,7 +82,7 @@ boundaries.
   package destinations;
 - publish the matching `/releases/current.json` entry only when its HTTPS artifact
   URL and SHA-256 checksum agree with the signed GitHub Release;
-- keep payments and hosted accounts on their independent activation gate;
+- keep optional support links separate from downloads and product capabilities;
 - authorize indexing only after metadata, legal, and public files are final.
 
 ## Versioning

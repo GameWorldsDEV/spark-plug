@@ -17,17 +17,17 @@ export default function SecurityPage() {
       <h2>This website today</h2>
       <ul>
         <li>Vercel serves this no-index preview and its server routes.</li>
-        <li>There is no active public product account, subscription checkout, marketplace transaction, profile publishing interface, training job, or node connection on this site.</li>
+        <li>There is no product account, subscription checkout, paid marketplace transaction, hosted training job, or node connection on this site.</li>
         <li>The optional Support link leaves this site for Stripe&rsquo;s hosted payment page; it never receives node credentials or local runtime data.</li>
         <li>The download cards read a public release manifest and remain disabled until a verified artifact is published.</li>
-        <li>Platform highlighting happens in the browser and is not stored or sent to a Spark Plug account.</li>
+        <li>Platform highlighting happens in the browser and is not stored or sent to a Spark Plug service.</li>
         <li>This site does not need node credentials, local prompts, model files, or private outputs.</li>
       </ul>
 
       <h2>The node and client boundary</h2>
       <p>
-        A Spark Plug account belongs to a specific node. Discovery may locate that
-        node, but it does not authenticate a client. Enrollment and credentials use
+        Spark Plug enrollment belongs to a specific node. Discovery may locate that
+        node, but it does not authenticate a client. Pairing and credentials use
         the node&rsquo;s reviewed HTTPS path. Optional Tailscale connectivity can make
         the node reachable; it does not replace Spark Plug authentication.
       </p>
