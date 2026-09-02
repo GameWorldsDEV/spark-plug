@@ -14,7 +14,8 @@ export type MarketplaceCheckoutProjection = {
 };
 
 export function marketplaceCheckoutReady(): boolean {
-  return process.env.MARKETPLACE_CHECKOUT_READY === "true";
+  return process.env.MARKETPLACE_CHECKOUT_READY === "true" &&
+    process.env.MARKETPLACE_CHARGE_MODEL === "destination";
 }
 
 export function parseMarketplaceCheckoutProjection(value: unknown): MarketplaceCheckoutProjection | null {

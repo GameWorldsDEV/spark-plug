@@ -114,7 +114,7 @@ create unique index if not exists one_open_support_case_per_order
 alter table public.orders
   add column if not exists platform_fee_bps integer not null default 500 check (platform_fee_bps = 500),
   add column if not exists platform_fee_cents integer check (platform_fee_cents is null or platform_fee_cents >= 0),
-  add column if not exists creator_net_cents integer check (creator_net_cents is null or creator_net_cents >= 0);
+  add column if not exists creator_transfer_cents integer check (creator_transfer_cents is null or creator_transfer_cents >= 0);
 
 alter table public.listing_compatibility enable row level security;
 alter table public.listing_compatibility force row level security;
@@ -308,7 +308,7 @@ begin
   fee_cents := round(listing.price_cents * 500.0 / 10000.0);
   insert into public.orders(
     id, buyer_id, listing_id, amount_cents, currency, status,
-    platform_fee_bps, platform_fee_cents, creator_net_cents
+    platform_fee_bps, platform_fee_cents, creator_transfer_cents
   ) values (
     order_id, p_buyer_id, listing.id, listing.price_cents, listing.currency,
     'pending', 500, fee_cents, listing.price_cents - fee_cents
