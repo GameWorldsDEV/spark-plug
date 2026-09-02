@@ -62,3 +62,20 @@ stage. A receipt records deployment; it does not authorize a later stage.
 - Validation: typecheck, lint, 74 unit tests, production build, 34
   Playwright/axe checks with one homepage-height regression corrected, targeted
   final browser checks, desktop/mobile visual review, and live smoke test.
+
+## 2026-09-02 Free Theme Library Expansion
+
+- Owner instruction: include Cartridge and Compact Disc free with the
+  open-source release, list the built-in color themes, and reserve additional
+  theme slots for future releases.
+- Git commit: `47248d9` (`feat: expand free theme library`).
+- Vercel deployment: `dpl_GhdgesX9Abo2XCa8GVBPidvCQ47R`.
+- Immutable URL: <https://sparkplug-public-launch-site-bt37tgfsh.vercel.app/themes>.
+- Stable audit URL: <https://sparkplug-public-launch-site.vercel.app/themes>.
+- Included collection: Cartridge, Compact Disc, Neon Grid, Cyberdeck Amber,
+  Matrix Rain, Synthwave Sunset, Tokyo Night, and Ice / Holo.
+- Expansion: six clearly labeled community-theme placeholders were added without
+  representing unfinished themes as available products.
+- Validation: typecheck, lint, 74 unit tests, production build, targeted mobile
+  Playwright regression check, zero horizontal overflow at 390 px, and live
+  content smoke verification.
