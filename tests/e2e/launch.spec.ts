@@ -12,6 +12,7 @@ const routes = [
   ["/docs", /learn the control plane before the first download/i],
   ["/download", /source is open.*free installers are coming soon/i],
   ["/marketplace", /free profiles.*reviewed before they reach your node/i],
+  ["/themes", /make the control room yours/i],
   ["/training", /train locally only after the data.*model.*capacity pass review/i],
   ["/support", /help the project.*get help without guessing/i],
   ["/changelog", /what changed.*what actually shipped/i],

@@ -1,0 +1,115 @@
+.notice {
+  margin-bottom: 72px;
+  padding: 22px;
+  border: 1px solid rgba(169,255,46,.36);
+  background: rgba(169,255,46,.055);
+}
+
+.notice strong,
+.cardCopy small,
+.catalog span {
+  color: var(--lime);
+  font: 700 .55rem var(--mono);
+  letter-spacing: .13em;
+}
+
+.notice p { margin-top: 10px; }
+
+.featured {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 30px 0 80px;
+  padding: 1px;
+  background: #344139;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: minmax(330px, 1fr) auto;
+  min-width: 0;
+  background: #07100b;
+}
+
+.cartridge,
+.disc {
+  display: grid;
+  min-height: 330px;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 55%, rgba(169,255,46,.14), transparent 46%),
+    linear-gradient(rgba(169,255,46,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(169,255,46,.045) 1px, transparent 1px),
+    #040806;
+  background-size: auto, 36px 36px, 36px 36px, auto;
+}
+
+.cartridge svg {
+  width: min(49%, 180px);
+  filter: drop-shadow(0 24px 30px rgba(0,0,0,.55));
+  animation: float 4.8s ease-in-out infinite alternate;
+}
+
+.disc svg {
+  width: min(58%, 220px);
+  filter: drop-shadow(0 20px 32px rgba(0,0,0,.58));
+  animation: spin 18s linear infinite;
+}
+
+.cardCopy { padding: 27px; border-top: 1px solid #344139; }
+.cardCopy h3,
+.catalog h3 {
+  margin: 10px 0 12px;
+  color: #f2f5f0;
+  font: 900 clamp(1.8rem, 3vw, 3rem)/.92 var(--display);
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+.cardCopy p,
+.catalog p { min-height: 82px; }
+
+.card button,
+.catalog button {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 22px;
+  border: 1px solid #46524a;
+  color: #89948d;
+  background: #0a100c;
+  font: 700 .49rem var(--mono);
+  letter-spacing: .09em;
+}
+
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 30px 0 80px;
+  padding: 1px;
+  background: #344139;
+}
+.catalog article { padding: 30px; background: #0a140e; }
+.catalog .pending { background: #090d0b; }
+.catalog .pending span { color: #96a299; }
+
+@keyframes float {
+  to { transform: translateY(-12px) rotate(1.5deg); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 720px) {
+  .featured,
+  .catalog { grid-template-columns: 1fr; }
+  .card { grid-template-rows: minmax(280px, auto) auto; }
+  .cartridge,
+  .disc { min-height: 280px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cartridge svg,
+  .disc svg { animation: none; }
+}

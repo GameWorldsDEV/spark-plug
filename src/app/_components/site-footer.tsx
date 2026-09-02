@@ -34,6 +34,7 @@ export function SiteFooter({ repositoryUrl }: SiteFooterProps) {
         <Link href="/docs">Docs</Link>
         <Link href="/download">Download</Link>
         <Link href="/marketplace">Marketplace</Link>
+        <Link href="/themes">Themes</Link>
         <Link href="/training">Training</Link>
         <Link href="/changelog">Changelog</Link>
         <Link href="/why-spark-plug">Why Spark Plug</Link>
