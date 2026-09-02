@@ -22,3 +22,28 @@ stage. A receipt records deployment; it does not authorize a later stage.
   points to `185.53.179.128`. Replace the external DNS record with Vercel's
   assigned CNAME before enabling the canonical redirect.
 - Release and Commercial promotion: not approved by this receipt.
+
+## 2026-09-01 Open-source Preview
+
+- Owner instruction: remove the paid product architecture, make Spark Plug free
+  and open source, distribute through GitHub, and allow free verified installers
+  or executables on the website.
+- Git commit: `5b28599` (`refactor: make Spark Plug fully open source`).
+- Vercel deployment: `dpl_FDwkBvtR7CKgasTjsCUScBWYiXZ5`.
+- Immutable URL: <https://sparkplug-public-launch-site-1wlhbh6d6.vercel.app>.
+- Stable audit URL: <https://sparkplug-public-launch-site.vercel.app>.
+- Launch stage: `preview`; indexing and unfinished installer buttons remain
+  disabled.
+- Distribution: Apache-2.0 source and free GitHub-first community profiles.
+  Website installers activate only with matching tagged source, checksum,
+  signature, notices, release notes, compatibility evidence, and timestamp.
+- Removed: accounts, subscriptions, Pro plans, entitlements, hosted publishing,
+  paid marketplace code, product billing routes, waitlist, and Supabase schema.
+- Financial support: optional external Stripe tips and pending GitHub Sponsors;
+  neither purchases software, features, priority, status, or governance.
+- Validation: typecheck, lint, 74 unit tests, production build, 33
+  Playwright/axe checks, dependency audit, secret scan, and live route/header
+  smoke tests passed.
+- Domain state: Vercel accepted the alias, but public DNS still resolves
+  `sparkplug.gameworlds.ai` to `185.53.179.128`; the custom domain remains
+  unavailable until the external DNS CNAME is corrected.
