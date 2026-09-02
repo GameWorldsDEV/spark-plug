@@ -173,3 +173,28 @@ stage. A receipt records deployment; it does not authorize a later stage.
 - Remaining domain blocker: `sparkplug.gameworlds.ai` still resolves to
   `185.53.179.128`, so its HTTPS check fails. The `sparkplug` DNS record must be
   corrected before the canonical domain can serve this deployment.
+
+## 2026-09-02 Public Creator Kit and Private Marketplace Split
+
+- Owner scope: website and hosted marketplace only; no Spark Plug app, node, or
+  client changes.
+- Git commit: `3b277ce` (`feat: separate private marketplace and add creator kit`).
+- Vercel deployment: `dpl_ENuqXYkJCKrPqSxdyvHdG2s5uQhG`.
+- Immutable deployment URL:
+  <https://sparkplug-public-launch-site-ex0681z19.vercel.app>.
+- Stable audit URL: <https://sparkplug-public-launch-site.vercel.app>.
+- Private service: `GameWorldsDEV/sparkplug-marketplace-service` was created and
+  verified with private visibility. The gated marketplace service baseline was
+  preserved there before its implementation was removed from the public branch.
+- Public creator kit: deny-by-default schemas and downloadable boilerplates for
+  profiles, themes, and motion packs; a browser-only local export builder; a
+  Hugging Face model-source page organized by engine; and a Spark Plug assets
+  storefront for profiles, themes, motion, and rights-cleared LoRA adapters.
+- Public/private boundary: the public site contains only storefront UI, open
+  formats, static catalogs, and a narrow integration contract. Auth, Supabase,
+  Stripe/Connect, checkout, payouts, moderation, support-case operations,
+  entitlements, and download-grant implementation are absent from the public
+  working tree. Prior public Git history is unchanged.
+- Validation: typecheck, lint, 77 unit tests, production build, 43 complete
+  Playwright/axe checks, desktop/mobile visual audit, dependency audit with zero
+  vulnerabilities, gitleaks, diff check, and live route/cache smoke checks passed.
