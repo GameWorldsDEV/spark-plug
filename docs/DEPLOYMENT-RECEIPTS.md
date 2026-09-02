@@ -141,3 +141,9 @@ stage. A receipt records deployment; it does not authorize a later stage.
   has overdue invoices. `sparkplug.gameworlds.ai` remains incorrectly pointed
   at `185.53.179.128`; Dynadot must change the `sparkplug` A record to
   `76.76.21.21` before the custom-domain HTTPS check can pass.
+- Follow-up safety commit: `f9f3784` keeps the Stripe Connect charge model
+  explicitly unselected, so marketplace checkout cannot activate until fee,
+  dispute, refund, and negative-balance responsibility is approved.
+- Latest Vercel deployment after that safety gate:
+  `dpl_9P6hKK2S2n5SyZEas8QNZZza9Y9R` at
+  <https://sparkplug-public-launch-site-ngmghkp6u.vercel.app>.
