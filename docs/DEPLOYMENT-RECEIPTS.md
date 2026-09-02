@@ -79,3 +79,17 @@ stage. A receipt records deployment; it does not authorize a later stage.
 - Validation: typecheck, lint, 74 unit tests, production build, targeted mobile
   Playwright regression check, zero horizontal overflow at 390 px, and live
   content smoke verification.
+
+## 2026-09-02 Theme and Motion Catalog Preview
+
+- Owner instruction: show $0.00 on bundled themes and prepare room for additional
+  themes and animation packs, including the possibility of clearly priced future
+  creator releases.
+- Git commit: `3f9936a` (`feat: prepare theme and motion catalog`).
+- Vercel deployment: `dpl_BAMfowv8SDRe7JB7EP7gjwdesYSW`.
+- Immutable URL: <https://sparkplug-public-launch-site-6n045u03h.vercel.app/themes>.
+- Stable audit URL: <https://sparkplug-public-launch-site.vercel.app/themes>.
+- Catalog state: all eight bundled entries display $0.00; six future theme slots
+  and six future animation slots are visibly reserved. No checkout was enabled.
+- Validation: typecheck, lint, 74 unit tests, production build, mobile Playwright
+  catalog/overflow regression check, and live stable-URL content verification.
