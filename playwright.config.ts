@@ -1,5 +1,7 @@
 import { defineConfig } from "@playwright/test";
 
+const port = process.env.PLAYWRIGHT_PORT ?? "3111";
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: false,
@@ -8,7 +10,7 @@ export default defineConfig({
   workers: 1,
   reporter: "list",
   use: {
-    baseURL: "http://127.0.0.1:3100",
+    baseURL: `http://127.0.0.1:${port}`,
     browserName: "chromium",
     headless: true,
     launchOptions: {
@@ -17,8 +19,8 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "PORT=3100 npm run start",
-    url: "http://127.0.0.1:3100",
+    command: `PORT=${port} npm run start`,
+    url: `http://127.0.0.1:${port}`,
     reuseExistingServer: true,
     timeout: 30_000,
   },

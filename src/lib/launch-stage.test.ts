@@ -5,18 +5,40 @@ describe("launch stage", () => {
   it("fails closed to Preview", () => {
     expect(parseLaunchStage(undefined)).toBe("preview");
     expect(parseLaunchStage("anything-else")).toBe("preview");
-    expect(launchCapabilities("preview", true)).toEqual({
+    expect(launchCapabilities("preview", true, true)).toEqual({
       stage: "preview",
       downloads: false,
+      accounts: false,
+      billing: false,
+      creatorPublishing: false,
+      marketplaceSales: false,
+      hostedTraining: false,
       indexable: false,
     });
   });
 
   it("enables only verified release capabilities", () => {
-    expect(launchCapabilities("release", true)).toMatchObject({
+    expect(launchCapabilities("release", true, true)).toMatchObject({
       downloads: true,
       indexable: true,
+      billing: false,
     });
-    expect(parseLaunchStage("commercial")).toBe("preview");
+  });
+
+  it("requires both the Commercial stage and a separate readiness gate", () => {
+    expect(parseLaunchStage("commercial")).toBe("commercial");
+    expect(launchCapabilities("commercial", true, false)).toMatchObject({
+      accounts: false,
+      billing: false,
+      creatorPublishing: false,
+      marketplaceSales: false,
+    });
+    expect(launchCapabilities("commercial", true, true)).toMatchObject({
+      accounts: true,
+      billing: true,
+      creatorPublishing: true,
+      marketplaceSales: true,
+      hostedTraining: false,
+    });
   });
 });

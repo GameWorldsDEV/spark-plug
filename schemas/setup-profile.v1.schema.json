@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://sparkplug.gameworlds.example/schemas/setup-profile.v1.schema.json",
+  "$id": "https://sparkplug.gameworlds.ai/schemas/setup-profile.v1.schema.json",
   "title": "Spark Plug declarative setup profile v1",
   "type": "object",
   "additionalProperties": false,

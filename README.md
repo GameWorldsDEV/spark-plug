@@ -11,10 +11,11 @@ reports real loading and readiness state.
 - Current status: source preview; verified installers coming soon
 - First node target: NVIDIA DGX Spark, Ubuntu 24.04 ARM64
 
-Spark Plug has no product account, subscription, feature paywall, paid
-marketplace, hosted entitlement check, or paid publishing tier. Local
-functionality, community profiles, source packages, executables, and installers
-are free. Optional Stripe tips and GitHub Sponsors do not unlock anything.
+Spark Plug&rsquo;s local core, source packages, executables, and verified installers
+remain free and open source without an account or network heartbeat. A separate,
+privately operated Pro service and moderated creator marketplace are planned but
+disabled: Google-authenticated Pro creators will be able to publish approved free
+or paid profiles, themes, motion packs, and rights-cleared LoRA adapters.
 
 ## How it works
 

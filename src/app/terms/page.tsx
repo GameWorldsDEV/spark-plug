@@ -12,7 +12,7 @@ export default function TermsPage() {
     <LegalShell
       eyebrow="PUBLIC PREVIEW / NOT PRODUCT TERMS"
       title="What this preview is—and is not."
-      summary="Spark Plug is a free and open-source community project. The repository is public; verified installers will also be free when released. The site offers a separate voluntary support link."
+      summary="Spark Plug keeps its local core free and open source. The current site offers voluntary support only; planned Pro subscriptions and creator sales are not active or governed by this preview notice."
     >
       <h2>Current scope</h2>
       <p>
@@ -25,9 +25,10 @@ export default function TermsPage() {
       <h2>Open-source software, not a purchase</h2>
       <p>
         Repository source is offered under Apache License 2.0 as stated in its LICENSE
-        file. Spark Plug has no paid plan, feature paywall, product account, paid
-        marketplace listing, or product checkout. Branding and third-party materials
-        remain subject to their stated trademark and license terms.
+        file. The current preview has no active paid plan, product account, marketplace
+        sale, seller payout, or product checkout. Planned Pro services do not change
+        the open-source grant. Branding and third-party materials remain subject to
+        their stated trademark and license terms.
       </p>
 
       <h2>Voluntary support</h2>
@@ -58,9 +59,10 @@ export default function TermsPage() {
         training inputs, generated adapters, and third-party service terms.
       </p>
       <p>
-        Community profiles will be shared free through GitHub after review. Unsloth
-        integration and the LoRA training workspace remain local roadmap work, not a
-        hosted service promise.
+        Free profiles may be shared through GitHub after review. A future moderated
+        marketplace may offer paid creator profiles, themes, motion packs, and
+        rights-cleared LoRA adapters under separate commercial terms. Unsloth and
+        LoRA training remain local roadmap work, not a hosted training promise.
       </p>
 
       <h2>Availability and changes</h2>

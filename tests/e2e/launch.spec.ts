@@ -11,7 +11,8 @@ const routes = [
   ["/security", /separate what is live from what is planned/i],
   ["/docs", /learn the control plane before the first download/i],
   ["/download", /source is open.*free installers are coming soon/i],
-  ["/marketplace", /free profiles.*reviewed before they reach your node/i],
+  ["/marketplace", /share the setup.*sell the craft/i],
+  ["/pricing", /own the machine.*build a business around the work/i],
   ["/themes", /make the control room yours/i],
   ["/training", /train locally only after the data.*model.*capacity pass review/i],
   ["/support", /help the project.*get help without guessing/i],
@@ -256,9 +257,9 @@ test("marketplace and training previews stay truthful and engine-aware", async (
   await page.goto("/#marketplace");
   await expect(page.locator("#rabbit-r1")).toHaveCount(0);
   const marketplace = page.locator("#marketplace");
-  await expect(marketplace.getByRole("heading", { name: /start with a profile.*make it yours/i })).toBeVisible();
-  await expect(marketplace.getByRole("button", { name: /community profile coming soon/i })).toHaveCount(3);
-  await expect(marketplace.getByText(/downloaded from GitHub after public review/i)).toBeVisible();
+  await expect(marketplace.getByRole("heading", { name: /start with a profile.*build on it/i })).toBeVisible();
+  await expect(marketplace.getByRole("button", { name: /creator profile coming soon/i })).toHaveCount(3);
+  await expect(marketplace.getByText(/free profiles remain open to everyone/i)).toBeVisible();
   const huggingFaceMark = marketplace.locator('img[src="/integrations/hugging-face.svg"]');
   await expect.poll(() => huggingFaceMark.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
   for (const engine of ["vLLM", "Colibri", "ComfyUI", "MLX", "Ollama"]) {
@@ -275,6 +276,27 @@ test("marketplace and training previews stay truthful and engine-aware", async (
   for (const title of ["DGX Spark clustering", "Apple Mac nodes", "Windows nodes"]) {
     await expect(roadmap.getByRole("heading", { name: title, exact: true })).toBeVisible();
   }
+});
+
+test("Pro and creator commerce are explained but fail closed during Preview", async ({ page, request }) => {
+  await page.goto("/pricing");
+  await expect(page.getByText("$5", { exact: true })).toBeVisible();
+  await expect(page.getByText(/or \$48 billed yearly/i)).toBeVisible();
+  await expect(page.getByRole("button", { name: /Google sign-in and Pro subscriptions coming soon/i })).toBeDisabled();
+  for (const asset of ["Spark Plug profiles", "Theme packs", "Motion and animation packs", "Rights-cleared LoRA adapters"]) {
+    await expect(page.getByRole("heading", { name: asset, exact: true })).toBeVisible();
+  }
+
+  await page.goto("/marketplace");
+  await expect(page.getByRole("heading", { name: "Open in Spark Plug", exact: true })).toBeVisible();
+  await expect(page.getByText(/local app does not continuously phone home/i)).toBeVisible();
+
+  const [account, checkout] = await Promise.all([
+    request.get("/account"),
+    request.post("/api/v1/billing/checkout", { data: { cadence: "monthly" } }),
+  ]);
+  expect(account.status()).toBe(404);
+  expect(checkout.status()).toBe(404);
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {

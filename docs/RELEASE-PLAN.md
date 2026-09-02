@@ -9,7 +9,8 @@ defines the slot the product task will fill when its source is ready.
 - public website deployed as a no-index preview;
 - product, release-metadata, setup-manifest, and security contracts;
 - no public product binaries or download claim;
-- no account, paywall, paid marketplace, hosted entitlement, or product checkout.
+- no active account, subscription, paid marketplace, hosted entitlement, or product checkout;
+- planned commercial services are separately gated by `docs/CREATOR-COMMERCE-PLAN.md`.
 
 ## Product-source handoff package
 

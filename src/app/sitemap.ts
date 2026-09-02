@@ -3,10 +3,10 @@ import { currentLaunch } from "@/lib/launch-stage";
 import { siteOrigin } from "./layout";
 
 const paths = [
-  "", "/docs", "/download", "/marketplace", "/themes", "/training", "/support",
+  "", "/docs", "/download", "/marketplace", "/pricing", "/themes", "/training", "/support",
   "/changelog", "/community-leaders", "/why-spark-plug", "/benchmarks", "/legal", "/accessibility",
   "/privacy", "/terms", "/security", "/trademarks",
-  "/legal/software", "/legal/marketplace",
+  "/legal/software", "/legal/marketplace", "/legal/commercial",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -8,5 +8,6 @@ export default function TrainingPage() {
     <h2>Planned workflow</h2><p>Select a compatible base model and dataset, validate rights and formats, calculate capacity, run the local job, record provenance, and return a versioned adapter.</p>
     <h2>Required gates</h2><ul><li>Dataset ownership, permission, and sensitive-data review.</li><li>Base-model license and adapter compatibility.</li><li>Capacity, output-path, checkpoint, and recovery validation.</li><li>Adapter checksum, source revisions, settings, and provenance.</li></ul>
     <h2>No hosted training</h2><p>Prompts, datasets, checkpoints, models, and adapters are not accepted by this public website. Hosted training remains disabled in every current launch stage.</p>
+    <h2>Optional creator distribution</h2><p>A future Pro creator may submit a finished LoRA adapter to the moderated marketplace without uploading the private training dataset. Commercial distribution requires documented dataset rights, base-model compatibility, adapter provenance, checksums, license terms, and a clear statement of what a buyer must obtain separately.</p>
   </LegalShell>;
 }

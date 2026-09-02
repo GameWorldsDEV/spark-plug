@@ -100,13 +100,15 @@ Tailscale, or through a compatible user-managed VPN that provides the reviewed
 HTTPS path. Network reachability never replaces Spark Plug pairing or node
 authentication.
 
-## Free and accountless
+## Free local core and optional hosted services
 
 The local core works without a cloud account, subscription, entitlement
 heartbeat, or mandatory telemetry. Source, official installers, core engines,
 routing, queues, profiles, remote clients, diagnostics, accessibility, and
-community-contributed profiles remain free.
+community use remain free.
 
-Profiles are shared through reviewed GitHub pull requests. Optional Stripe tips
-and GitHub Sponsors support project work but never unlock features, priority,
-status, publishing rights, or governance.
+Profiles may still be shared through reviewed GitHub pull requests. A separate
+planned Pro service may provide premium presentation packs and a moderated
+creator marketplace for approved free or paid profiles, themes, motion packs,
+and rights-cleared LoRA adapters. That hosted service does not receive local
+prompts, outputs, credentials, private routes, model inventory, or node telemetry.

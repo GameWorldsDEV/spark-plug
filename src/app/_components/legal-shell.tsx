@@ -21,6 +21,7 @@ export function LegalShell({ eyebrow, title, summary, children }: LegalShellProp
           <Link href="/docs">Docs</Link>
           <Link href="/download">Download</Link>
           <Link href="/themes">Themes</Link>
+          <Link href="/pricing">Pro</Link>
           <Link href="/support">Support</Link>
           <Link href="/legal">Legal</Link>
         </nav>

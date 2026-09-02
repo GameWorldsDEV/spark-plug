@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <LegalShell
       eyebrow="PREVIEW-SITE NOTICE / UPDATED AUGUST 31, 2026"
       title="What this site collects today."
-      summary="Spark Plug is free, open source, and accountless. This site does not create product accounts, subscriptions, paid listings, or node connections. It links to a separate Stripe-hosted page for optional one-time support."
+      summary="This preview is still accountless today. Planned Google sign-in, Pro subscriptions, and creator sales remain disabled until a separate commercial privacy notice and tested controls are ready."
     >
       <h2>Information you send</h2>
       <p>
@@ -65,11 +65,13 @@ export default function PrivacyPage() {
         <li>Private Spark Plug profiles, routes, node identities, or configuration.</li>
       </ul>
 
-      <h2>No hosted product account</h2>
+      <h2>Planned optional hosted account</h2>
       <p>
-        The community project does not require an account, subscription, entitlement
-        check, or cloud profile store. If a distinct hosted service is ever proposed,
-        it must have separate, explicit privacy terms before collecting information.
+        The local Community product will not require an account, subscription,
+        entitlement check, or cloud profile store. A future optional Pro account may
+        use Google identity, Stripe billing, marketplace listings, purchases, payouts,
+        and narrow creator analytics. Those services stay disabled until retention,
+        deletion, processor, sharing, security, and user-rights terms are published.
       </p>
 
       <h2>Questions and requests</h2>

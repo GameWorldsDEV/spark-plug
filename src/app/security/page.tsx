@@ -17,7 +17,7 @@ export default function SecurityPage() {
       <h2>This website today</h2>
       <ul>
         <li>Vercel serves this no-index preview and its server routes.</li>
-        <li>There is no product account, subscription checkout, paid marketplace transaction, hosted training job, or node connection on this site.</li>
+        <li>There is no active product account, subscription checkout, paid marketplace transaction, hosted training job, or node connection on this preview.</li>
         <li>The optional Support link leaves this site for Stripe&rsquo;s hosted payment page; it never receives node credentials or local runtime data.</li>
         <li>The download cards read a public release manifest and remain disabled until a verified artifact is published.</li>
         <li>Platform highlighting happens in the browser and is not stored or sent to a Spark Plug service.</li>
@@ -56,6 +56,16 @@ export default function SecurityPage() {
         marketplace code. Planned training runs must validate dataset and model
         sources, capacity, output paths, and adapter provenance before they can be
         presented as supported.
+      </p>
+
+      <h2>Commercial abuse boundary</h2>
+      <p>
+        Before accounts or payments activate, the service must enforce Google OAuth
+        state and PKCE, server-owned Stripe prices and fees, signed idempotent webhooks,
+        forced row-level security, per-route rate limits, upload size and type limits,
+        quarantine and review, report and takedown paths, session revocation, and cost
+        alerts. Edge filtering reduces floods; application authorization still protects
+        every account, listing, purchase, download, and payout action.
       </p>
 
       <h2>Public release controls</h2>

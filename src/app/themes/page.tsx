@@ -58,7 +58,7 @@ export default function ThemesPage() {
     <LegalShell
       eyebrow="THEME LIBRARY / FREE + EDITABLE"
       title="Make the control room yours."
-      summary="Spark Plug themes change presentation—not node authority. Downloadable theme packages will live in the public repository, use the same open format, and never unlock product capabilities."
+      summary="Spark Plug themes change presentation—not node authority. The bundled collection stays free; future premium theme and motion packs may be included with Pro without locking the local core."
     >
       <div className={styles.notice}>
         <strong>INCLUDED WITH OPEN SOURCE / FREE</strong>
@@ -119,7 +119,7 @@ export default function ThemesPage() {
         The library has room to grow without turning unfinished ideas into fake
         products. These slots are reserved for original GameWorlds and community
         themes that pass packaging, licensing, accessibility, and compatibility review.
-        Future creator releases may be free or carry a clearly displayed one-time price.
+        Future releases may be free, included with Pro, or carry a clearly displayed one-time price.
       </p>
       <div className={styles.expansion} aria-label="Future Spark Plug theme slots">
         {expansionSlots.map((slot) => (
@@ -136,7 +136,7 @@ export default function ThemesPage() {
       <p>
         Motion packs will be installable separately from color themes, so a user
         can mix a palette with loading, transition, status, and ambient animation
-        styles. Pricing and licensing will always appear before download.
+        styles. Future motion packs may be included with Pro. Pricing and licensing will always appear before download.
       </p>
       <div className={styles.expansion} aria-label="Future Spark Plug animation slots">
         {animationSlots.map((slot) => (
