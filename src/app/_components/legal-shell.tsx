@@ -18,9 +18,9 @@ export function LegalShell({ eyebrow, title, summary, children }: LegalShellProp
           <BrandLogo className={styles.brandLogo} />
         </Link>
         <nav aria-label="Information pages">
+          <Link href="/marketplace">Marketplace</Link>
           <Link href="/docs">Docs</Link>
           <Link href="/download">Download</Link>
-          <Link href="/themes">Themes</Link>
           <Link href="/pricing">Pro</Link>
           <Link href="/support">Support</Link>
           <Link href="/legal">Legal</Link>

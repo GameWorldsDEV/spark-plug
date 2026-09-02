@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.theme",
+  "name": "My Spark Plug theme",
+  "summary": "A declarative visual theme that never changes runtime authority.",
+  "license": "Apache-2.0",
+  "palette": {
+    "canvas": "#050806",
+    "panel": "#0a140e",
+    "text": "#eef3ea",
+    "mutedText": "#9aa69e",
+    "accent": "#a9ff2e",
+    "danger": "#ff6b5f",
+    "border": "#344139"
+  },
+  "presentation": {
+    "fontMode": "technical",
+    "density": "standard",
+    "cornerStyle": "square"
+  },
+  "artwork": []
+}

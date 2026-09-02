@@ -1,116 +1,52 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { createHash } from "node:crypto";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const ROOT = resolve(import.meta.dirname, "../..");
-const migration = readFileSync(
-  resolve(ROOT, "supabase/migrations/202608180002_public_marketplace_forum.sql"),
-  "utf8",
-);
-const stagedMigration = readFileSync(
-  resolve(ROOT, "supabase/migrations/202609010001_three_stage_contract.sql"),
-  "utf8",
-);
-const commerceMigration = readFileSync(
-  resolve(ROOT, "supabase/migrations/202609020001_creator_commerce.sql"),
-  "utf8",
-);
-
-function source(path: string): string {
-  return readFileSync(resolve(ROOT, path), "utf8");
-}
+const source = (path: string) => readFileSync(resolve(ROOT, path), "utf8");
 
 describe("public service architecture", () => {
-  it("ships machine-readable API and exact schema contracts", () => {
-    const api = JSON.parse(source("contracts/public-api.v1.json"));
-    const profile = JSON.parse(source("schemas/setup-profile.v1.schema.json"));
-    const entitlement = JSON.parse(source("schemas/entitlement-claims.v1.schema.json"));
-
-    expect(api.openapi).toBe("3.1.0");
-    expect(api.paths["/api/v1/catalog/profiles/{slug}/manifest"]).toBeDefined();
-    expect(api.paths["/api/v1/auth/google"]).toBeDefined();
-    expect(profile.additionalProperties).toBe(false);
-    expect(entitlement.additionalProperties).toBe(false);
+  it("ships open import schemas and local creator boilerplates", () => {
+    for (const path of [
+      "schemas/setup-profile.v1.schema.json",
+      "schemas/theme-package.v1.schema.json",
+      "schemas/motion-pack.v1.schema.json",
+      "schemas/marketplace-listing.v1.schema.json",
+      "public/templates/profile-boilerplate.sparkplug-profile",
+      "public/templates/theme-boilerplate.sparkplug-theme",
+      "public/templates/motion-boilerplate.sparkplug-motion",
+    ]) expect(() => JSON.parse(source(path))).not.toThrow();
   });
 
-  it.each([
-    "setup_profile_versions",
-    "moderation_actions",
-    "forum_posts",
-    "forum_comments",
-    "forum_votes",
-    "billing_price_catalog",
-    "stripe_webhook_receipts",
-  ])("enables and forces RLS on %s", (table) => {
-    expect(migration).toContain(`alter table public.${table} enable row level security;`);
-    expect(migration).toContain(`alter table public.${table} force row level security;`);
+  it("keeps hosted marketplace implementation out of the public repository", () => {
+    for (const path of [
+      "src/app/api/stripe/webhook/route.ts",
+      "src/app/api/v1/billing/checkout/route.ts",
+      "src/app/api/v1/marketplace/checkout/route.ts",
+      "src/app/api/v1/marketplace/seller-onboarding/route.ts",
+      "src/lib/supabase-rest.ts",
+      "supabase/migrations/202609020001_creator_commerce.sql",
+    ]) expect(existsSync(resolve(ROOT, path))).toBe(false);
+    expect(source(".env.example")).not.toMatch(/STRIPE_SECRET|SUPABASE_SERVICE|PRIVATE_KEY/);
+    expect(source(".env.example")).toContain("NEXT_PUBLIC_MARKETPLACE_ORIGIN");
   });
 
-  it("keeps manifest bodies out of public listing grants and catalog queries", () => {
-    const grant = migration.match(
-      /grant select \([\s\S]*?\) on public\.setup_listings to anon, authenticated;/,
-    )?.[0];
-    expect(grant).toBeDefined();
-    expect(grant).not.toMatch(/\bmanifest\b(?!_sha256)/);
-    expect(source("src/app/api/v1/catalog/profiles/route.ts")).not.toMatch(
-      /select:[\s\S]{0,500}\bmanifest\b/,
-    );
-  });
-
-  it("never stores a raw Stripe event and reserves projections for service role", () => {
-    expect(migration).not.toMatch(/raw_(payload|body)|event_payload|stripe_payload/i);
-    expect(migration).toContain(
-      "grant execute on function public.apply_stripe_webhook_projection(text, text, jsonb, integer) to service_role;",
-    );
-    expect(migration).toContain("if auth.role() <> 'service_role' then");
-    expect(source("src/app/api/stripe/webhook/route.ts")).toContain(
-      'process.env.PAYMENTS_MODE || "disabled"',
-    );
-  });
-
-  it("keeps verification, moderation, publication, and immutable versions managed", () => {
-    expect(migration).toContain("verification fields are managed by the service");
-    expect(migration).toContain("publication is service managed");
-    expect(migration).toContain("new forum content must be pending");
-    expect(migration).not.toMatch(/grant insert[^;]*setup_profile_versions/i);
-  });
-
-  it("fails closed instead of deleting a legacy inline manifest", () => {
-    expect(migration).toContain(
-      "non-empty inline manifests require an explicit reviewed migration",
-    );
-    expect(migration).not.toMatch(/update public\.setup_listings\s+set manifest/);
-  });
-
-  it("documents gated external activation and owner decisions", () => {
-    expect(source("docs/COMMERCIAL-SETUP-CHECKLIST.md")).toContain("Activation");
-    expect(source("docs/CREATOR-COMMERCE-PLAN.md")).toContain("Staged delivery");
-    expect(source(".env.example")).toContain("SPARKPLUG_COMMERCE_READY=false");
-  });
-
-  it("keeps leaders separate from payment and activates paid listings only in the later migration", () => {
-    expect(stagedMigration).toContain("the first public marketplace accepts free profiles only");
-    expect(stagedMigration).toContain("community_leader_recognitions");
-    expect(stagedMigration).toContain("is_active_community_leader");
-    expect(commerceMigration).toContain("drop trigger if exists enforce_free_marketplace_only");
-    expect(commerceMigration).toContain("platform_fee_bps = 500");
-    expect(commerceMigration).toContain("marketplace_support_cases");
-    expect(commerceMigration).toContain("marketplace_refund_reviews");
-    expect(commerceMigration).toContain("model_license_reviews");
-    expect(commerceMigration).toContain("paid_reference_allowed");
-    const appCatalog = JSON.parse(source("public/catalog/app/current.json"));
-    const snapshotPath = `public/catalog/app/${appCatalog.currentVersion}.json`;
-    const snapshotBytes = readFileSync(resolve(ROOT, snapshotPath));
+  it("keeps the app catalog static, monthly, and checksummed", () => {
+    const pointer = JSON.parse(source("public/catalog/app/current.json"));
+    const snapshotBytes = readFileSync(resolve(ROOT, `public/catalog/app/${pointer.currentVersion}.json`));
     const snapshot = JSON.parse(snapshotBytes.toString("utf8"));
-    expect(appCatalog.refreshPolicy).toBe("not-before-valid-until");
-    expect(appCatalog.sha256).toBe(createHash("sha256").update(snapshotBytes).digest("hex"));
-    expect(appCatalog.itemCount).toBe(snapshot.profiles.length);
-    expect(appCatalog.validUntil).toBe(snapshot.validUntil);
-    expect(source("schemas/app-catalog-pointer.v1.schema.json")).toContain(
-      '"not-before-valid-until"',
-    );
-    expect(source("src/app/api/v1/catalog/profiles/route.ts")).toContain("CATALOG_REFRESH_SECONDS = 5 * 60");
+    expect(pointer.refreshPolicy).toBe("not-before-valid-until");
+    expect(pointer.sha256).toBe(createHash("sha256").update(snapshotBytes).digest("hex"));
+    expect(pointer.itemCount).toBe(snapshot.profiles.length);
+    expect(pointer.validUntil).toBe(snapshot.validUntil);
     expect(source("docs/MARKETPLACE-DISTRIBUTION.md")).toContain("zero database queries");
+  });
+
+  it("documents the public/private marketplace boundary", () => {
+    expect(source("docs/CREATOR-KIT.md")).toMatch(/private marketplace service/i);
+    expect(source("docs/CREATOR-KIT.md")).toMatch(/Profiles reference model files; they do not include or resell them/i);
+    expect(source("src/app/marketplace/create/page.tsx")).toMatch(/entirely in your browser/i);
+    expect(source("src/app/marketplace/models/page.tsx")).toMatch(/GameWorlds does not resell model weights/i);
   });
 });

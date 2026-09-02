@@ -13,6 +13,7 @@ const docs = [
   { slug: "comfyui", title: "ComfyUI workflows", summary: "Queue media work, arbitrate memory, return assets, and restore a prior text model after a render.", topics: ["Image", "Video", "3D", "Audio"] },
   { slug: "remote", title: "Remote access", summary: "Use a reviewed HTTPS path while keeping pairing and node authentication separate from VPN reachability.", topics: ["Tailscale", "Headscale"] },
   { slug: "marketplace", title: "Marketplace profiles", summary: "Review declarative manifests, revisions, checksums, licenses, provenance, and risk labels before applying them.", topics: ["Marketplace", "Safety"] },
+  { slug: "creator-kit", title: "Creator kit", summary: "Build local profiles, themes, and motion packs from public deny-by-default schemas and boilerplates.", topics: ["Schemas", "Builder", "Export"] },
   { slug: "themes", title: "Themes", summary: "Package colors, typography, component skins, artwork, and optional motion without changing node authority or hiding runtime state.", topics: ["Themes", "Accessibility"] },
   { slug: "security", title: "Security boundary", summary: "See what stays local, what optional hosted services store, and how to report a vulnerability.", topics: ["Privacy", "Security"] },
   { slug: "troubleshooting", title: "Troubleshooting", summary: "Work through capacity, runtime, queue, authentication, and network reachability failures.", topics: ["Diagnostics", "Logs"] },
@@ -22,6 +23,7 @@ export default function DocsPage() {
   return (
     <LegalShell eyebrow="PUBLIC DOCUMENTATION / PREVIEW" title="Learn the control plane before the first download." summary="These public guides describe verified boundaries and current release status. They do not expose internal deployment details or turn a working private build into a public compatibility claim.">
       <DocsIndex entries={docs} />
+      <p><a href="/marketplace/create">Open the local creator builder</a> or download its profile, theme, and motion boilerplates.</p>
       {docs.map((entry) => (
         <section id={entry.slug} key={entry.slug}>
           <h2>{entry.title}</h2>

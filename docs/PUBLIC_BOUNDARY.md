@@ -9,6 +9,10 @@ private Spark Plug product and it must not become a mirror of that repository.
 - Public capability descriptions verified against the open-core contract.
 - A scrubbed setup-manifest format that contains no runtime values.
 - Public, declarative community-profile schemas and examples.
+- Declarative theme and motion schemas, safe boilerplates, and a browser-only
+  creator builder that exports locally without uploading user data.
+- A public interface contract and outbound links for the separately operated
+  private marketplace service.
 - Deployment templates containing placeholders only.
 
 ## Prohibited
@@ -21,6 +25,9 @@ private Spark Plug product and it must not become a mirror of that repository.
   databases, or deployment topology.
 - Hosted account, subscription, billing, entitlement, private-profile, payout,
   or mandatory telemetry code.
+- Marketplace database migrations, webhooks, checkout construction, seller
+  onboarding, support-case operations, moderation internals, and download-grant
+  implementation.
 
 ## Release gate
 

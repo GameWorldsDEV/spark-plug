@@ -3,14 +3,18 @@ import { LegalShell } from "../_components/legal-shell";
 import { detailMetadata } from "@/lib/metadata";
 import { currentLaunch } from "@/lib/launch-stage";
 import { MARKETPLACE_PLATFORM_FEE_PERCENT } from "@/lib/plans";
-import { MarketplaceCatalog } from "../_components/marketplace-catalog";
+import styles from "./marketplace.module.css";
 
 export const metadata = detailMetadata("Creator marketplace", "Free and paid Spark Plug profiles, themes, motion packs, and rights-cleared LoRA adapters.", "/marketplace");
 
 export default function MarketplacePage() {
   return <LegalShell eyebrow={`${currentLaunch.stage.toUpperCase()} / CREATOR MARKETPLACE`} title="Share the setup. Sell the craft—not control of the machine." summary="Everyone can browse and install approved free releases. Planned Pro accounts may publish free or paid profiles, themes, motion packs, and rights-cleared LoRA adapters after review.">
+    <div className={styles.splitGrid} aria-label="Spark Plug marketplace paths">
+      <article><small>MODEL SOURCE / HUGGING FACE</small><h2>Models by engine.</h2><p>Find reviewed model repositories, exact revisions, and the files needed by each qualified engine. Model weights stay under their original licenses and download from their source.</p><Link href="/marketplace/models">BROWSE MODEL SOURCES →</Link></article>
+      <article><small>SPARK PLUG MARKET</small><h2>Profiles, themes + motion.</h2><p>Browse free and paid creator configurations and presentation packs. Packages are versioned, checksummed, reviewed, and imported only after local approval.</p><Link href="/marketplace/assets">EXPLORE SPARK PLUG ASSETS →</Link></article>
+    </div>
+    <p><Link href="/marketplace/create">Open the local creator builder</Link> or download the public boilerplates to start a profile, theme, or motion pack without uploading private data.</p>
     <h2>Commercial preview</h2><p>The cards on the homepage are examples. Accounts, publishing, sales, subscriptions, seller onboarding, and payouts are not active yet. <Link href="/pricing">Review the planned Community and Pro boundary</Link>.</p>
-    {currentLaunch.marketplaceSales ? <MarketplaceCatalog /> : null}
     <h2>Profiles are configuration—not plug-ins</h2><p>Submissions must be declarative, schema validated, revision pinned, checksummed, licensed, provenance labeled, and reviewed. They cannot contain scripts, credentials, secrets, host paths, commands, or private output references.</p>
     <h2>Open in Spark Plug</h2><ol><li>A creator exports a scrubbed profile from Spark Plug or builds one with the planned Pro website editor.</li><li>The marketplace validates, versions, signs, and reviews the profile document.</li><li>After a free download or purchase, the document opens in Spark Plug and displays every imported setting before approval.</li><li>GW Broker checks the user&rsquo;s engines and local model inventory. Missing models receive a clear acquisition plan with their source, pinned revision, files, license, size, memory fit, and checksum.</li><li>The user approves any model download and edits or saves the profile. Import never starts a model or job automatically.</li></ol>
     <h2>Free and paid listings</h2><p>A Pro creator may choose $0.00 or an approved one-time price for each listing. GameWorlds&rsquo; platform fee is <strong>{MARKETPLACE_PLATFORM_FEE_PERCENT}% of each paid sale</strong>. Stripe processing, Connect, tax, refund, dispute, and currency costs are separate and must be shown before seller activation. Stripe Connect will handle identity and payout onboarding.</p>

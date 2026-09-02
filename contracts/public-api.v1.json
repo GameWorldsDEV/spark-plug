@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Spark Plug Public Release Contract",
-    "version": "1.0.0",
-    "description": "GitHub-first, accountless release metadata for the free and open-source Spark Plug project. Local agents, prompts, outputs, credentials, node identities, and host paths are out of scope."
+    "title": "Spark Plug Public Distribution Contract",
+    "version": "1.1.0",
+    "description": "Static, accountless release and catalog metadata for the open-source Spark Plug project. Hosted marketplace implementation is intentionally outside this repository."
   },
   "servers": [{ "url": "https://sparkplug.gameworlds.ai" }],
   "paths": {
@@ -11,76 +11,21 @@
       "get": {
         "summary": "Read the current verified release manifest",
         "security": [],
-        "responses": {
-          "200": {
-            "description": "Public release metadata. A platform artifact is downloadable only when its GitHub HTTPS URL, SHA-256 checksum, signature, release notes, compatibility evidence, and publication timestamp are complete."
-          }
-        }
-      }
-    },
-    "/api/v1/auth/google": {
-      "get": {
-        "summary": "Begin Google OAuth through Supabase PKCE",
-        "responses": { "302": { "description": "Redirect to the configured provider." }, "503": { "description": "Accounts are not active." } }
-      }
-    },
-    "/api/v1/catalog/profiles": {
-      "get": {
-        "summary": "Read cached, moderated marketplace metadata",
-        "responses": { "200": { "description": "Profile metadata without manifest bodies." } }
+        "responses": { "200": { "description": "Release metadata. An artifact is available only after its URL, checksum, signature, notes, compatibility evidence, and publication time are complete." } }
       }
     },
     "/catalog/app/current.json": {
       "get": {
-        "summary": "Read the static monthly app-catalog pointer without invoking Supabase or a server function",
+        "summary": "Read the static monthly app-catalog pointer",
         "security": [],
-        "responses": { "200": { "description": "Current immutable snapshot URL, digest, version, and validity window." } }
-      }
-    },
-    "/api/v1/catalog/profiles/{slug}/manifest": {
-      "get": {
-        "summary": "Read an authorized, checksummed profile manifest",
-        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "Free, owned, or purchased manifest." }, "404": { "description": "Unavailable without existence disclosure." } }
-      }
-    },
-    "/api/v1/profiles": {
-      "post": {
-        "summary": "Submit a Pro creator profile with compatibility evidence for moderation",
-        "responses": { "202": { "description": "Draft accepted for review." }, "503": { "description": "Publishing is not active." } }
-      }
-    },
-    "/api/v1/billing/checkout": {
-      "post": {
-        "summary": "Create a server-allowlisted Pro subscription checkout",
-        "responses": { "200": { "description": "Stripe-hosted checkout URL." }, "503": { "description": "Billing is not active." } }
-      }
-    },
-    "/api/v1/marketplace/checkout": {
-      "post": {
-        "summary": "Create a server-owned one-seller checkout with a fixed 5% platform fee",
-        "responses": { "200": { "description": "Stripe-hosted checkout URL." }, "503": { "description": "Marketplace checkout is not active." } }
-      }
-    },
-    "/api/v1/marketplace/support-cases": {
-      "post": {
-        "summary": "Open creator-first support against an exact paid order and tested configuration",
-        "responses": { "201": { "description": "Support case opened." }, "503": { "description": "Marketplace support is not active." } }
-      }
-    },
-    "/api/v1/marketplace/seller-onboarding": {
-      "post": {
-        "summary": "Create or resume Stripe Connect Express onboarding after Pro and seller-term checks",
-        "responses": { "200": { "description": "Short-lived Stripe onboarding URL." }, "503": { "description": "Seller onboarding is not active." } }
+        "responses": { "200": { "description": "Current immutable snapshot URL, SHA-256 digest, version, and validity window." } }
       }
     },
     "/.well-known/security.txt": {
       "get": {
         "summary": "Read the vulnerability disclosure contact",
         "security": [],
-        "responses": {
-          "200": { "description": "Public security contact and disclosure policy." }
-        }
+        "responses": { "200": { "description": "Public security contact and disclosure policy." } }
       }
     }
   }

@@ -1,6 +1,7 @@
 import { CartridgeArt, DiscArt } from "../_components/media-objects";
 import { LegalShell } from "../_components/legal-shell";
 import { detailMetadata } from "@/lib/metadata";
+import Link from "next/link";
 import styles from "./themes.module.css";
 
 export const metadata = detailMetadata(
@@ -162,6 +163,7 @@ export default function ThemesPage() {
         <li>Original artwork must include its license and provenance.</li>
         <li>Compatibility and accessibility are tested per theme version.</li>
       </ul>
+      <p><Link href="/marketplace/create">Open the local creator builder</Link> or <a href="/templates/theme-boilerplate.sparkplug-theme" download>download the theme boilerplate</a>.</p>
     </LegalShell>
   );
 }

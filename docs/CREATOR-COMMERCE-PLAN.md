@@ -77,7 +77,7 @@ inventory, model weights unless explicitly sold as a rights-cleared asset,
 node credentials, private routes, filesystem paths, agent sessions, or local
 telemetry. Hosted training is excluded from the first commercial release.
 
-The website uses a dedicated Supabase backend for Google-authenticated Pro
+The separately deployed private marketplace service uses a dedicated Supabase backend for Google-authenticated Pro
 accounts, listings, immutable versions, purchases, moderation, and the narrow
 billing projection. The marketplace service and its database can remain a
 privately operated GameWorlds service even while the local Spark Plug client and
@@ -217,7 +217,7 @@ idempotency, content validation, or spending alerts.
 
 - publish the product boundary, prices, asset types, and truthful coming-soon UI;
 - keep Google sign-in, subscriptions, uploads, sales, and payouts disabled;
-- add a separate server-only `SPARKPLUG_COMMERCE_READY` kill switch;
+- add a separate server-only commerce-readiness kill switch in the private service;
 - finalize commission and legal/operational decisions.
 
 ### Stage B — private test mode

@@ -1,4 +1,0 @@
-.actions { display: grid; gap: .65rem; margin-top: 1rem; }
-.actions button, .actions a { min-height: 44px; border: 1px solid #8cff20; background: #081109; color: #f4f7f1; padding: .8rem 1rem; font: inherit; font-weight: 700; cursor: pointer; text-align: center; }
-.actions button:disabled { cursor: wait; opacity: .65; }
-.status { min-height: 1.5em; color: #a7b0a6; }

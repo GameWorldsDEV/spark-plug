@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.motion-pack",
+  "name": "My Spark Plug motion pack",
+  "summary": "Declarative motion with a required reduced-motion fallback.",
+  "license": "Apache-2.0",
+  "reducedMotion": "fade-only",
+  "motions": [
+    {
+      "slot": "panel-enter",
+      "durationMs": 280,
+      "easing": "ease-out",
+      "iterations": 1,
+      "keyframes": [
+        { "offset": 0, "opacity": 0, "translateY": 12 },
+        { "offset": 1, "opacity": 1, "translateY": 0 }
+      ]
+    }
+  ]
+}

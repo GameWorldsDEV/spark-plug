@@ -1,0 +1,20 @@
+.builder { margin: 36px 0 80px; border: 1px solid #344139; background: #07100b; }
+.heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 24px; border-bottom: 1px solid #344139; }
+.heading p { color: var(--lime); font: 700 .55rem var(--mono); letter-spacing: .14em; }
+.heading h2 { margin: 8px 0 0; padding: 0; border: 0; }
+.heading span { padding: 8px 10px; border: 1px solid rgba(169,255,46,.35); color: var(--lime); font: 700 .52rem var(--mono); letter-spacing: .12em; }
+.builder form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding: 24px; }
+.builder label { display: grid; gap: 8px; min-width: 0; color: #a9b0ad; font: 700 .57rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.builder input, .builder textarea, .builder select { width: 100%; min-height: 46px; padding: 11px 12px; border: 1px solid #46524a; border-radius: 0; color: #eef3ea; background: #050806; font: 500 .78rem var(--mono); }
+.builder textarea { min-height: 92px; resize: vertical; }
+.builder input:focus-visible, .builder textarea:focus-visible, .builder select:focus-visible, .builder button:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+.wide, .actions { grid-column: 1 / -1; }
+.actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.builder button { min-height: 48px; padding: 10px; border: 1px solid var(--lime); color: #061006; background: var(--lime); font: 800 .56rem var(--mono); letter-spacing: .1em; }
+.builder button:disabled { border-color: #46524a; color: #7f8a83; background: #0a100c; }
+.output { border-top: 1px solid #344139; }
+.output > div { display: flex; justify-content: space-between; gap: 16px; padding: 15px 20px; color: #a9b0ad; font: 700 .55rem var(--mono); }
+.output small { overflow-wrap: anywhere; }
+.output pre { max-height: 420px; margin: 0; padding: 20px; overflow: auto; border-top: 1px solid #202a24; color: #b8ff72; background: #030604; font: 500 .68rem/1.65 var(--mono); }
+.status { min-height: 58px; padding: 17px 20px; border-top: 1px solid #344139; }
+@media (max-width: 700px) { .builder form, .actions { grid-template-columns: 1fr; } .wide, .actions { grid-column: auto; } .heading { align-items: flex-start; flex-direction: column; } }

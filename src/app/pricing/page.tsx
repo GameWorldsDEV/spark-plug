@@ -3,8 +3,7 @@ import { LegalShell } from "../_components/legal-shell";
 import { detailMetadata } from "@/lib/metadata";
 import { communityFeatures, creatorAssetTypes, MARKETPLACE_PLATFORM_FEE_PERCENT, PRO_ANNUAL_USD, PRO_MONTHLY_USD, proFeatures } from "@/lib/plans";
 import styles from "./pricing.module.css";
-import { ProCheckoutButtons } from "../_components/pro-checkout-buttons";
-import { currentLaunch } from "@/lib/launch-stage";
+import { hostedMarketplaceHref } from "@/lib/hosted-marketplace";
 
 export const metadata = detailMetadata(
   "Community and Pro",
@@ -13,6 +12,7 @@ export const metadata = detailMetadata(
 );
 
 export default function PricingPage() {
+  const proHref = hostedMarketplaceHref("/account/subscribe");
   return (
     <LegalShell
       eyebrow="COMMUNITY + PRO / COMMERCIAL PREVIEW"
@@ -38,7 +38,7 @@ export default function PricingPage() {
           <div className={styles.price}><strong>${PRO_MONTHLY_USD}</strong><span>/ month</span></div>
           <small>or ${PRO_ANNUAL_USD} billed yearly</small>
           <ul>{proFeatures.map((feature) => <li key={feature}>{feature}</li>)}</ul>
-          {currentLaunch.billing ? <ProCheckoutButtons /> : <button type="button" disabled aria-label="Google sign-in and Pro subscriptions coming soon">GOOGLE SIGN-IN / COMING SOON</button>}
+          {proHref ? <a href={proHref}>CONTINUE TO PRIVATE PRO SERVICE ↗</a> : <button type="button" disabled aria-label="Google sign-in and Pro subscriptions coming soon">GOOGLE SIGN-IN / COMING SOON</button>}
         </article>
       </div>
 

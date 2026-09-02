@@ -1,7 +1,9 @@
-# Commercial service setup checklist
+# Private marketplace service setup checklist
 
 Do not paste secrets into chat, issues, commits, screenshots, or public docs.
-Store them directly in the Vercel project and local ignored environment files.
+Store them directly in the private `sparkplug-marketplace-service` deployment
+and its ignored environment files. The public website repository contains no
+Stripe, Supabase, payout, moderation, or entitlement implementation.
 
 ## Owner decisions
 
@@ -19,7 +21,7 @@ Store them directly in the Vercel project and local ignored environment files.
 
 ## Supabase and Google
 
-- [ ] Create a dedicated Spark Plug public Supabase project; do not reuse a
+- [ ] Create a dedicated Spark Plug marketplace Supabase project; do not reuse a
       private product or development database.
 - [ ] Record the project URL, publishable key, and service-role key in Vercel.
 - [ ] Create a Google Auth Platform web application.
@@ -65,8 +67,8 @@ Store them directly in the Vercel project and local ignored environment files.
 
 ## Activation
 
-- [ ] Keep `NEXT_PUBLIC_SITE_STAGE=preview`, indexing off, and
-      `SPARKPLUG_COMMERCE_READY=false` during setup.
+- [ ] Keep the public site in Preview and keep the private service readiness
+      switch disabled during setup.
 - [ ] Run private test mode and a limited reviewed creator beta.
 - [ ] Record owner approval and the exact Git commit/deployment receipt.
 - [ ] Enable production only after every gate above passes.

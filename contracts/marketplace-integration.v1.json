@@ -1,0 +1,22 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Spark Plug Hosted Marketplace Integration",
+    "version": "1.0.0",
+    "description": "Public interface boundary for the separately deployed private GameWorlds marketplace service. This contract exposes no database, payment, moderation, or entitlement implementation."
+  },
+  "servers": [{ "url": "https://marketplace.sparkplug.gameworlds.ai" }],
+  "paths": {
+    "/catalog": { "get": { "summary": "Browse reviewed public listings", "responses": { "200": { "description": "Paginated public listing metadata." } } } },
+    "/listings/{slug}": {
+      "get": {
+        "summary": "Read a reviewed listing page",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Listing, creator, price, license, risk, version, and compatibility evidence." }, "404": { "description": "Not available." } }
+      }
+    },
+    "/account": { "get": { "summary": "Open hosted account access", "responses": { "200": { "description": "Hosted account experience." } } } },
+    "/account/subscribe": { "get": { "summary": "Open server-owned Pro selection", "responses": { "200": { "description": "Authenticated subscription selection; trusted prices remain server owned." } } } },
+    "/creator/new": { "get": { "summary": "Open authenticated Pro publishing", "responses": { "200": { "description": "Schema-validated creator submission experience." } } } }
+  }
+}

@@ -53,13 +53,20 @@ credentials, secrets, private paths, prompts, outputs, or personal data.
 | --- | --- |
 | `src/app` | Public website and release pages |
 | `contracts` | Small public release metadata contract |
-| `schemas` | Deny-by-default setup profile schema |
+| `schemas` | Deny-by-default profile, theme, motion, listing, and catalog schemas |
+| `public/templates` | Downloadable creator boilerplates |
 | `profiles` | Free community profile contribution boundary |
 | `docs/PRODUCT.md` | Product workflow and current limits |
 | `docs/CONNECTIONS.md` | Broker, routing, harness, and remote-device boundaries |
 | `docs/PUBLIC_BOUNDARY.md` | Material that may and may not enter this repository |
 | `docs/RELEASE-PLAN.md` | Source and verified-installer release gates |
 | `docs/SECURITY.md` | Security design and release checklist |
+
+Hosted authentication, billing, payouts, moderation, support cases, download
+grants, entitlements, and the live marketplace database are implemented in a
+separate private GameWorlds service. This public repository contains only the
+website, open package formats, local builder, static catalog boundary, and the
+public integration contract.
 
 ## Local development
 

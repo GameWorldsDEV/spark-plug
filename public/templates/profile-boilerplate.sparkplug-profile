@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.setup-profile",
+  "name": "My local profile",
+  "summary": "Describe the workload, model choices, and intended hardware.",
+  "models": [
+    {
+      "repoId": "owner/model-repository",
+      "revision": "0000000000000000000000000000000000000000",
+      "licenseId": "LICENSE-ID",
+      "gated": false,
+      "files": [
+        {
+          "filename": "model-file.safetensors",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "sizeBytes": 1
+        }
+      ],
+      "runtime": {
+        "alias": "primary-model",
+        "engine": "vllm",
+        "quantization": "none",
+        "maxContextTokens": 32768
+      }
+    }
+  ],
+  "routing": {
+    "defaultModelAlias": "primary-model",
+    "capabilities": ["chat"]
+  }
+}

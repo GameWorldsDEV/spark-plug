@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sparkplug.gameworlds.ai/schemas/theme-package.v1.schema.json",
+  "title": "Spark Plug declarative theme package v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "name", "summary", "license", "palette", "presentation"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "sparkplug.theme" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "license": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "palette": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canvas", "panel", "text", "mutedText", "accent", "danger", "border"],
+      "properties": {
+        "canvas": { "$ref": "#/$defs/color" },
+        "panel": { "$ref": "#/$defs/color" },
+        "text": { "$ref": "#/$defs/color" },
+        "mutedText": { "$ref": "#/$defs/color" },
+        "accent": { "$ref": "#/$defs/color" },
+        "danger": { "$ref": "#/$defs/color" },
+        "border": { "$ref": "#/$defs/color" }
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fontMode", "density", "cornerStyle"],
+      "properties": {
+        "fontMode": { "enum": ["system", "technical", "editorial"] },
+        "density": { "enum": ["compact", "standard", "comfortable"] },
+        "cornerStyle": { "enum": ["square", "soft", "rounded"] }
+      }
+    },
+    "artwork": {
+      "type": "array",
+      "maxItems": 24,
+      "items": { "$ref": "#/$defs/file" }
+    }
+  },
+  "$defs": {
+    "color": { "type": "string", "pattern": "^#[a-fA-F0-9]{6}([a-fA-F0-9]{2})?$" },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "license"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[^\\u0000-\\u001f]+$", "maxLength": 240 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "license": { "type": "string", "minLength": 1, "maxLength": 120 }
+      }
+    }
+  }
+}

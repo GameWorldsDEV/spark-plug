@@ -5,7 +5,7 @@ describe("launch stage", () => {
   it("fails closed to Preview", () => {
     expect(parseLaunchStage(undefined)).toBe("preview");
     expect(parseLaunchStage("anything-else")).toBe("preview");
-    expect(launchCapabilities("preview", true, true)).toEqual({
+    expect(launchCapabilities("preview", true)).toEqual({
       stage: "preview",
       downloads: false,
       accounts: false,
@@ -18,26 +18,20 @@ describe("launch stage", () => {
   });
 
   it("enables only verified release capabilities", () => {
-    expect(launchCapabilities("release", true, true)).toMatchObject({
+    expect(launchCapabilities("release", true)).toMatchObject({
       downloads: true,
       indexable: true,
       billing: false,
     });
   });
 
-  it("requires both the Commercial stage and a separate readiness gate", () => {
+  it("never activates hosted commerce inside the public application", () => {
     expect(parseLaunchStage("commercial")).toBe("commercial");
-    expect(launchCapabilities("commercial", true, false)).toMatchObject({
+    expect(launchCapabilities("commercial", true)).toMatchObject({
       accounts: false,
       billing: false,
       creatorPublishing: false,
       marketplaceSales: false,
-    });
-    expect(launchCapabilities("commercial", true, true)).toMatchObject({
-      accounts: true,
-      billing: true,
-      creatorPublishing: true,
-      marketplaceSales: true,
       hostedTraining: false,
     });
   });

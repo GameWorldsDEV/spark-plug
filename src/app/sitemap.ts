@@ -3,7 +3,7 @@ import { currentLaunch } from "@/lib/launch-stage";
 import { siteOrigin } from "./layout";
 
 const paths = [
-  "", "/docs", "/download", "/marketplace", "/pricing", "/account", "/themes", "/training", "/support",
+  "", "/docs", "/download", "/marketplace", "/marketplace/models", "/marketplace/assets", "/marketplace/create", "/pricing", "/account", "/themes", "/training", "/support",
   "/changelog", "/community-leaders", "/why-spark-plug", "/benchmarks", "/legal", "/accessibility",
   "/privacy", "/terms", "/security", "/trademarks",
   "/legal/software", "/legal/marketplace", "/legal/refunds", "/legal/commercial",

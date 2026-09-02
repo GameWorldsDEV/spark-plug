@@ -12,6 +12,9 @@ const routes = [
   ["/docs", /learn the control plane before the first download/i],
   ["/download", /source is open.*free installers are coming soon/i],
   ["/marketplace", /share the setup.*sell the craft/i],
+  ["/marketplace/models", /find the model.*choose the engine files/i],
+  ["/marketplace/assets", /curated assets for the control room/i],
+  ["/marketplace/create", /build the package.*keep control of the files/i],
   ["/pricing", /own the machine.*build a business around the work/i],
   ["/themes", /make the control room yours/i],
   ["/training", /train locally only after the data.*model.*capacity pass review/i],
@@ -318,7 +321,41 @@ test("Pro and creator commerce are explained but fail closed during Preview", as
   ]);
   expect(account.status()).toBe(200);
   expect(await account.text()).toContain("Accounts are not active in Preview");
-  expect(checkout.status()).toBe(503);
+  expect(checkout.status()).toBe(404);
+});
+
+test("creator builder exports locally and model discovery stays license-aware", async ({ page }) => {
+  await page.goto("/marketplace/create");
+  await expect(page.getByText("NO UPLOAD", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "VALIDATE + EXPORT LOCALLY" }).click();
+  await expect(page.getByRole("status")).toContainText("Revision must be an exact 40-character");
+  await page.getByLabel("Immutable model revision").fill("a".repeat(40));
+  await page.getByLabel("Model file SHA-256").fill("b".repeat(64));
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "VALIDATE + EXPORT LOCALLY" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("my-local-profile.sparkplug-profile");
+  await expect(page.getByRole("status")).toContainText("Exported locally");
+
+  await page.goto("/marketplace/models");
+  await expect(page.getByAltText("Hugging Face logo")).toBeVisible();
+  await expect(page.getByText(/do not claim that every result is compatible, safe, or commercially usable/i)).toBeVisible();
+  await expect(page.getByRole("link", { name: /explore on hugging face/i })).toHaveCount(6);
+});
+
+test("creator schemas and boilerplates are public immutable downloads", async ({ request }) => {
+  for (const filename of ["setup-profile.v1.schema.json", "theme-package.v1.schema.json", "motion-pack.v1.schema.json", "marketplace-listing.v1.schema.json"]) {
+    const response = await request.get(`/schemas/${filename}`);
+    expect(response.ok()).toBe(true);
+    expect(response.headers()["cache-control"]).toContain("immutable");
+    expect((await response.json()).$schema).toContain("json-schema.org");
+  }
+  for (const filename of ["profile-boilerplate.sparkplug-profile", "theme-boilerplate.sparkplug-theme", "motion-boilerplate.sparkplug-motion"]) {
+    const response = await request.get(`/templates/${filename}`);
+    expect(response.ok()).toBe(true);
+    const body = Buffer.from(await response.body()).toString("utf8");
+    expect(() => JSON.parse(body)).not.toThrow();
+  }
 });
 
 test("security and prelaunch indexing headers are present", async ({ request }) => {
@@ -344,8 +381,8 @@ test("Preview publishes machine-readable stage and security boundaries", async (
   expect(await sitemap.text()).not.toContain("<url>");
   expect(await security.text()).toContain("Contact: mailto:security@gameworlds.ai");
   expect(account.status()).toBe(200);
-  expect(checkout.status()).toBe(503);
-  expect(catalog.status()).toBe(503);
+  expect(checkout.status()).toBe(404);
+  expect(catalog.status()).toBe(404);
 });
 
 test("support and legal notices describe the external Stripe boundary", async ({ page }) => {
