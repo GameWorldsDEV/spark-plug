@@ -44,6 +44,15 @@ const expansionSlots = [
   "COMMUNITY SLOT 06",
 ] as const;
 
+const animationSlots = [
+  "MOTION SLOT 01",
+  "MOTION SLOT 02",
+  "MOTION SLOT 03",
+  "MOTION SLOT 04",
+  "MOTION SLOT 05",
+  "MOTION SLOT 06",
+] as const;
+
 export default function ThemesPage() {
   return (
     <LegalShell
@@ -71,7 +80,10 @@ export default function ThemesPage() {
           <article key={theme.name} className={styles.card}>
             <div className={theme.className}>{theme.art}</div>
             <div className={styles.cardCopy}>
-              <small>{theme.label}</small>
+              <div className={styles.metaRow}>
+                <small>{theme.label}</small>
+                <strong>$0.00</strong>
+              </div>
               <h3>{theme.name}</h3>
               <p>{theme.copy}</p>
               <button type="button" disabled aria-label={`${theme.name} included free with the open-source release`}>
@@ -92,7 +104,10 @@ export default function ThemesPage() {
         {colorThemes.map(([name, tone, copy]) => (
           <article key={name} data-tone={tone}>
             <div className={styles.swatch} aria-hidden="true"><i /><i /><i /><i /></div>
-            <span>COLOR THEME / INCLUDED FREE</span>
+            <div className={styles.metaRow}>
+              <span>COLOR THEME / INCLUDED FREE</span>
+              <strong>$0.00</strong>
+            </div>
             <h3>{name}</h3>
             <p>{copy}</p>
           </article>
@@ -104,6 +119,7 @@ export default function ThemesPage() {
         The library has room to grow without turning unfinished ideas into fake
         products. These slots are reserved for original GameWorlds and community
         themes that pass packaging, licensing, accessibility, and compatibility review.
+        Future creator releases may be free or carry a clearly displayed one-time price.
       </p>
       <div className={styles.expansion} aria-label="Future Spark Plug theme slots">
         {expansionSlots.map((slot) => (
@@ -112,6 +128,23 @@ export default function ThemesPage() {
             <small>{slot}</small>
             <h3>Theme coming soon</h3>
             <p>Preview, creator, license, and compatibility will appear here.</p>
+          </article>
+        ))}
+      </div>
+
+      <h2>More animations coming soon</h2>
+      <p>
+        Motion packs will be installable separately from color themes, so a user
+        can mix a palette with loading, transition, status, and ambient animation
+        styles. Pricing and licensing will always appear before download.
+      </p>
+      <div className={styles.expansion} aria-label="Future Spark Plug animation slots">
+        {animationSlots.map((slot) => (
+          <article key={slot}>
+            <div className={styles.motionPlaceholder} aria-hidden="true"><i /><i /><i /></div>
+            <small>{slot}</small>
+            <h3>Animation coming soon</h3>
+            <p>Motion preview, creator, license, compatibility, and price will appear here.</p>
           </article>
         ))}
       </div>

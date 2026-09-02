@@ -208,12 +208,14 @@ test("the free theme library lists every included palette and leaves room to gro
 
   await expect(page.getByText("INCLUDED WITH OPEN SOURCE / FREE", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: /included free with the open-source release/i })).toHaveCount(2);
+  await expect(page.getByText("$0.00", { exact: true })).toHaveCount(8);
   const colors = page.getByLabel("Included Spark Plug color themes").locator("article");
   await expect(colors).toHaveCount(6);
   for (const name of ["Neon Grid", "Cyberdeck Amber", "Matrix Rain", "Synthwave Sunset", "Tokyo Night", "Ice / Holo"]) {
     await expect(page.getByRole("heading", { name, exact: true })).toBeVisible();
   }
   await expect(page.getByLabel("Future Spark Plug theme slots").locator("article")).toHaveCount(6);
+  await expect(page.getByLabel("Future Spark Plug animation slots").locator("article")).toHaveCount(6);
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );
