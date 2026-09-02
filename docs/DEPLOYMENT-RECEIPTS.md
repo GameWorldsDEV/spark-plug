@@ -93,3 +93,24 @@ stage. A receipt records deployment; it does not authorize a later stage.
   and six future animation slots are visibly reserved. No checkout was enabled.
 - Validation: typecheck, lint, 74 unit tests, production build, mobile Playwright
   catalog/overflow regression check, and live stable-URL content verification.
+
+## 2026-09-02 Creator Commerce Preview
+
+- Owner instruction: preserve the free open-source local app while planning a
+  paid Pro service, Google-authenticated creator marketplace, free/paid profile
+  listings, premium presentation packs, and rights-cleared LoRA sales.
+- Git commit: `545f810` (`feat: define gated creator marketplace`).
+- Vercel deployment: `dpl_CyMB14Cu4ZdccLL1TsVJfGSuyMmR`.
+- Immutable URL: <https://sparkplug-public-launch-site-kfp5947kr.vercel.app>.
+- Stable pricing URL: <https://sparkplug-public-launch-site.vercel.app/pricing>.
+- Stable marketplace URL: <https://sparkplug-public-launch-site.vercel.app/marketplace>.
+- Commercial state: marketing/architecture preview only. Google sign-in,
+  subscriptions, publishing, uploads, purchases, and payouts remain disabled;
+  account and checkout routes return 404 and the site remains no-index.
+- Architecture: dedicated Supabase service, Google OAuth/PKCE, Stripe Billing
+  and Connect, locally cached signed Pro state, user-initiated catalog calls,
+  immutable signed profile documents, broker-side inventory checks, and
+  explicit missing-model acquisition approval.
+- Validation: typecheck, lint, 77 unit tests, production build, 36 full
+  Playwright/axe checks plus the added gated-commerce regression, dependency
+  audit, security/header checks, and live stable-URL verification.
