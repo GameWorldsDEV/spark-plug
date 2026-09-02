@@ -114,3 +114,30 @@ stage. A receipt records deployment; it does not authorize a later stage.
 - Validation: typecheck, lint, 77 unit tests, production build, 36 full
   Playwright/axe checks plus the added gated-commerce regression, dependency
   audit, security/header checks, and live stable-URL verification.
+
+## 2026-09-02 Gated Marketplace Backend Preview
+
+- Owner instruction: build the optional Pro and creator-commerce foundation,
+  take a fixed 5% platform fee, require tested hardware compatibility, make
+  creators own first-line support/revisions, and escalate unresolved or
+  abandoned cases to GameWorlds administrators.
+- Git commit: `65d86fa` (`feat: build gated creator marketplace backend`).
+- Vercel deployment: `dpl_6r6BowNLiJfLxgtwake3mGkMzWKd`.
+- Immutable URL: <https://sparkplug-public-launch-site-fqfj7b9cd.vercel.app>.
+- Stable audit URL: <https://sparkplug-public-launch-site.vercel.app>.
+- Commercial state: Preview and no-index. Google auth, billing, Connect,
+  publishing, sales, support-case mutations, and entitlements fail closed until
+  the Commercial stage and private readiness switches are enabled.
+- Cost boundary: the website remains the commerce authority; the app receives
+  a canonical read-only catalog snapshot cached for one hour with an ETag. Local
+  app activity does not query the marketplace.
+- Model boundary: packages reference model weights but do not bundle them. Paid
+  publication requires an exact, current GameWorlds review of repository,
+  immutable revision, license, and safety tier.
+- Validation: typecheck, lint, 114 unit tests, production build, 37
+  Playwright/axe checks, dependency audit, gitleaks, diff check, and stable-URL
+  route/header smoke tests passed.
+- External blockers: Supabase refuses project creation while the organization
+  has overdue invoices. `sparkplug.gameworlds.ai` remains incorrectly pointed
+  at `185.53.179.128`; Dynadot must change the `sparkplug` A record to
+  `76.76.21.21` before the custom-domain HTTPS check can pass.
