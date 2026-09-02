@@ -9,7 +9,9 @@ import { createHash } from "node:crypto";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const CATALOG_REFRESH_SECONDS = 60 * 60;
+// Website visitors see approved releases quickly. The app does not use this
+// endpoint; it consumes the static monthly snapshot under /catalog/app/.
+const CATALOG_REFRESH_SECONDS = 5 * 60;
 const CACHE = `public, max-age=${CATALOG_REFRESH_SECONDS}, s-maxage=${CATALOG_REFRESH_SECONDS}, stale-while-revalidate=86400`;
 
 type CatalogProfile = {

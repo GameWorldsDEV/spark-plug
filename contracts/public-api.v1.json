@@ -30,10 +30,11 @@
         "responses": { "200": { "description": "Profile metadata without manifest bodies." } }
       }
     },
-    "/api/v1/catalog/snapshot": {
+    "/catalog/app/current.json": {
       "get": {
-        "summary": "Read the canonical app catalog snapshot cached for one hour with an ETag",
-        "responses": { "200": { "description": "Up to 200 reviewed catalog entries." }, "304": { "description": "The cached snapshot is current." } }
+        "summary": "Read the static monthly app-catalog pointer without invoking Supabase or a server function",
+        "security": [],
+        "responses": { "200": { "description": "Current immutable snapshot URL, digest, version, and validity window." } }
       }
     },
     "/api/v1/catalog/profiles/{slug}/manifest": {

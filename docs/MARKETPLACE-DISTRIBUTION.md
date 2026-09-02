@@ -5,13 +5,19 @@ creator publishing, Stripe checkout and Connect, support cases, refunds,
 moderation, and immutable marketplace packages.
 
 The local Spark Plug app stays useful without an account or backend connection.
-Its optional marketplace view reads the canonical
-`/api/v1/catalog/snapshot` endpoint through browser,
-OS, and CDN caching. A successful response advertises a one-hour refresh period
-and an ETag. The app must retain the last valid snapshot, issue a conditional
-request no more than once per hour, and never refresh because a user changed a
-local page, profile, engine, model, queue, or job. Manual refresh may bypass the
-local timer but remains rate limited at the edge.
+Its optional marketplace view reads `/catalog/app/current.json`, a static CDN
+file that points to an immutable monthly snapshot such as
+`/catalog/app/2026-09.1.json`. Neither URL invokes Supabase or a server function.
+The pointer declares `validUntil`; the app retains the snapshot and does not
+check again before that date. It never refreshes because a user changed a local
+page, profile, engine, model, queue, or job.
+
+The website catalog is separate and current. Newly approved releases appear on
+creator/listing pages there first. A user who wants a mid-month release visits
+the website and imports it directly. At the start of the next catalog period,
+GameWorlds generates, validates, checksums, and deploys one new immutable snapshot,
+then updates the static pointer. The app receives those additions on its next
+monthly check or with the next app build.
 
 Purchases and publishing open the website. Free packages may download from the
 cacheable public route. Paid packages require an explicit sign-in and purchase
@@ -26,6 +32,7 @@ noncommercial, or blocked decisions cannot publish as paid. Restricted models
 carry conspicuous safety labels; illegal, deceptive, or policy-blocked content
 is not listed.
 
-This design makes 100,000 clients primarily a CDN/browser-cache problem rather
-than 100,000 direct Supabase readers. Supabase is queried on cache misses and
-user-driven mutations, not on local application activity.
+This design makes 100,000 clients static-file/CDN consumers rather than 100,000
+Supabase readers. The monthly app path creates zero database queries. Supabase
+is used by the live website and user-driven mutations, not local application
+activity.

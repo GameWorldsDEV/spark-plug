@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sparkplug.gameworlds.ai/schemas/app-catalog-snapshot.v1.schema.json",
+  "title": "Spark Plug immutable monthly app catalog snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "catalogVersion", "publishedAt", "validUntil", "source", "profiles"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "catalogVersion": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}\\.[1-9][0-9]*$" },
+    "publishedAt": { "type": "string", "format": "date-time" },
+    "validUntil": { "type": "string", "format": "date-time" },
+    "source": { "const": "https://sparkplug.gameworlds.ai/marketplace" },
+    "profiles": { "type": "array", "items": { "type": "object" } }
+  }
+}

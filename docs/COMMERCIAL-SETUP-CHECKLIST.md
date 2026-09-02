@@ -51,8 +51,9 @@ Store them directly in the Vercel project and local ignored environment files.
 - [ ] Configure package quarantine, scanning, decompression limits, and review.
 - [ ] Seed and maintain the exact-revision model license registry; paid profiles
       fail closed unless every model permits a paid configuration reference.
-- [ ] Verify browser, CDN, and app ETag caching holds the catalog for one hour
-      and does not refresh on local app navigation or AI work.
+- [ ] Generate, validate, checksum, and deploy the monthly static app snapshot;
+      verify it creates no Supabase/function call and does not refresh on local
+      app navigation or AI work.
 - [ ] Configure database, auth, email, storage, egress, function, and Stripe cost
       alerts plus emergency commerce kill switches.
 - [ ] Create moderation, takedown, appeal, refund, incident, backup, restore, key

@@ -31,6 +31,18 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/catalog/app/current.json",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=2592000, s-maxage=2592000, stale-while-revalidate=86400" },
+        ],
+      },
+      {
+        source: "/catalog/app/:version(\\d{4}-\\d{2}\\.\\d+)\\.json",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, s-maxage=31536000, immutable" },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           { key: "Content-Security-Policy", value: contentSecurityPolicy },

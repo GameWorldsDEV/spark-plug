@@ -83,11 +83,13 @@ billing projection. The marketplace service and its database can remain a
 privately operated GameWorlds service even while the local Spark Plug client and
 its public import contract remain open source.
 
-The website remains the marketplace authority. The app may present the same
-catalog from a CDN/browser-cached read-only snapshot with a one-hour refresh
-period and ETag. Local navigation, profiles, engines, models, queues, prompts,
-and jobs never trigger marketplace calls. Sign-in is needed only for explicit
-hosted actions such as purchasing a paid package or publishing as a creator.
+The website remains the live marketplace authority. The app presents a
+checksummed, immutable monthly catalog snapshot served as a static CDN file with no Supabase
+or server-function invocation. Local navigation, profiles, engines, models,
+queues, prompts, and jobs never trigger marketplace calls. Mid-month releases
+remain available from current website creator/listing pages and roll into the
+next monthly app snapshot. Sign-in is needed only for explicit hosted actions
+such as purchasing a paid package or publishing as a creator.
 
 ## Profile builder, export, and one-click import
 
@@ -139,8 +141,8 @@ downloads an asset, publishes, opens creator analytics, manually refreshes Pro,
 or reaches the final entitlement stale window.
 
 - catalog pages use CDN caching, ETags, pagination, and `updated_since` deltas;
-- app catalog snapshots refresh no more than once per hour unless the user
-  explicitly asks; the last valid snapshot remains usable offline;
+- app catalog snapshots are static, immutable, and valid for the declared
+  monthly period; the last valid snapshot remains usable offline;
 - public $0 listings use cacheable metadata and packages;
 - paid downloads use one short entitlement check followed by a short-lived
   signed object URL;

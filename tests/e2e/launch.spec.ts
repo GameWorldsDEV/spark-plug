@@ -203,6 +203,25 @@ test("the public release manifest never exposes an unfinished download", async (
   }
 });
 
+test("the app catalog is a checksummed monthly static snapshot", async ({ request }) => {
+  const pointerResponse = await request.get("/catalog/app/current.json");
+  expect(pointerResponse.ok()).toBe(true);
+  expect(pointerResponse.headers()["cache-control"]).toContain("max-age=2592000");
+  const pointer = await pointerResponse.json();
+  expect(pointer.refreshPolicy).toBe("not-before-valid-until");
+
+  const snapshotResponse = await request.get(pointer.snapshotUrl);
+  expect(snapshotResponse.ok()).toBe(true);
+  expect(snapshotResponse.headers()["cache-control"]).toContain("immutable");
+  const snapshot = await snapshotResponse.json();
+  expect(snapshot.catalogVersion).toBe(pointer.currentVersion);
+  expect(snapshot.validUntil).toBe(pointer.validUntil);
+  expect(snapshot.profiles).toHaveLength(pointer.itemCount);
+
+  const removedServerRoute = await request.get("/api/v1/catalog/snapshot");
+  expect(removedServerRoute.status()).toBe(404);
+});
+
 test("the free theme library lists every included palette and leaves room to grow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/themes");

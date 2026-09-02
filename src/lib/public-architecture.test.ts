@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
 
 const ROOT = resolve(import.meta.dirname, "../..");
@@ -98,6 +99,18 @@ describe("public service architecture", () => {
     expect(commerceMigration).toContain("marketplace_refund_reviews");
     expect(commerceMigration).toContain("model_license_reviews");
     expect(commerceMigration).toContain("paid_reference_allowed");
-    expect(source("src/app/api/v1/catalog/profiles/route.ts")).toContain("CATALOG_REFRESH_SECONDS = 60 * 60");
+    const appCatalog = JSON.parse(source("public/catalog/app/current.json"));
+    const snapshotPath = `public/catalog/app/${appCatalog.currentVersion}.json`;
+    const snapshotBytes = readFileSync(resolve(ROOT, snapshotPath));
+    const snapshot = JSON.parse(snapshotBytes.toString("utf8"));
+    expect(appCatalog.refreshPolicy).toBe("not-before-valid-until");
+    expect(appCatalog.sha256).toBe(createHash("sha256").update(snapshotBytes).digest("hex"));
+    expect(appCatalog.itemCount).toBe(snapshot.profiles.length);
+    expect(appCatalog.validUntil).toBe(snapshot.validUntil);
+    expect(source("schemas/app-catalog-pointer.v1.schema.json")).toContain(
+      '"not-before-valid-until"',
+    );
+    expect(source("src/app/api/v1/catalog/profiles/route.ts")).toContain("CATALOG_REFRESH_SECONDS = 5 * 60");
+    expect(source("docs/MARKETPLACE-DISTRIBUTION.md")).toContain("zero database queries");
   });
 });

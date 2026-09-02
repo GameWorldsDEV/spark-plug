@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "currentVersion": "2026-09.1",
+  "publishedAt": "2026-09-02T00:00:00Z",
+  "validUntil": "2026-10-01T00:00:00Z",
+  "snapshotUrl": "/catalog/app/2026-09.1.json",
+  "sha256": "10da8ddfa95baaf907cfbb1ba327d91b23f94687685f068b9fff5fda4049f7e8",
+  "itemCount": 0,
+  "refreshPolicy": "not-before-valid-until"
+}
