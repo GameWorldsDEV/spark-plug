@@ -147,3 +147,29 @@ stage. A receipt records deployment; it does not authorize a later stage.
 - Latest Vercel deployment after that safety gate:
   `dpl_9P6hKK2S2n5SyZEas8QNZZza9Y9R` at
   <https://sparkplug-public-launch-site-ngmghkp6u.vercel.app>.
+
+## 2026-09-02 Monthly Static App Catalog
+
+- Owner instruction: eliminate recurring app marketplace database calls; publish
+  one catalog edition per month while keeping website creator pages current for
+  mid-month releases.
+- Git commit: `3aacbfd` (`feat: serve monthly static app catalog`).
+- Vercel deployment: `dpl_3v9VXGk8GoTd5i1YnqkepFtuGzEP`.
+- Immutable deployment URL:
+  <https://sparkplug-public-launch-site-osztjqmah.vercel.app>.
+- Stable audit URL: <https://sparkplug-public-launch-site.vercel.app>.
+- App contract: `/catalog/app/current.json` is a 30-day CDN-cached pointer to a
+  checksummed, versioned, immutable catalog file. The app retains its last valid
+  edition and does not check again before `validUntil`.
+- Cost boundary: the app catalog path invokes neither Supabase nor a serverless
+  function. The former `/api/v1/catalog/snapshot` endpoint was removed and now
+  returns 404. The current website catalog remains separate and CDN-cached.
+- Live verification: the pointer returned `200`, the repeat request returned a
+  Vercel cache hit, the versioned snapshot returned the one-year `immutable`
+  policy, and its SHA-256 matched the pointer.
+- Validation: typecheck, lint, 114 unit tests, production build, 38 complete
+  Playwright/axe checks, dependency audit with zero vulnerabilities, gitleaks,
+  diff check, and stable-URL smoke checks passed.
+- Remaining domain blocker: `sparkplug.gameworlds.ai` still resolves to
+  `185.53.179.128`, so its HTTPS check fails. The `sparkplug` DNS record must be
+  corrected before the canonical domain can serve this deployment.
