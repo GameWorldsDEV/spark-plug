@@ -51,8 +51,9 @@ describe("CreatorBuilder", () => {
     render(<CreatorBuilder />);
     const engine = screen.getByLabelText("Engine");
     fireEvent.change(engine, { target: { value: "mlx" } });
-    expect(screen.getByLabelText("KV cache bits")).toBeVisible();
-    expect(screen.getByLabelText("Generated package JSON")).toHaveTextContent('"kvCacheBits": 8');
+    expect(screen.getByLabelText("Prefill step tokens")).toBeVisible();
+    expect(screen.getByLabelText("Generated package JSON")).toHaveTextContent('"prefillStepTokens": 2048');
+    expect(screen.getByLabelText("Generated package JSON")).not.toHaveTextContent("kvCacheBits");
     fireEvent.change(engine, { target: { value: "ollama" } });
     expect(screen.getByLabelText("GPU layers")).toBeVisible();
     expect(screen.getByLabelText("Flash attention")).toBeChecked();

@@ -65,7 +65,7 @@ export type SetupProfileV1 = {
       quantization?: "none" | "awq" | "gptq" | "gguf" | "bitsandbytes";
       maxContextTokens?: number;
       settings?:
-        | { kvCacheBits: 4 | 8 | 16; kvCacheGroupSize: 32 | 64 | 128; prefillStepTokens: number }
+        | { prefillStepTokens: number }
         | { batchTokens: number; gpuLayers: number; threadCount: number; keepAliveSeconds: number; flashAttention: boolean };
     };
   }>;
@@ -280,9 +280,7 @@ export function validateSetupProfile(input: unknown): SetupProfileValidation {
         if (runtime.engine === "mlx") {
           if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed MLX settings`);
           else {
-            exactKeys(settings, new Set(["kvCacheBits", "kvCacheGroupSize", "prefillStepTokens"]), `${modelPath}.runtime.settings`, errors);
-            if (![4, 8, 16].includes(Number(settings.kvCacheBits))) errors.push(`${modelPath}.runtime.settings.kvCacheBits is invalid`);
-            if (![32, 64, 128].includes(Number(settings.kvCacheGroupSize))) errors.push(`${modelPath}.runtime.settings.kvCacheGroupSize is invalid`);
+            exactKeys(settings, new Set(["prefillStepTokens"]), `${modelPath}.runtime.settings`, errors);
             if (typeof settings.prefillStepTokens !== "number" || !Number.isInteger(settings.prefillStepTokens) || settings.prefillStepTokens < 128 || settings.prefillStepTokens > 8192 || settings.prefillStepTokens % 128 !== 0) errors.push(`${modelPath}.runtime.settings.prefillStepTokens is invalid`);
           }
         } else if (runtime.engine === "ollama") {

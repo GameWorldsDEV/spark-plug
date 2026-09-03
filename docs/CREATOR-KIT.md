@@ -42,8 +42,9 @@ references. Profiles may declaratively claim `tools`, `thinking`, `vision`, and
 engine revision. Capabilities never carry parser source, templates, commands,
 environment variables, or arbitrary runtime knobs.
 
-MLX profiles use only `kvCacheBits`, `kvCacheGroupSize`, and aligned
-`prefillStepTokens`. Ollama profiles use only `batchTokens`, `gpuLayers`,
+MLX profiles currently expose only aligned `prefillStepTokens`, which the
+official server can apply. Unsupported KV-cache bit/group flags are deliberately
+absent. Ollama profiles use only `batchTokens`, `gpuLayers`,
 `threadCount`, `keepAliveSeconds`, and `flashAttention`. These bounded settings
 are required for their respective engines and rejected on other engines. Exact
 Hugging Face repository revisions, selected filenames, hashes, sizes, licenses,

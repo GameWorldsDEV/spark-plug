@@ -84,8 +84,6 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
   const [quantization, setQuantization] = useState("none");
   const [context, setContext] = useState("32768");
   const [capabilities, setCapabilities] = useState(["chat"]);
-  const [mlxKvBits, setMlxKvBits] = useState("8");
-  const [mlxKvGroup, setMlxKvGroup] = useState("64");
   const [mlxPrefill, setMlxPrefill] = useState("2048");
   const [ollamaBatch, setOllamaBatch] = useState("512");
   const [ollamaGpuLayers, setOllamaGpuLayers] = useState("999");
@@ -130,7 +128,7 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
       };
     }
     const settings = engine === "mlx"
-      ? { kvCacheBits: Number(mlxKvBits), kvCacheGroupSize: Number(mlxKvGroup), prefillStepTokens: Number(mlxPrefill) }
+      ? { prefillStepTokens: Number(mlxPrefill) }
       : engine === "ollama"
         ? { batchTokens: Number(ollamaBatch), gpuLayers: Number(ollamaGpuLayers), threadCount: Number(ollamaThreads), keepAliveSeconds: Number(ollamaKeepAlive), flashAttention: ollamaFlash }
         : undefined;
@@ -153,7 +151,7 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
       }],
       routing: { defaultModelAlias: "primary-model", capabilities },
     };
-  }, [accent, capabilities, context, engine, fileHash, filename, kind, license, mlxKvBits, mlxKvGroup, mlxPrefill, motionSlot, name, ollamaBatch, ollamaFlash, ollamaGpuLayers, ollamaKeepAlive, ollamaThreads, quantization, repoId, revision, sizeBytes, summary]);
+  }, [accent, capabilities, context, engine, fileHash, filename, kind, license, mlxPrefill, motionSlot, name, ollamaBatch, ollamaFlash, ollamaGpuLayers, ollamaKeepAlive, ollamaThreads, quantization, repoId, revision, sizeBytes, summary]);
 
   const json = useMemo(() => JSON.stringify(asset, null, 2), [asset]);
   const modelDecision = classifyModelLicense(license);
@@ -241,7 +239,7 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
           <label>Engine<select value={engine} onChange={(event) => setEngine(event.target.value)}><option value="vllm">vLLM</option><option value="colibri">Colibri</option><option value="mlx">MLX</option><option value="ollama">Ollama</option><option value="llama.cpp">llama.cpp</option><option value="transformers">Transformers</option><option value="comfyui">ComfyUI</option></select></label>
           <label>Quantization<select value={quantization} onChange={(event) => setQuantization(event.target.value)}><option value="none">None</option><option value="awq">AWQ</option><option value="gptq">GPTQ</option><option value="gguf">GGUF</option><option value="bitsandbytes">bitsandbytes</option></select></label>
           <label>Maximum context tokens<input inputMode="numeric" value={context} onChange={(event) => setContext(event.target.value)} /></label>
-          {engine === "mlx" ? <fieldset className={styles.wide}><legend>Closed MLX settings</legend><div className={styles.settingsGrid}><label>KV cache bits<select value={mlxKvBits} onChange={(event) => setMlxKvBits(event.target.value)}><option value="4">4-bit</option><option value="8">8-bit</option><option value="16">16-bit</option></select></label><label>KV group size<select value={mlxKvGroup} onChange={(event) => setMlxKvGroup(event.target.value)}><option value="32">32</option><option value="64">64</option><option value="128">128</option></select></label><label>Prefill step tokens<input inputMode="numeric" value={mlxPrefill} onChange={(event) => setMlxPrefill(event.target.value)} /></label></div></fieldset> : null}
+          {engine === "mlx" ? <fieldset className={styles.wide}><legend>Closed MLX settings</legend><div className={styles.settingsGrid}><label>Prefill step tokens<input inputMode="numeric" value={mlxPrefill} onChange={(event) => setMlxPrefill(event.target.value)} /></label></div></fieldset> : null}
           {engine === "ollama" ? <fieldset className={styles.wide}><legend>Closed Ollama settings</legend><div className={styles.settingsGrid}><label>Batch tokens<input inputMode="numeric" value={ollamaBatch} onChange={(event) => setOllamaBatch(event.target.value)} /></label><label>GPU layers<input inputMode="numeric" value={ollamaGpuLayers} onChange={(event) => setOllamaGpuLayers(event.target.value)} /></label><label>CPU threads<input inputMode="numeric" value={ollamaThreads} onChange={(event) => setOllamaThreads(event.target.value)} /></label><label>Keep alive seconds<input inputMode="numeric" value={ollamaKeepAlive} onChange={(event) => setOllamaKeepAlive(event.target.value)} /></label><label className={styles.inlineCheck}><input type="checkbox" checked={ollamaFlash} onChange={(event) => setOllamaFlash(event.target.checked)} />Flash attention</label></div></fieldset> : null}
           <fieldset className={`${styles.wide} ${styles.capabilities}`}><legend>Declared capabilities</legend>{["chat", "code", "tools", "thinking", "vision", "streaming"].map((capability) => <label key={capability}><input type="checkbox" checked={capabilities.includes(capability)} onChange={(event) => setCapabilities((current) => event.target.checked ? [...current, capability] : current.filter((item) => item !== capability))} />{capability}</label>)}</fieldset>
         </> : null}

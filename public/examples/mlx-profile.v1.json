@@ -14,7 +14,7 @@
       "engine": "mlx",
       "quantization": "none",
       "maxContextTokens": 32768,
-      "settings": { "kvCacheBits": 8, "kvCacheGroupSize": 64, "prefillStepTokens": 2048 }
+      "settings": { "prefillStepTokens": 2048 }
     }
   }],
   "routing": { "defaultModelAlias": "mlx-model", "capabilities": ["chat", "tools", "streaming"] }

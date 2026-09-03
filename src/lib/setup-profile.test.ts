@@ -95,7 +95,7 @@ describe("setup profile validation", () => {
   it.each(["vllm", "colibri", "mlx", "ollama", "llama.cpp", "transformers", "comfyui"])("accepts the declared engine %s", (engine) => {
     const value = manifest();
     value.models[0].runtime.engine = engine;
-    if (engine === "mlx") Object.assign(value.models[0].runtime, { settings: { kvCacheBits: 8, kvCacheGroupSize: 64, prefillStepTokens: 2048 } });
+    if (engine === "mlx") Object.assign(value.models[0].runtime, { settings: { prefillStepTokens: 2048 } });
     if (engine === "ollama") Object.assign(value.models[0].runtime, { settings: { batchTokens: 512, gpuLayers: 999, threadCount: 8, keepAliveSeconds: 300, flashAttention: true } });
     expect(validateSetupProfile(value).ok).toBe(true);
   });
@@ -115,11 +115,18 @@ describe("setup profile validation", () => {
   it("rejects cross-engine or open-ended MLX/Ollama settings", () => {
     const mlx = manifest();
     mlx.models[0].runtime.engine = "mlx";
-    Object.assign(mlx.models[0].runtime, { settings: { kvCacheBits: 8, kvCacheGroupSize: 64, prefillStepTokens: 2048, command: "mlx_lm.generate" } });
+    Object.assign(mlx.models[0].runtime, { settings: { prefillStepTokens: 2048, command: "mlx_lm.generate" } });
     expect(validateSetupProfile(mlx).ok).toBe(false);
 
     const vllm = manifest();
     Object.assign(vllm.models[0].runtime, { settings: { batchTokens: 512, gpuLayers: 99, threadCount: 8, keepAliveSeconds: 300, flashAttention: true } });
     expect(validateSetupProfile(vllm).ok).toBe(false);
+  });
+
+  it("rejects unsupported MLX KV-cache flags", () => {
+    const value = manifest();
+    value.models[0].runtime.engine = "mlx";
+    Object.assign(value.models[0].runtime, { settings: { prefillStepTokens: 2048, kvCacheBits: 8, kvCacheGroupSize: 64 } });
+    expect(validateSetupProfile(value).ok).toBe(false);
   });
 });
