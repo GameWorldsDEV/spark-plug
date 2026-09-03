@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "authority": "https://github.com/GameWorldsDEV/spark-plug",
+  "algorithm": "sha256",
+  "schemas": {
+    "app-catalog-pointer.v1.schema.json": "dd742cdac35c3ca2422fcdc43a5db3146ecf900256caece84c39ba22b4698fc2",
+    "app-catalog-snapshot.v1.schema.json": "99e9b9f1c094b4beb56655192eef6a0e6112382866934db2e9f26974314934fe",
+    "entitlement-claims.v1.schema.json": "7c05bf566a0b02214d5eff91704878ab0fbcc534706487383e30cdbac5638720",
+    "marketplace-listing.v1.schema.json": "75089b3317f8cb48d553eea24d7b0008be7e9081cd5c5c585527a1a322bc4fe8",
+    "marketplace-key-set.v1.schema.json": "2dbe1785bd4792f427da5c2f2b16b0f031d079bab8e2b0babb357eafdd1896b3",
+    "motion-pack.v1.schema.json": "90cbf5e0e07b75bd051ebdf70715e13874e449fd805cffdcdf9b6194ce96bcb0",
+    "profile-package.v1.schema.json": "306491f7fde3093e5e06c63b75ddc04c90c027f7c85400491c2775a2cbef71ef",
+    "setup-profile.v1.schema.json": "006a04b6c5046dba8dedd5adfdec79aad6f1f161d875ab292d455283f93f7223",
+    "theme-package.v1.schema.json": "616cb5bb1cd9b90d2517c8860da1fe5858524cdf1c4c968f69246503b5dbab6e"
+  }
+}

@@ -91,4 +91,35 @@ describe("setup profile validation", () => {
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.riskLabels).toEqual(["hf-gated-model"]);
   });
+
+  it.each(["vllm", "colibri", "mlx", "ollama", "llama.cpp", "transformers", "comfyui"])("accepts the declared engine %s", (engine) => {
+    const value = manifest();
+    value.models[0].runtime.engine = engine;
+    if (engine === "mlx") Object.assign(value.models[0].runtime, { settings: { kvCacheBits: 8, kvCacheGroupSize: 64, prefillStepTokens: 2048 } });
+    if (engine === "ollama") Object.assign(value.models[0].runtime, { settings: { batchTokens: 512, gpuLayers: 999, threadCount: 8, keepAliveSeconds: 300, flashAttention: true } });
+    expect(validateSetupProfile(value).ok).toBe(true);
+  });
+
+  it("accepts capability declarations without parser code", () => {
+    const value = manifest();
+    value.routing.capabilities = ["chat", "tools", "thinking", "vision", "streaming"];
+    expect(validateSetupProfile(value).ok).toBe(true);
+  });
+
+  it("rejects unknown runtime knobs and executable parser fields", () => {
+    const value = manifest();
+    Object.assign(value.models[0].runtime, { parserCommand: "run-parser" });
+    expect(validateSetupProfile(value).ok).toBe(false);
+  });
+
+  it("rejects cross-engine or open-ended MLX/Ollama settings", () => {
+    const mlx = manifest();
+    mlx.models[0].runtime.engine = "mlx";
+    Object.assign(mlx.models[0].runtime, { settings: { kvCacheBits: 8, kvCacheGroupSize: 64, prefillStepTokens: 2048, command: "mlx_lm.generate" } });
+    expect(validateSetupProfile(mlx).ok).toBe(false);
+
+    const vllm = manifest();
+    Object.assign(vllm.models[0].runtime, { settings: { batchTokens: 512, gpuLayers: 99, threadCount: 8, keepAliveSeconds: 300, flashAttention: true } });
+    expect(validateSetupProfile(vllm).ok).toBe(false);
+  });
 });

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.setup-profile",
+  "name": "Ollama local profile",
+  "summary": "A declarative Ollama example with closed runtime settings.",
+  "models": [{
+    "repoId": "community/ollama-example",
+    "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "licenseId": "Apache-2.0",
+    "gated": false,
+    "files": [{ "filename": "model.gguf", "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "sizeBytes": 1024 }],
+    "runtime": {
+      "alias": "ollama-model",
+      "engine": "ollama",
+      "quantization": "gguf",
+      "maxContextTokens": 32768,
+      "settings": { "batchTokens": 512, "gpuLayers": 999, "threadCount": 8, "keepAliveSeconds": 300, "flashAttention": true }
+    }
+  }],
+  "routing": { "defaultModelAlias": "ollama-model", "capabilities": ["chat", "thinking", "streaming"] }
+}

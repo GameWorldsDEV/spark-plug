@@ -10,7 +10,7 @@ local application.
 ### Community — free forever
 
 - complete local control app and verified updates;
-- unlimited local profiles and local history;
+- unlimited locally created profiles and local history;
 - all qualified engines, routing, queues, ComfyUI, remote clients, pairing,
   diagnostics, and accessibility;
 - local Unsloth and LoRA workflows on supported hardware;
@@ -22,6 +22,7 @@ local application.
 
 - premium themes and motion packs;
 - Google sign-in and a creator storefront;
+- productized import/export and the full profile, theme, and motion Creator Studio;
 - publish approved free or paid creator assets;
 - listing version history plus creator download and sales analytics;
 - optional private profile sync and restoration;

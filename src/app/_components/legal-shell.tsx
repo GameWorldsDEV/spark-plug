@@ -19,6 +19,7 @@ export function LegalShell({ eyebrow, title, summary, children }: LegalShellProp
         </Link>
         <nav aria-label="Information pages">
           <Link href="/marketplace">Marketplace</Link>
+          <Link href="/marketplace/create">Creator Studio</Link>
           <Link href="/docs">Docs</Link>
           <Link href="/download">Download</Link>
           <Link href="/pricing">Pro</Link>

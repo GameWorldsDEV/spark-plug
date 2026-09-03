@@ -61,9 +61,46 @@
       "required": ["alias", "engine"],
       "properties": {
         "alias": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,39}$" },
-        "engine": { "enum": ["vllm", "llama.cpp", "transformers", "comfyui"] },
+        "engine": { "enum": ["vllm", "colibri", "mlx", "ollama", "llama.cpp", "transformers", "comfyui"] },
         "quantization": { "enum": ["none", "awq", "gptq", "gguf", "bitsandbytes"] },
-        "maxContextTokens": { "type": "integer", "minimum": 1024, "maximum": 1048576 }
+        "maxContextTokens": { "type": "integer", "minimum": 1024, "maximum": 1048576 },
+        "settings": { "oneOf": [{ "$ref": "#/$defs/mlxSettings" }, { "$ref": "#/$defs/ollamaSettings" }] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "engine": { "const": "mlx" } }, "required": ["engine"] },
+          "then": { "properties": { "settings": { "$ref": "#/$defs/mlxSettings" } }, "required": ["settings"] }
+        },
+        {
+          "if": { "properties": { "engine": { "const": "ollama" } }, "required": ["engine"] },
+          "then": { "properties": { "settings": { "$ref": "#/$defs/ollamaSettings" } }, "required": ["settings"] }
+        },
+        {
+          "if": { "properties": { "engine": { "not": { "enum": ["mlx", "ollama"] } } }, "required": ["engine"] },
+          "then": { "properties": { "settings": false } }
+        }
+      ]
+    },
+    "mlxSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kvCacheBits", "kvCacheGroupSize", "prefillStepTokens"],
+      "properties": {
+        "kvCacheBits": { "enum": [4, 8, 16] },
+        "kvCacheGroupSize": { "enum": [32, 64, 128] },
+        "prefillStepTokens": { "type": "integer", "minimum": 128, "maximum": 8192, "multipleOf": 128 }
+      }
+    },
+    "ollamaSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["batchTokens", "gpuLayers", "threadCount", "keepAliveSeconds", "flashAttention"],
+      "properties": {
+        "batchTokens": { "type": "integer", "minimum": 1, "maximum": 4096 },
+        "gpuLayers": { "type": "integer", "minimum": 0, "maximum": 999 },
+        "threadCount": { "type": "integer", "minimum": 1, "maximum": 1024 },
+        "keepAliveSeconds": { "type": "integer", "minimum": 0, "maximum": 86400 },
+        "flashAttention": { "type": "boolean" }
       }
     },
     "routing": {
@@ -75,9 +112,9 @@
         "capabilities": {
           "type": "array",
           "minItems": 1,
-          "maxItems": 6,
+          "maxItems": 10,
           "uniqueItems": true,
-          "items": { "enum": ["chat", "code", "embeddings", "image", "video", "3d"] }
+          "items": { "enum": ["chat", "code", "tools", "thinking", "vision", "streaming", "embeddings", "image", "video", "3d"] }
         }
       }
     }

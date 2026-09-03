@@ -4,7 +4,7 @@
   "title": "Spark Plug Marketplace Listing v1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "slug", "title", "summary", "assetType", "license", "priceCents", "package", "compatibility", "support"],
+  "required": ["schemaVersion", "slug", "title", "summary", "assetType", "license", "priceCents", "engineTargets", "package", "compatibility", "support"],
   "properties": {
     "schemaVersion": { "const": 1 },
     "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 80 },
@@ -13,6 +13,12 @@
     "assetType": { "enum": ["profile", "theme", "motion-pack", "lora-adapter"] },
     "license": { "type": "string", "minLength": 1, "maxLength": 120 },
     "priceCents": { "type": "integer", "minimum": 0, "maximum": 1000000 },
+    "engineTargets": {
+      "type": "array",
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": { "enum": ["vllm", "colibri", "mlx", "ollama", "llama.cpp", "transformers", "comfyui"] }
+    },
     "package": {
       "type": "object",
       "additionalProperties": false,
@@ -54,7 +60,7 @@
         "memoryGb": { "type": "number", "exclusiveMinimum": 0, "maximum": 4096 },
         "gpu": { "type": "string", "maxLength": 120 },
         "vramGb": { "type": "number", "minimum": 0, "maximum": 4096 },
-        "engine": { "type": "string", "maxLength": 100 },
+        "engine": { "enum": ["vllm", "colibri", "mlx", "ollama", "llama.cpp", "transformers", "comfyui"] },
         "engineVersion": { "type": "string", "maxLength": 100 },
         "modelRevision": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
         "reducedMotionTested": { "type": "boolean" },

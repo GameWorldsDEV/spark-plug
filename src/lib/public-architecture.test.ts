@@ -12,10 +12,17 @@ describe("public service architecture", () => {
       "schemas/setup-profile.v1.schema.json",
       "schemas/theme-package.v1.schema.json",
       "schemas/motion-pack.v1.schema.json",
+      "schemas/profile-package.v1.schema.json",
       "schemas/marketplace-listing.v1.schema.json",
+      "schemas/marketplace-key-set.v1.schema.json",
       "public/templates/profile-boilerplate.sparkplug-profile",
       "public/templates/theme-boilerplate.sparkplug-theme",
       "public/templates/motion-boilerplate.sparkplug-motion",
+      "public/examples/valid-profile-package.v1.json",
+      "public/examples/invalid-profile-package.v1.json",
+      "public/examples/marketplace-key-set.v1.json",
+      "public/examples/mlx-profile.v1.json",
+      "public/examples/ollama-profile.v1.json",
     ]) expect(() => JSON.parse(source(path))).not.toThrow();
   });
 

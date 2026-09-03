@@ -8,11 +8,12 @@ export const metadata = detailMetadata("Model catalog", "Find Hugging Face model
 
 const engines = [
   { name: "vLLM", status: "QUALIFIED FIRST", format: "Pinned Transformers repositories and safetensors selected for the qualified vLLM build.", href: "https://huggingface.co/models?library=transformers" },
+  { name: "Colibri", status: "SPARK PLUG SIDECAR", format: "Pinned artifacts must match the reviewed Colibri runtime contract, accelerator backend, and exact model revision.", href: "https://huggingface.co/models?search=Colibri" },
+  { name: "MLX", status: "APPLE TARGET", format: "Apple Silicon packages remain revision pinned and require model/runtime qualification before Spark Plug marks them ready.", href: "https://huggingface.co/models?library=mlx" },
+  { name: "Ollama", status: "LOCAL TARGET", format: "Pinned model references stay separate from the Ollama runtime installation and platform evidence.", href: "https://huggingface.co/models?search=Ollama" },
   { name: "llama.cpp", status: "FORMAT GUIDE", format: "Pinned GGUF files with an explicit quantization and checksum. Runtime qualification remains platform-specific.", href: "https://huggingface.co/models?search=GGUF" },
   { name: "Transformers", status: "PROFILE READY", format: "Pinned repository revisions and selected files; architecture support must be proven by the installed engine.", href: "https://huggingface.co/models?library=transformers" },
   { name: "ComfyUI", status: "MEDIA FILES", format: "Checkpoints, adapters, encoders, and workflow dependencies listed separately with licenses and hashes.", href: "https://huggingface.co/models?search=ComfyUI" },
-  { name: "MLX", status: "APPLE / COMING SOON", format: "Apple Silicon packages will appear only after the MLX node path is qualified.", href: "https://huggingface.co/models?library=mlx" },
-  { name: "Ollama", status: "COMING SOON", format: "Model references will remain separate from Ollama runtime installation and platform evidence.", href: "https://huggingface.co/models?search=Ollama" },
 ] as const;
 
 export default function ModelsPage() {

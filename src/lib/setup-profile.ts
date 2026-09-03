@@ -37,11 +37,12 @@ const RUNTIME_KEYS = new Set([
   "engine",
   "quantization",
   "maxContextTokens",
+  "settings",
 ]);
 const ROUTING_KEYS = new Set(["defaultModelAlias", "capabilities"]);
 
-export type SetupEngine = "vllm" | "llama.cpp" | "transformers" | "comfyui";
-export type SetupCapability = "chat" | "code" | "embeddings" | "image" | "video" | "3d";
+export type SetupEngine = "vllm" | "colibri" | "mlx" | "ollama" | "llama.cpp" | "transformers" | "comfyui";
+export type SetupCapability = "chat" | "code" | "tools" | "thinking" | "vision" | "streaming" | "embeddings" | "image" | "video" | "3d";
 
 export type SetupProfileV1 = {
   schemaVersion: typeof SETUP_PROFILE_SCHEMA_VERSION;
@@ -63,6 +64,9 @@ export type SetupProfileV1 = {
       engine: SetupEngine;
       quantization?: "none" | "awq" | "gptq" | "gguf" | "bitsandbytes";
       maxContextTokens?: number;
+      settings?:
+        | { kvCacheBits: 4 | 8 | 16; kvCacheGroupSize: 32 | 64 | 128; prefillStepTokens: number }
+        | { batchTokens: number; gpuLayers: number; threadCount: number; keepAliveSeconds: number; flashAttention: boolean };
     };
   }>;
   routing?: {
@@ -254,7 +258,7 @@ export function validateSetupProfile(input: unknown): SetupProfileValidation {
         } else {
           aliases.add(runtime.alias);
         }
-        if (!["vllm", "llama.cpp", "transformers", "comfyui"].includes(String(runtime.engine))) {
+        if (!["vllm", "colibri", "mlx", "ollama", "llama.cpp", "transformers", "comfyui"].includes(String(runtime.engine))) {
           errors.push(`${modelPath}.runtime.engine is unsupported`);
         }
         if (
@@ -271,6 +275,29 @@ export function validateSetupProfile(input: unknown): SetupProfileValidation {
             runtime.maxContextTokens > 1_048_576)
         ) {
           errors.push(`${modelPath}.runtime.maxContextTokens must be an integer from 1024 to 1048576`);
+        }
+        const settings = runtime.settings;
+        if (runtime.engine === "mlx") {
+          if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed MLX settings`);
+          else {
+            exactKeys(settings, new Set(["kvCacheBits", "kvCacheGroupSize", "prefillStepTokens"]), `${modelPath}.runtime.settings`, errors);
+            if (![4, 8, 16].includes(Number(settings.kvCacheBits))) errors.push(`${modelPath}.runtime.settings.kvCacheBits is invalid`);
+            if (![32, 64, 128].includes(Number(settings.kvCacheGroupSize))) errors.push(`${modelPath}.runtime.settings.kvCacheGroupSize is invalid`);
+            if (typeof settings.prefillStepTokens !== "number" || !Number.isInteger(settings.prefillStepTokens) || settings.prefillStepTokens < 128 || settings.prefillStepTokens > 8192 || settings.prefillStepTokens % 128 !== 0) errors.push(`${modelPath}.runtime.settings.prefillStepTokens is invalid`);
+          }
+        } else if (runtime.engine === "ollama") {
+          if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed Ollama settings`);
+          else {
+            exactKeys(settings, new Set(["batchTokens", "gpuLayers", "threadCount", "keepAliveSeconds", "flashAttention"]), `${modelPath}.runtime.settings`, errors);
+            const integer = (key: string, min: number, max: number) => typeof settings[key] === "number" && Number.isInteger(settings[key]) && Number(settings[key]) >= min && Number(settings[key]) <= max;
+            if (!integer("batchTokens", 1, 4096)) errors.push(`${modelPath}.runtime.settings.batchTokens is invalid`);
+            if (!integer("gpuLayers", 0, 999)) errors.push(`${modelPath}.runtime.settings.gpuLayers is invalid`);
+            if (!integer("threadCount", 1, 1024)) errors.push(`${modelPath}.runtime.settings.threadCount is invalid`);
+            if (!integer("keepAliveSeconds", 0, 86400)) errors.push(`${modelPath}.runtime.settings.keepAliveSeconds is invalid`);
+            if (typeof settings.flashAttention !== "boolean") errors.push(`${modelPath}.runtime.settings.flashAttention must be boolean`);
+          }
+        } else if (settings !== undefined) {
+          errors.push(`${modelPath}.runtime.settings is only available for MLX or Ollama`);
         }
       }
     });
@@ -292,7 +319,7 @@ export function validateSetupProfile(input: unknown): SetupProfileValidation {
         errors.push("$.routing.defaultModelAlias must name a declared model alias");
       }
       const capabilities = input.routing.capabilities;
-      const allowedCapabilities = new Set(["chat", "code", "embeddings", "image", "video", "3d"]);
+      const allowedCapabilities = new Set(["chat", "code", "tools", "thinking", "vision", "streaming", "embeddings", "image", "video", "3d"]);
       if (
         !Array.isArray(capabilities) ||
         capabilities.length < 1 ||

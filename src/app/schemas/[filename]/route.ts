@@ -2,7 +2,9 @@ import appCatalogPointer from "../../../../schemas/app-catalog-pointer.v1.schema
 import appCatalogSnapshot from "../../../../schemas/app-catalog-snapshot.v1.schema.json";
 import entitlementClaims from "../../../../schemas/entitlement-claims.v1.schema.json";
 import marketplaceListing from "../../../../schemas/marketplace-listing.v1.schema.json";
+import marketplaceKeySet from "../../../../schemas/marketplace-key-set.v1.schema.json";
 import motionPack from "../../../../schemas/motion-pack.v1.schema.json";
+import profilePackage from "../../../../schemas/profile-package.v1.schema.json";
 import setupProfile from "../../../../schemas/setup-profile.v1.schema.json";
 import themePackage from "../../../../schemas/theme-package.v1.schema.json";
 
@@ -14,7 +16,9 @@ const schemas = {
   "app-catalog-snapshot.v1.schema.json": appCatalogSnapshot,
   "entitlement-claims.v1.schema.json": entitlementClaims,
   "marketplace-listing.v1.schema.json": marketplaceListing,
+  "marketplace-key-set.v1.schema.json": marketplaceKeySet,
   "motion-pack.v1.schema.json": motionPack,
+  "profile-package.v1.schema.json": profilePackage,
   "setup-profile.v1.schema.json": setupProfile,
   "theme-package.v1.schema.json": themePackage,
 } as const;

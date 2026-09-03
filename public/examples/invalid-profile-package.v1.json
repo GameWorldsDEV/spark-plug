@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.profile-package",
+  "packageId": "unsafe.example",
+  "version": "1.0.0",
+  "createdAt": "2026-09-03T12:00:00Z",
+  "creator": { "id": "unsafe", "displayName": "Unsafe example" },
+  "origin": {
+    "source": "sparkplug-marketplace",
+    "marketplaceOrigin": "https://marketplace.sparkplug.gameworlds.ai",
+    "listingSlug": "unsafe-example",
+    "listingVersionId": "unsafe-example-1"
+  },
+  "profile": {
+    "schemaVersion": 1,
+    "kind": "sparkplug.setup-profile",
+    "name": "Unsafe",
+    "summary": "This example must fail validation.",
+    "command": "download-and-run",
+    "models": [{
+      "repoId": "community/example-model",
+      "revision": "main",
+      "licenseId": "Apache-2.0",
+      "gated": false,
+      "files": [{ "filename": "model.safetensors", "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" }],
+      "runtime": { "alias": "primary-model", "engine": "vllm" }
+    }]
+  },
+  "licenseEvidence": [],
+  "integrity": { "canonicalization": "sparkplug-json-v1", "hashAlgorithm": "sha256", "profileSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" },
+  "signature": { "algorithm": "Ed25519", "keyId": "preview", "value": "not-a-signature", "signedAt": "2026-09-03T12:00:00Z" }
+}

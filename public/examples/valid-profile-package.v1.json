@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.profile-package",
+  "packageId": "gameworlds.daily-driver",
+  "version": "1.0.0",
+  "createdAt": "2026-09-03T12:00:00Z",
+  "creator": {
+    "id": "gameworlds",
+    "displayName": "GameWorlds"
+  },
+  "origin": {
+    "source": "sparkplug-marketplace",
+    "marketplaceOrigin": "https://marketplace.sparkplug.gameworlds.ai",
+    "listingSlug": "daily-driver",
+    "listingVersionId": "daily-driver-1-0-0"
+  },
+  "profile": {
+    "schemaVersion": 1,
+    "kind": "sparkplug.setup-profile",
+    "name": "Daily Driver",
+    "summary": "A checksum-pinned example profile package.",
+    "models": [
+      {
+        "repoId": "community/example-model",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "licenseId": "Apache-2.0",
+        "gated": false,
+        "files": [
+          {
+            "filename": "model.safetensors",
+            "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "sizeBytes": 1024
+          }
+        ],
+        "runtime": {
+          "alias": "primary-model",
+          "engine": "vllm",
+          "quantization": "none",
+          "maxContextTokens": 32768
+        }
+      }
+    ],
+    "routing": {
+      "defaultModelAlias": "primary-model",
+      "capabilities": ["chat", "code", "tools", "thinking", "vision", "streaming"]
+    }
+  },
+  "licenseEvidence": [
+    {
+      "modelAlias": "primary-model",
+      "engine": "vllm",
+      "repoId": "community/example-model",
+      "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "licenseId": "Apache-2.0",
+      "licenseUrl": "https://huggingface.co/community/example-model/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/LICENSE",
+      "gated": false,
+      "requiresAcceptance": false,
+      "commercialUse": "allowed",
+      "reviewedAt": "2026-09-03T11:00:00Z",
+      "decisionId": "license-review-example-1"
+    }
+  ],
+  "integrity": {
+    "canonicalization": "sparkplug-json-v1",
+    "hashAlgorithm": "sha256",
+    "profileSha256": "51f59611d516c747d4dc08c4d1098a281e7d1d5288399f81ff859e08f98d7ada"
+  },
+  "signature": {
+    "algorithm": "Ed25519",
+    "keyId": "marketplace-preview-2026-09",
+    "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "signedAt": "2026-09-03T12:00:00Z"
+  }
+}

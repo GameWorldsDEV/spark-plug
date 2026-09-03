@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sparkplug.gameworlds.ai/schemas/marketplace-key-set.v1.schema.json",
+  "title": "Spark Plug Marketplace public signing key set v1",
+  "description": "Public Ed25519 verification keys for signed Spark Plug marketplace artifacts. Private JWK parameters are prohibited.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "issuer", "generatedAt", "expiresAt", "canonicalization", "keys"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "sparkplug.marketplace-key-set" },
+    "issuer": { "const": "https://marketplace.sparkplug.gameworlds.ai" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "canonicalization": { "const": "sparkplug-json-v1" },
+    "keys": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": { "$ref": "#/$defs/publicKey" }
+    }
+  },
+  "$defs": {
+    "publicKey": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kid", "kty", "crv", "x", "alg", "use", "status", "notBefore", "notAfter"],
+      "properties": {
+        "kid": { "type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$", "maxLength": 120 },
+        "kty": { "const": "OKP" },
+        "crv": { "const": "Ed25519" },
+        "x": { "type": "string", "pattern": "^[A-Za-z0-9_-]{43}$" },
+        "alg": { "const": "EdDSA" },
+        "use": { "const": "sig" },
+        "status": { "enum": ["active", "retiring", "revoked"] },
+        "notBefore": { "type": "string", "format": "date-time" },
+        "notAfter": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

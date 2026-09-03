@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.setup-profile",
+  "name": "MLX local profile",
+  "summary": "A declarative Apple Silicon MLX example with closed runtime settings.",
+  "models": [{
+    "repoId": "community/mlx-example",
+    "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "licenseId": "Apache-2.0",
+    "gated": false,
+    "files": [{ "filename": "model.safetensors", "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "sizeBytes": 1024 }],
+    "runtime": {
+      "alias": "mlx-model",
+      "engine": "mlx",
+      "quantization": "none",
+      "maxContextTokens": 32768,
+      "settings": { "kvCacheBits": 8, "kvCacheGroupSize": 64, "prefillStepTokens": 2048 }
+    }
+  }],
+  "routing": { "defaultModelAlias": "mlx-model", "capabilities": ["chat", "tools", "streaming"] }
+}

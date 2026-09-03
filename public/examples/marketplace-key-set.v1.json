@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "sparkplug.marketplace-key-set",
+  "issuer": "https://marketplace.sparkplug.gameworlds.ai",
+  "generatedAt": "2026-09-03T12:00:00Z",
+  "expiresAt": "2026-10-03T12:00:00Z",
+  "canonicalization": "sparkplug-json-v1",
+  "keys": [
+    {
+      "kid": "marketplace-2026-09",
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "alg": "EdDSA",
+      "use": "sig",
+      "status": "active",
+      "notBefore": "2026-09-03T12:00:00Z",
+      "notAfter": "2026-12-03T12:00:00Z"
+    },
+    {
+      "kid": "marketplace-2026-08",
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+      "alg": "EdDSA",
+      "use": "sig",
+      "status": "retiring",
+      "notBefore": "2026-08-01T00:00:00Z",
+      "notAfter": "2026-10-15T00:00:00Z"
+    }
+  ]
+}
