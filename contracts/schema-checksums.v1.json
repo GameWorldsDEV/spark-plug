@@ -10,7 +10,7 @@
     "marketplace-key-set.v1.schema.json": "2dbe1785bd4792f427da5c2f2b16b0f031d079bab8e2b0babb357eafdd1896b3",
     "motion-pack.v1.schema.json": "90cbf5e0e07b75bd051ebdf70715e13874e449fd805cffdcdf9b6194ce96bcb0",
     "profile-package.v1.schema.json": "306491f7fde3093e5e06c63b75ddc04c90c027f7c85400491c2775a2cbef71ef",
-    "setup-profile.v1.schema.json": "4b3f96bf620fd00a9376684db4b8863143c2a04c9dece5100addb251e81f57c2",
+    "setup-profile.v1.schema.json": "f825715af80b6819d64d4325a99bf9b4eec23484e3464499bbb1d6157a3d8936",
     "theme-package.v1.schema.json": "616cb5bb1cd9b90d2517c8860da1fe5858524cdf1c4c968f69246503b5dbab6e"
   }
 }

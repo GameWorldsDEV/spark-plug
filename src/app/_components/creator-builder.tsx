@@ -90,6 +90,13 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
   const [ollamaThreads, setOllamaThreads] = useState("8");
   const [ollamaKeepAlive, setOllamaKeepAlive] = useState("300");
   const [ollamaFlash, setOllamaFlash] = useState(true);
+  const [runtimeStreaming, setRuntimeStreaming] = useState(true);
+  const [ollamaThinking, setOllamaThinking] = useState("auto");
+  const [llamaMicroBatch, setLlamaMicroBatch] = useState("256");
+  const [llamaJinja, setLlamaJinja] = useState(true);
+  const [llamaReasoningFormat, setLlamaReasoningFormat] = useState("auto");
+  const [llamaReasoningMode, setLlamaReasoningMode] = useState("auto");
+  const [llamaReasoningBudget, setLlamaReasoningBudget] = useState("-1");
   const [accent, setAccent] = useState("#a9ff2e");
   const [motionSlot, setMotionSlot] = useState("panel-enter");
   const [message, setMessage] = useState("Nothing leaves this browser.");
@@ -130,7 +137,9 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
     const settings = engine === "mlx"
       ? { prefillStepTokens: Number(mlxPrefill) }
       : engine === "ollama"
-        ? { batchTokens: Number(ollamaBatch), gpuLayers: Number(ollamaGpuLayers), threadCount: Number(ollamaThreads), keepAliveSeconds: Number(ollamaKeepAlive), flashAttention: ollamaFlash }
+        ? { batchTokens: Number(ollamaBatch), gpuLayers: Number(ollamaGpuLayers), threadCount: Number(ollamaThreads), keepAliveSeconds: Number(ollamaKeepAlive), flashAttention: ollamaFlash, streamingEnabled: runtimeStreaming, thinkingMode: ollamaThinking }
+        : engine === "llama.cpp"
+          ? { batchTokens: Number(ollamaBatch), microBatchTokens: Number(llamaMicroBatch), gpuLayers: Number(ollamaGpuLayers), threadCount: Number(ollamaThreads), flashAttention: ollamaFlash, streamingEnabled: runtimeStreaming, jinja: llamaJinja, reasoningFormat: llamaReasoningFormat, reasoningMode: llamaReasoningMode, reasoningBudgetTokens: Number(llamaReasoningBudget) }
         : undefined;
     return {
       schemaVersion: 1,
@@ -151,7 +160,7 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
       }],
       routing: { defaultModelAlias: "primary-model", capabilities },
     };
-  }, [accent, capabilities, context, engine, fileHash, filename, kind, license, mlxPrefill, motionSlot, name, ollamaBatch, ollamaFlash, ollamaGpuLayers, ollamaKeepAlive, ollamaThreads, quantization, repoId, revision, sizeBytes, summary]);
+  }, [accent, capabilities, context, engine, fileHash, filename, kind, license, llamaJinja, llamaMicroBatch, llamaReasoningBudget, llamaReasoningFormat, llamaReasoningMode, mlxPrefill, motionSlot, name, ollamaBatch, ollamaFlash, ollamaGpuLayers, ollamaKeepAlive, ollamaThinking, ollamaThreads, quantization, repoId, revision, runtimeStreaming, sizeBytes, summary]);
 
   const json = useMemo(() => JSON.stringify(asset, null, 2), [asset]);
   const modelDecision = classifyModelLicense(license);
@@ -240,7 +249,8 @@ export function CreatorBuilder({ accountHref = null, publishingHref = null }: Cr
           <label>Quantization<select value={quantization} onChange={(event) => setQuantization(event.target.value)}><option value="none">None</option><option value="awq">AWQ</option><option value="gptq">GPTQ</option><option value="gguf">GGUF</option><option value="bitsandbytes">bitsandbytes</option></select></label>
           <label>Maximum context tokens<input inputMode="numeric" value={context} onChange={(event) => setContext(event.target.value)} /></label>
           {engine === "mlx" ? <fieldset className={styles.wide}><legend>Closed MLX settings</legend><div className={styles.settingsGrid}><label>Prefill step tokens<input inputMode="numeric" value={mlxPrefill} onChange={(event) => setMlxPrefill(event.target.value)} /></label></div></fieldset> : null}
-          {engine === "ollama" ? <fieldset className={styles.wide}><legend>Closed Ollama settings</legend><div className={styles.settingsGrid}><label>Batch tokens<input inputMode="numeric" value={ollamaBatch} onChange={(event) => setOllamaBatch(event.target.value)} /></label><label>GPU layers<input inputMode="numeric" value={ollamaGpuLayers} onChange={(event) => setOllamaGpuLayers(event.target.value)} /></label><label>CPU threads<input inputMode="numeric" value={ollamaThreads} onChange={(event) => setOllamaThreads(event.target.value)} /></label><label>Keep alive seconds<input inputMode="numeric" value={ollamaKeepAlive} onChange={(event) => setOllamaKeepAlive(event.target.value)} /></label><label className={styles.inlineCheck}><input type="checkbox" checked={ollamaFlash} onChange={(event) => setOllamaFlash(event.target.checked)} />Flash attention</label></div></fieldset> : null}
+          {engine === "ollama" ? <fieldset className={styles.wide}><legend>Closed Ollama settings</legend><div className={styles.settingsGrid}><label>Batch tokens<input inputMode="numeric" value={ollamaBatch} onChange={(event) => setOllamaBatch(event.target.value)} /></label><label>GPU layers<input inputMode="numeric" value={ollamaGpuLayers} onChange={(event) => setOllamaGpuLayers(event.target.value)} /></label><label>CPU threads<input inputMode="numeric" value={ollamaThreads} onChange={(event) => setOllamaThreads(event.target.value)} /></label><label>Keep alive seconds<input inputMode="numeric" value={ollamaKeepAlive} onChange={(event) => setOllamaKeepAlive(event.target.value)} /></label><label>Thinking default<select value={ollamaThinking} onChange={(event) => setOllamaThinking(event.target.value)}>{["auto", "off", "on", "low", "medium", "high", "max"].map((value) => <option key={value}>{value}</option>)}</select></label><label className={styles.inlineCheck}><input type="checkbox" checked={ollamaFlash} onChange={(event) => setOllamaFlash(event.target.checked)} />Flash attention</label><label className={styles.inlineCheck}><input type="checkbox" checked={runtimeStreaming} onChange={(event) => setRuntimeStreaming(event.target.checked)} />Stream replies</label></div></fieldset> : null}
+          {engine === "llama.cpp" ? <fieldset className={styles.wide}><legend>Closed llama.cpp settings</legend><div className={styles.settingsGrid}><label>Batch tokens<input inputMode="numeric" value={ollamaBatch} onChange={(event) => setOllamaBatch(event.target.value)} /></label><label>Micro-batch tokens<input inputMode="numeric" value={llamaMicroBatch} onChange={(event) => setLlamaMicroBatch(event.target.value)} /></label><label>GPU layers<input inputMode="numeric" value={ollamaGpuLayers} onChange={(event) => setOllamaGpuLayers(event.target.value)} /></label><label>CPU threads<input inputMode="numeric" value={ollamaThreads} onChange={(event) => setOllamaThreads(event.target.value)} /></label><label>Reasoning parser<select value={llamaReasoningFormat} onChange={(event) => setLlamaReasoningFormat(event.target.value)}>{["auto", "none", "deepseek", "deepseek-legacy"].map((value) => <option key={value}>{value}</option>)}</select></label><label>Thinking mode<select value={llamaReasoningMode} onChange={(event) => setLlamaReasoningMode(event.target.value)}>{["auto", "on", "off"].map((value) => <option key={value}>{value}</option>)}</select></label><label>Thinking budget<input inputMode="numeric" value={llamaReasoningBudget} onChange={(event) => setLlamaReasoningBudget(event.target.value)} /></label><label className={styles.inlineCheck}><input type="checkbox" checked={ollamaFlash} onChange={(event) => setOllamaFlash(event.target.checked)} />Flash attention</label><label className={styles.inlineCheck}><input type="checkbox" checked={runtimeStreaming} onChange={(event) => setRuntimeStreaming(event.target.checked)} />Stream replies</label><label className={styles.inlineCheck}><input type="checkbox" checked={llamaJinja} onChange={(event) => setLlamaJinja(event.target.checked)} />Jinja chat template</label></div></fieldset> : null}
           <fieldset className={`${styles.wide} ${styles.capabilities}`}><legend>Declared capabilities</legend>{["chat", "code", "tools", "thinking", "vision", "streaming"].map((capability) => <label key={capability}><input type="checkbox" checked={capabilities.includes(capability)} onChange={(event) => setCapabilities((current) => event.target.checked ? [...current, capability] : current.filter((item) => item !== capability))} />{capability}</label>)}</fieldset>
         </> : null}
         {kind === "theme" ? <label>Accent color<input type="color" value={accent} onChange={(event) => setAccent(event.target.value)} /></label> : null}

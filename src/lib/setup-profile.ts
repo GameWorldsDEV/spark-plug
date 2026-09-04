@@ -65,8 +65,11 @@ export type SetupProfileV1 = {
       quantization?: "none" | "awq" | "gptq" | "gguf" | "bitsandbytes";
       maxContextTokens?: number;
       settings?:
+        | { kvCacheDtype: "auto" | "fp8" | "fp16"; streamingEnabled: boolean; gpuMemoryUtilization: number; toolCallParser: string | null; reasoningParser: string | null }
+        | { presetId: string; computeBackend: "cpu" | "cuda" | "vulkan" | "auto"; gpuMemoryBudgetGiB: 0 | 4 | 8 | 12 | 16 | 20 | 24; resourcePolicy: "quality" | "balanced" | "experimental-fast"; automaticTier: boolean; useTuneProfile: boolean; repinTokens: 0 | 16 | 32 | 64 | 128; expertCacheSlots: 8 | 16 | 32 | 64 | 128 | 256; memoryLimitMode: "automatic" | "manual"; memoryLimitGiB: number; streamingEnabled: boolean; maxOutputTokens: number; reasoningEffort: "none" | "minimal" | "low" | "medium" | "high" | "xhigh"; temperature: number; topP: number }
         | { prefillStepTokens: number }
-        | { batchTokens: number; gpuLayers: number; threadCount: number; keepAliveSeconds: number; flashAttention: boolean };
+        | { batchTokens: number; gpuLayers: number; threadCount: number; keepAliveSeconds: number; flashAttention: boolean; streamingEnabled: boolean; thinkingMode: "auto" | "off" | "on" | "low" | "medium" | "high" | "max" }
+        | { batchTokens: number; microBatchTokens: number; gpuLayers: number; threadCount: number; flashAttention: boolean; streamingEnabled: boolean; jinja: boolean; reasoningFormat: "auto" | "none" | "deepseek" | "deepseek-legacy"; reasoningMode: "auto" | "on" | "off"; reasoningBudgetTokens: number };
     };
   }>;
   routing?: {
@@ -277,7 +280,20 @@ export function validateSetupProfile(input: unknown): SetupProfileValidation {
           errors.push(`${modelPath}.runtime.maxContextTokens must be an integer from 1024 to 1048576`);
         }
         const settings = runtime.settings;
-        if (runtime.engine === "mlx") {
+        if (runtime.engine === "vllm" && settings !== undefined) {
+          if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed vLLM settings`);
+          else {
+            exactKeys(settings, new Set(["kvCacheDtype", "streamingEnabled", "gpuMemoryUtilization", "toolCallParser", "reasoningParser"]), `${modelPath}.runtime.settings`, errors);
+            const parser = (value: unknown) => value === null || typeof value === "string" && /^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(value);
+            if (!["auto", "fp8", "fp16"].includes(String(settings.kvCacheDtype)) || typeof settings.streamingEnabled !== "boolean" || typeof settings.gpuMemoryUtilization !== "number" || settings.gpuMemoryUtilization < .05 || settings.gpuMemoryUtilization > .99 || !parser(settings.toolCallParser) || !parser(settings.reasoningParser)) errors.push(`${modelPath}.runtime.settings is invalid for vLLM`);
+          }
+        } else if (runtime.engine === "colibri" && settings !== undefined) {
+          if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed Colibri settings`);
+          else {
+            exactKeys(settings, new Set(["presetId","computeBackend","gpuMemoryBudgetGiB","resourcePolicy","automaticTier","useTuneProfile","repinTokens","expertCacheSlots","memoryLimitMode","memoryLimitGiB","streamingEnabled","maxOutputTokens","reasoningEffort","temperature","topP"]), `${modelPath}.runtime.settings`, errors);
+            if (typeof settings.presetId !== "string" || !/^[a-z][a-z0-9-]{1,63}$/.test(settings.presetId) || !["cpu","cuda","vulkan","auto"].includes(String(settings.computeBackend)) || ![0,4,8,12,16,20,24].includes(Number(settings.gpuMemoryBudgetGiB)) || !["quality","balanced","experimental-fast"].includes(String(settings.resourcePolicy)) || typeof settings.automaticTier !== "boolean" || typeof settings.useTuneProfile !== "boolean" || ![0,16,32,64,128].includes(Number(settings.repinTokens)) || ![8,16,32,64,128,256].includes(Number(settings.expertCacheSlots)) || !["automatic","manual"].includes(String(settings.memoryLimitMode)) || typeof settings.memoryLimitGiB !== "number" || settings.memoryLimitGiB < 0 || settings.memoryLimitGiB > 120 || settings.memoryLimitGiB * 2 !== Math.trunc(settings.memoryLimitGiB * 2) || typeof settings.streamingEnabled !== "boolean" || !Number.isInteger(settings.maxOutputTokens) || Number(settings.maxOutputTokens) < 1 || Number(settings.maxOutputTokens) > 8192 || !["none","minimal","low","medium","high","xhigh"].includes(String(settings.reasoningEffort)) || typeof settings.temperature !== "number" || settings.temperature < 0 || settings.temperature > 2 || typeof settings.topP !== "number" || settings.topP <= 0 || settings.topP > 1) errors.push(`${modelPath}.runtime.settings is invalid for Colibri`);
+          }
+        } else if (runtime.engine === "mlx") {
           if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed MLX settings`);
           else {
             exactKeys(settings, new Set(["prefillStepTokens"]), `${modelPath}.runtime.settings`, errors);
@@ -286,16 +302,29 @@ export function validateSetupProfile(input: unknown): SetupProfileValidation {
         } else if (runtime.engine === "ollama") {
           if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed Ollama settings`);
           else {
-            exactKeys(settings, new Set(["batchTokens", "gpuLayers", "threadCount", "keepAliveSeconds", "flashAttention"]), `${modelPath}.runtime.settings`, errors);
+            exactKeys(settings, new Set(["batchTokens", "gpuLayers", "threadCount", "keepAliveSeconds", "flashAttention", "streamingEnabled", "thinkingMode"]), `${modelPath}.runtime.settings`, errors);
             const integer = (key: string, min: number, max: number) => typeof settings[key] === "number" && Number.isInteger(settings[key]) && Number(settings[key]) >= min && Number(settings[key]) <= max;
             if (!integer("batchTokens", 1, 4096)) errors.push(`${modelPath}.runtime.settings.batchTokens is invalid`);
             if (!integer("gpuLayers", 0, 999)) errors.push(`${modelPath}.runtime.settings.gpuLayers is invalid`);
             if (!integer("threadCount", 1, 1024)) errors.push(`${modelPath}.runtime.settings.threadCount is invalid`);
             if (!integer("keepAliveSeconds", 0, 86400)) errors.push(`${modelPath}.runtime.settings.keepAliveSeconds is invalid`);
             if (typeof settings.flashAttention !== "boolean") errors.push(`${modelPath}.runtime.settings.flashAttention must be boolean`);
+            if (typeof settings.streamingEnabled !== "boolean" || !["auto","off","on","low","medium","high","max"].includes(String(settings.thinkingMode))) errors.push(`${modelPath}.runtime.settings Ollama response controls are invalid`);
+          }
+        } else if (runtime.engine === "llama.cpp") {
+          if (!isRecord(settings)) errors.push(`${modelPath}.runtime.settings must contain closed llama.cpp settings`);
+          else {
+            exactKeys(settings, new Set(["batchTokens", "microBatchTokens", "gpuLayers", "threadCount", "flashAttention", "streamingEnabled", "jinja", "reasoningFormat", "reasoningMode", "reasoningBudgetTokens"]), `${modelPath}.runtime.settings`, errors);
+            const integer = (key: string, min: number, max: number) => typeof settings[key] === "number" && Number.isInteger(settings[key]) && Number(settings[key]) >= min && Number(settings[key]) <= max;
+            if (!integer("batchTokens", 1, 4096)) errors.push(`${modelPath}.runtime.settings.batchTokens is invalid`);
+            if (!integer("microBatchTokens", 1, 4096) || Number(settings.microBatchTokens) > Number(settings.batchTokens)) errors.push(`${modelPath}.runtime.settings.microBatchTokens is invalid`);
+            if (!integer("gpuLayers", 0, 999)) errors.push(`${modelPath}.runtime.settings.gpuLayers is invalid`);
+            if (!integer("threadCount", 1, 1024)) errors.push(`${modelPath}.runtime.settings.threadCount is invalid`);
+            if (typeof settings.flashAttention !== "boolean") errors.push(`${modelPath}.runtime.settings.flashAttention must be boolean`);
+            if (typeof settings.streamingEnabled !== "boolean" || typeof settings.jinja !== "boolean" || !["auto","none","deepseek","deepseek-legacy"].includes(String(settings.reasoningFormat)) || !["auto","on","off"].includes(String(settings.reasoningMode)) || !Number.isInteger(settings.reasoningBudgetTokens) || Number(settings.reasoningBudgetTokens) < -1 || Number(settings.reasoningBudgetTokens) > 1_048_576) errors.push(`${modelPath}.runtime.settings llama.cpp parser controls are invalid`);
           }
         } else if (settings !== undefined) {
-          errors.push(`${modelPath}.runtime.settings is only available for MLX or Ollama`);
+          errors.push(`${modelPath}.runtime.settings is not available for this engine`);
         }
       }
     });

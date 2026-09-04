@@ -96,7 +96,8 @@ describe("setup profile validation", () => {
     const value = manifest();
     value.models[0].runtime.engine = engine;
     if (engine === "mlx") Object.assign(value.models[0].runtime, { settings: { prefillStepTokens: 2048 } });
-    if (engine === "ollama") Object.assign(value.models[0].runtime, { settings: { batchTokens: 512, gpuLayers: 999, threadCount: 8, keepAliveSeconds: 300, flashAttention: true } });
+    if (engine === "ollama") Object.assign(value.models[0].runtime, { settings: { batchTokens: 512, gpuLayers: 999, threadCount: 8, keepAliveSeconds: 300, flashAttention: true, streamingEnabled: true, thinkingMode: "auto" } });
+    if (engine === "llama.cpp") Object.assign(value.models[0].runtime, { settings: { batchTokens: 512, microBatchTokens: 256, gpuLayers: 999, threadCount: 8, flashAttention: true, streamingEnabled: true, jinja: true, reasoningFormat: "auto", reasoningMode: "auto", reasoningBudgetTokens: -1 } });
     expect(validateSetupProfile(value).ok).toBe(true);
   });
 
@@ -128,5 +129,16 @@ describe("setup profile validation", () => {
     value.models[0].runtime.engine = "mlx";
     Object.assign(value.models[0].runtime, { settings: { prefillStepTokens: 2048, kvCacheBits: 8, kvCacheGroupSize: 64 } });
     expect(validateSetupProfile(value).ok).toBe(false);
+  });
+
+  it("accepts closed vLLM and Colibri launch and response controls", () => {
+    const vllm = manifest();
+    Object.assign(vllm.models[0].runtime, { settings: { kvCacheDtype: "fp8", streamingEnabled: true, gpuMemoryUtilization: 0.9, toolCallParser: "hermes", reasoningParser: null } });
+    expect(validateSetupProfile(vllm).ok).toBe(true);
+
+    const colibri = manifest();
+    colibri.models[0].runtime.engine = "colibri";
+    Object.assign(colibri.models[0].runtime, { settings: { presetId: "gb10-balanced", computeBackend: "cuda", gpuMemoryBudgetGiB: 12, resourcePolicy: "balanced", automaticTier: true, useTuneProfile: true, repinTokens: 64, expertCacheSlots: 256, memoryLimitMode: "automatic", memoryLimitGiB: 0, streamingEnabled: true, maxOutputTokens: 4096, reasoningEffort: "low", temperature: 0.7, topP: 0.9 } });
+    expect(validateSetupProfile(colibri).ok).toBe(true);
   });
 });

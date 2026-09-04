@@ -64,9 +64,17 @@
         "engine": { "enum": ["vllm", "colibri", "mlx", "ollama", "llama.cpp", "transformers", "comfyui"] },
         "quantization": { "enum": ["none", "awq", "gptq", "gguf", "bitsandbytes"] },
         "maxContextTokens": { "type": "integer", "minimum": 1024, "maximum": 1048576 },
-        "settings": { "oneOf": [{ "$ref": "#/$defs/mlxSettings" }, { "$ref": "#/$defs/ollamaSettings" }] }
+        "settings": { "oneOf": [{ "$ref": "#/$defs/vllmSettings" }, { "$ref": "#/$defs/colibriSettings" }, { "$ref": "#/$defs/mlxSettings" }, { "$ref": "#/$defs/ollamaSettings" }, { "$ref": "#/$defs/llamaCppSettings" }] }
       },
       "allOf": [
+        {
+          "if": { "properties": { "engine": { "const": "vllm" } }, "required": ["engine"] },
+          "then": { "properties": { "settings": { "$ref": "#/$defs/vllmSettings" } } }
+        },
+        {
+          "if": { "properties": { "engine": { "const": "colibri" } }, "required": ["engine"] },
+          "then": { "properties": { "settings": { "$ref": "#/$defs/colibriSettings" } } }
+        },
         {
           "if": { "properties": { "engine": { "const": "mlx" } }, "required": ["engine"] },
           "then": { "properties": { "settings": { "$ref": "#/$defs/mlxSettings" } }, "required": ["settings"] }
@@ -76,10 +84,48 @@
           "then": { "properties": { "settings": { "$ref": "#/$defs/ollamaSettings" } }, "required": ["settings"] }
         },
         {
-          "if": { "properties": { "engine": { "not": { "enum": ["mlx", "ollama"] } } }, "required": ["engine"] },
+          "if": { "properties": { "engine": { "const": "llama.cpp" } }, "required": ["engine"] },
+          "then": { "properties": { "settings": { "$ref": "#/$defs/llamaCppSettings" } }, "required": ["settings"] }
+        },
+        {
+          "if": { "properties": { "engine": { "not": { "enum": ["vllm", "colibri", "mlx", "ollama", "llama.cpp"] } } }, "required": ["engine"] },
           "then": { "properties": { "settings": false } }
         }
       ]
+    },
+    "vllmSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kvCacheDtype", "streamingEnabled", "gpuMemoryUtilization", "toolCallParser", "reasoningParser"],
+      "properties": {
+        "kvCacheDtype": { "enum": ["auto", "fp8", "fp16"] },
+        "streamingEnabled": { "type": "boolean" },
+        "gpuMemoryUtilization": { "type": "number", "minimum": 0.05, "maximum": 0.99 },
+        "toolCallParser": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$" },
+        "reasoningParser": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$" }
+      }
+    },
+    "colibriSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["presetId", "computeBackend", "gpuMemoryBudgetGiB", "resourcePolicy", "automaticTier", "useTuneProfile", "repinTokens", "expertCacheSlots", "memoryLimitMode", "memoryLimitGiB", "streamingEnabled", "maxOutputTokens", "reasoningEffort", "temperature", "topP"],
+      "properties": {
+        "presetId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,63}$" },
+        "computeBackend": { "enum": ["cpu", "cuda", "vulkan", "auto"] },
+        "gpuMemoryBudgetGiB": { "enum": [0, 4, 8, 12, 16, 20, 24] },
+        "resourcePolicy": { "enum": ["quality", "balanced", "experimental-fast"] },
+        "automaticTier": { "type": "boolean" },
+        "useTuneProfile": { "type": "boolean" },
+        "repinTokens": { "enum": [0, 16, 32, 64, 128] },
+        "expertCacheSlots": { "enum": [8, 16, 32, 64, 128, 256] },
+        "memoryLimitMode": { "enum": ["automatic", "manual"] },
+        "memoryLimitGiB": { "type": "number", "minimum": 0, "maximum": 120, "multipleOf": 0.5 },
+        "streamingEnabled": { "type": "boolean" },
+        "maxOutputTokens": { "type": "integer", "minimum": 1, "maximum": 8192 },
+        "reasoningEffort": { "enum": ["none", "minimal", "low", "medium", "high", "xhigh"] },
+        "temperature": { "type": "number", "minimum": 0, "maximum": 2 },
+        "topP": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+      }
     },
     "mlxSettings": {
       "type": "object",
@@ -92,13 +138,32 @@
     "ollamaSettings": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["batchTokens", "gpuLayers", "threadCount", "keepAliveSeconds", "flashAttention"],
+      "required": ["batchTokens", "gpuLayers", "threadCount", "keepAliveSeconds", "flashAttention", "streamingEnabled", "thinkingMode"],
       "properties": {
         "batchTokens": { "type": "integer", "minimum": 1, "maximum": 4096 },
         "gpuLayers": { "type": "integer", "minimum": 0, "maximum": 999 },
         "threadCount": { "type": "integer", "minimum": 1, "maximum": 1024 },
         "keepAliveSeconds": { "type": "integer", "minimum": 0, "maximum": 86400 },
-        "flashAttention": { "type": "boolean" }
+        "flashAttention": { "type": "boolean" },
+        "streamingEnabled": { "type": "boolean" },
+        "thinkingMode": { "enum": ["auto", "off", "on", "low", "medium", "high", "max"] }
+      }
+    },
+    "llamaCppSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["batchTokens", "microBatchTokens", "gpuLayers", "threadCount", "flashAttention", "streamingEnabled", "jinja", "reasoningFormat", "reasoningMode", "reasoningBudgetTokens"],
+      "properties": {
+        "batchTokens": { "type": "integer", "minimum": 1, "maximum": 4096 },
+        "microBatchTokens": { "type": "integer", "minimum": 1, "maximum": 4096 },
+        "gpuLayers": { "type": "integer", "minimum": 0, "maximum": 999 },
+        "threadCount": { "type": "integer", "minimum": 1, "maximum": 1024 },
+        "flashAttention": { "type": "boolean" },
+        "streamingEnabled": { "type": "boolean" },
+        "jinja": { "type": "boolean" },
+        "reasoningFormat": { "enum": ["auto", "none", "deepseek", "deepseek-legacy"] },
+        "reasoningMode": { "enum": ["auto", "on", "off"] },
+        "reasoningBudgetTokens": { "type": "integer", "minimum": -1, "maximum": 1048576 }
       }
     },
     "routing": {
